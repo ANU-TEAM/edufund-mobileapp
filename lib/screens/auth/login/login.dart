@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobileapp/screens/auth/login/components/body.dart';
 // import 'package:mobileapp/utils/contants.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -8,6 +9,7 @@ class LoginScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Sign In"),
       ),
+      body: Body(),
     );
   }
 }
