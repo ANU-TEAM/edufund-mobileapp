@@ -81,6 +81,7 @@ class _LoginFormState extends State<LoginForm> {
             errors.add(kEmailNullError);
           });
         } else if (!emailValidatorRegExp.hasMatch(value) &&
+            value.isNotEmpty &&
             !errors.contains(kInvalidEmailError)) {
           setState(() {
             errors.add(kInvalidEmailError);
@@ -124,7 +125,9 @@ class _LoginFormState extends State<LoginForm> {
           setState(() {
             errors.add(kPassNullError);
           });
-        } else if (value.length < 8 && !errors.contains(kShortPassError)) {
+        } else if (value.length < 8 &&
+            value.isNotEmpty &&
+            !errors.contains(kShortPassError)) {
           setState(() {
             errors.add(kShortPassError);
           });
