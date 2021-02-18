@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/screens/auth/login.dart';
+import 'package:mobileapp/screens/home.dart';
+import 'package:mobileapp/utils/themeconfigurations.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,12 +10,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: LoginScreen(),
+      debugShowCheckedModeBanner: false,
+      title: 'EDU FUND',
+      theme: themeConfigurations(),
+      home: HomeScreen(),
     );
   }
 }
