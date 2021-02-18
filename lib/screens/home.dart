@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/screens/auth/login.dart';
+import 'package:mobileapp/screens/auth/login/login.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
