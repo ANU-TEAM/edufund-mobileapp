@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/screens/auth/login/components/login_form.dart';
-import 'package:mobileapp/screens/auth/signup/signup.dart';
+import 'package:mobileapp/screens/auth/login/login.dart';
+import 'package:mobileapp/screens/auth/signup/component/signup_form.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class Body extends StatelessWidget {
@@ -18,7 +18,7 @@ class Body extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.04,
                 ),
                 Text(
-                  "Welcome Back",
+                  "Create Account",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 28,
@@ -26,13 +26,13 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "Sign in with your email and password.",
+                  "Fill the form to create an account with us now",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.08,
                 ),
-                LoginForm(),
+                SignUpForm(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.08,
                 ),
@@ -40,7 +40,7 @@ class Body extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an account?",
+                      "Already have an Account?",
                       style: TextStyle(fontSize: 16),
                     ),
                     SizedBox(
@@ -50,11 +50,11 @@ class Body extends StatelessWidget {
                       onTap: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => SignUpScreen()),
+                          MaterialPageRoute(builder: (context) => LoginScreen()),
                         );
                       },
                       child: Text(
-                        "Sign Up",
+                        "Sign In",
                         style: TextStyle(
                           fontSize: 16,
                           color: kPrimaryColor,
