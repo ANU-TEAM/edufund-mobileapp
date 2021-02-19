@@ -48,7 +48,10 @@ class _LoginFormState extends State<LoginForm> {
                 },
                 child: Text(
                   "Forgot Password",
-                  style: TextStyle(decoration: TextDecoration.underline),
+                  style: TextStyle(
+                    color: kPrimaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
