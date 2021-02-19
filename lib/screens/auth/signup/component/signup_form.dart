@@ -51,10 +51,15 @@ class _SignUpFormState extends State<SignUpForm> {
           setState(() {
             errors.remove(kNameNullError);
           });
-        } else if ((value.length < 4) && nameValidatorRegExp.hasMatch(value) &&
+        } else if (nameValidatorRegExp.hasMatch(value) &&
             errors.contains(kInvalidNameError)) {
           setState(() {
             errors.remove(kInvalidNameError);
+          });
+        }
+        else if (value.length >= 4 && errors.contains(kShortNameError)) {
+          setState(() {
+            errors.remove(kShortNameError);
           });
         }
         return null;
@@ -70,6 +75,13 @@ class _SignUpFormState extends State<SignUpForm> {
           setState(() {
             errors.add(kInvalidNameError);
           });
+        }
+        else if (value.length < 4 && value.isNotEmpty &&
+            !errors.contains(kShortNameError)) {
+          setState(() {
+            errors.add(kShortNameError);
+          });
+
         }
         return null;
       },
