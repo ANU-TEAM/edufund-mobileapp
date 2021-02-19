@@ -56,8 +56,7 @@ class _SignUpFormState extends State<SignUpForm> {
           setState(() {
             errors.remove(kInvalidNameError);
           });
-        }
-        else if (value.length >= 4 && errors.contains(kShortNameError)) {
+        } else if (value.length >= 4 && errors.contains(kShortNameError)) {
           setState(() {
             errors.remove(kShortNameError);
           });
@@ -75,20 +74,19 @@ class _SignUpFormState extends State<SignUpForm> {
           setState(() {
             errors.add(kInvalidNameError);
           });
-        }
-        else if (value.length < 4 && value.isNotEmpty &&
+        } else if (value.length < 4 &&
+            value.isNotEmpty &&
             !errors.contains(kShortNameError)) {
           setState(() {
             errors.add(kShortNameError);
           });
-
         }
         return null;
       },
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
-        labelText: "Name",
-        hintText: "Enter your name",
+        labelText: "Full Name",
+        hintText: "Enter your full name",
         floatingLabelBehavior: FloatingLabelBehavior.always,
         suffixIcon: Padding(
           padding: EdgeInsets.fromLTRB(0, 10, 20, 10),

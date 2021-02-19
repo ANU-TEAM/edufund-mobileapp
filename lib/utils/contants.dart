@@ -28,7 +28,7 @@ final RegExp emailValidatorRegExp =
 final RegExp nameValidatorRegExp = RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]');
 const String kNameNullError = "Please Enter your Name";
 const String kShortNameError = "Name is too short";
-const String kInvalidNameError = "Please Enter Valid Name";
+const String kInvalidNameError = "Please Enter your Full Name";
 const String kEmailNullError = "Please Enter your email";
 const String kInvalidEmailError = "Please Enter Valid Email";
 const String kPassNullError = "Please Enter your password";
