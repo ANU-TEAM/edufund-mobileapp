@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/components/form_error.dart';
+import 'package:mobileapp/screens/auth/login/login.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class ForgotPwdBody extends StatelessWidget {
@@ -13,12 +14,15 @@ class ForgotPwdBody extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 15.0),
           child: Column(
             children: [
-              // Text("Forgot Password",
-              // style: TextStyle(
-              //   fontSize: 28,
-              //   color: Colors.black,
-              //   fontWeight: FontWeight.bold,
-              // ),),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.08,
+              ),
+              Text("Reset Password",
+              style: TextStyle(
+                fontSize: 28,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),),
               SizedBox(
                 height: 15,
               ),
@@ -26,7 +30,7 @@ class ForgotPwdBody extends StatelessWidget {
                   "\nsend you a link to reset your password",
               textAlign: TextAlign.center,),
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.20,
+                height: MediaQuery.of(context).size.height * 0.08,
               ),
               ForgotPwdForm(),
             ],
@@ -116,18 +120,26 @@ class _ForgotPwdFormState extends State<ForgotPwdForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Don't have an account?",
+                "Remembered Your Password?",
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.05,
               ),
-              Text(
-                "Sign Up",
-                style: TextStyle(
-                  fontSize: 16,
-                  color: kPrimaryColor,
-                  fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
+                },
+                child: Text(
+                  "Sign In",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: kPrimaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
