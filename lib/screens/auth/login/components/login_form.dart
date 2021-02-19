@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/components/form_error.dart';
+import 'package:mobileapp/screens/auth/forgot_pwd/forgot_pwd.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class LoginForm extends StatefulWidget {
@@ -38,9 +39,17 @@ class _LoginFormState extends State<LoginForm> {
               ),
               Text("Remember me"),
               Spacer(),
-              Text(
-                "Forgot Password",
-                style: TextStyle(decoration: TextDecoration.underline),
+              GestureDetector(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
+                  );
+                },
+                child: Text(
+                  "Forgot Password",
+                  style: TextStyle(decoration: TextDecoration.underline),
+                ),
               ),
             ],
           ),
