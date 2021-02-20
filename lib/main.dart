@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/screens/home.dart';
+import 'package:mobileapp/screens/onboarding.dart';
 import 'package:mobileapp/utils/themeconfigurations.dart';
 
 void main() {
