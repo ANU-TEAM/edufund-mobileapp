@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'EDU FUND',
       theme: themeConfigurations(),
-      home: HomeScreen(),
+      home: OnBoardingScreen(),
     );
   }
 }

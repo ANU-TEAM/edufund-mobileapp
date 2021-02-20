@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/screens/auth/login/login.dart';
+import 'package:mobileapp/screens/profile/profile_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class OnBoardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +12,14 @@ class HomeScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text("HOME"),
+            GestureDetector(
+              onTap: (){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>  OnBoardingScreen()));
+              },
+                child: Text("HOME")
+            ),
             FlatButton(
               onPressed: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => LoginScreen())),
