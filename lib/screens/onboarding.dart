@@ -14,14 +14,17 @@ class OnBoardingScreen extends StatelessWidget {
           children: [
             GestureDetector(
                 onTap: () {
-
-                  Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (BuildContext context) => HomeScreen()));
                 },
                 child: Text("HOME")),
             FlatButton(
-              onPressed: () => Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (BuildContext context) => LoginScreen())),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => LoginScreen())),
               child: Text("GO TO LOGIN"),
             )
           ],

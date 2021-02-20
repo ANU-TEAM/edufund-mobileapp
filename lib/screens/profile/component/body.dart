@@ -14,24 +14,26 @@ class ProfileBody extends StatelessWidget {
           height: 10,
         ),
         ProfileMenu(
-          press: () {  },
+          press: () {},
           text: "My Account",
           icon: EvaIcons.personOutline,
         ),
         ProfileMenu(
-          press: () {  },
+          press: () {},
           text: "Notifications",
           icon: EvaIcons.bellOutline,
         ),
         ProfileMenu(
-          press: () {  },
+          press: () {},
           text: "Settings",
           icon: EvaIcons.settingsOutline,
         ),
         ProfileMenu(
           press: () {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => LoginScreen()));
           },
           text: "Sign-Out",
           icon: EvaIcons.logOutOutline,
