@@ -48,10 +48,8 @@ class Body extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => SignUpScreen()),
-                        );
+                        Navigator.pushReplacement(
+                            context, MaterialPageRoute(builder: (BuildContext context) => SignUpScreen()));
                       },
                       child: Text(
                         "Sign Up",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/components/form_error.dart';
+import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -35,6 +36,9 @@ class _SignUpFormState extends State<SignUpForm> {
             press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
+
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
               }
             },
           ),
