@@ -128,10 +128,8 @@ class _ForgotPwdFormState extends State<ForgotPwdForm> {
               ),
               GestureDetector(
                 onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
+                  Navigator.pushReplacement(
+                      context, MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
                 },
                 child: Text(
                   "Sign In",
