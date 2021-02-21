@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/screens/onboarding.dart';
+import 'package:mobileapp/screens/onboarding/onboarding_screen.dart';
 import 'package:mobileapp/utils/themeconfigurations.dart';
 
 void main() {
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'EDU FUND',
       theme: themeConfigurations(),
-      home: OnBoardingScreen(),
+      home: OnboardingScreen(),
     );
   }
 }
