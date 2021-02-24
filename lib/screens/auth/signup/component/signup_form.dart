@@ -10,7 +10,7 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  final _formKey = GlobalKey<FormState>();
+  final _registerFormKey = GlobalKey<FormState>();
   String name;
   String email;
   String password;
@@ -20,7 +20,7 @@ class _SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
+      key: _registerFormKey,
       child: Column(
         children: [
           buildNameFormField(),
@@ -34,8 +34,8 @@ class _SignUpFormState extends State<SignUpForm> {
           DefaultButton(
             text: "Continue",
             press: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
+              if (_registerFormKey.currentState.validate()) {
+                _registerFormKey.currentState.save();
 
                 Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));

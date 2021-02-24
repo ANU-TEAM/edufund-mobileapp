@@ -11,7 +11,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-  final _formKey = GlobalKey<FormState>();
+  final _loginFormKey = GlobalKey<FormState>();
   String email;
   String password;
   bool remember = false;
@@ -20,7 +20,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
+      key: _loginFormKey,
       child: Column(
         children: [
           buildEmailFormField(),
@@ -62,8 +62,8 @@ class _LoginFormState extends State<LoginForm> {
           DefaultButton(
             text: "Continue",
             press: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
+              if (_loginFormKey.currentState.validate()) {
+                _loginFormKey.currentState.save();
                 Navigator.pushReplacement(
                     context, MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
               }
