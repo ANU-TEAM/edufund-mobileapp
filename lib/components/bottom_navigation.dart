@@ -20,58 +20,68 @@ class BottomNavigation extends StatelessWidget {
     final inActiveIconColor = Color(0xFFB6B6B6);
 
     return Container(
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(40),
-              topRight: Radius.circular(40)
-          ),
-          boxShadow: [BoxShadow(
-            offset: Offset(0, -1),
-            blurRadius: 20,
-            color: Color(0xFFDADADA).withOpacity(0.15),
-          )]
-      ),
-      padding: EdgeInsets.symmetric(vertical: 14),
       child: SafeArea(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
               color: kPrimaryColor,
-              icon: Icon(EvaIcons.home,
-                color: MenuState.home == selectedMenu ? kPrimaryColor : inActiveIconColor,),
-              onPressed: (){
+              icon: Icon(
+                EvaIcons.home,
+                color: MenuState.home == selectedMenu
+                    ? kPrimaryColor
+                    : inActiveIconColor,
+              ),
+              onPressed: () {
                 Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => HomeScreen()));
               },
             ),
             IconButton(
               color: kPrimaryColor,
-              icon: Icon(EvaIcons.heart,
-                color: MenuState.favorite == selectedMenu ? kPrimaryColor : inActiveIconColor,),
-              onPressed: (){
-
+              icon: Icon(
+                EvaIcons.heart,
+                color: MenuState.favorite == selectedMenu
+                    ? kPrimaryColor
+                    : inActiveIconColor,
+              ),
+              onPressed: () {
                 Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (BuildContext context) => FavoriteScreen()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => FavoriteScreen()));
               },
             ),
             IconButton(
               color: kPrimaryColor,
-              icon: Icon(EvaIcons.messageSquare,
-                color: MenuState.chat == selectedMenu ? kPrimaryColor : inActiveIconColor,),
-              onPressed: (){
+              icon: Icon(
+                EvaIcons.messageSquare,
+                color: MenuState.chat == selectedMenu
+                    ? kPrimaryColor
+                    : inActiveIconColor,
+              ),
+              onPressed: () {
                 Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (BuildContext context) => MessageScreen()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => MessageScreen()));
               },
             ),
             IconButton(
               color: kPrimaryColor,
-              icon: Icon(EvaIcons.person,
-                color: MenuState.profile == selectedMenu ? kPrimaryColor : inActiveIconColor,),
-              onPressed: (){
+              icon: Icon(
+                EvaIcons.person,
+                color: MenuState.profile == selectedMenu
+                    ? kPrimaryColor
+                    : inActiveIconColor,
+              ),
+              onPressed: () {
                 Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (BuildContext context) => ProfileScreen()));
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => ProfileScreen()));
               },
             ),
           ],
@@ -80,4 +90,3 @@ class BottomNavigation extends StatelessWidget {
     );
   }
 }
-
