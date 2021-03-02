@@ -12,10 +12,62 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _loginFormKey = GlobalKey<FormState>();
+  
   String email;
   String password;
   bool remember = false;
   final List<String> errors = [];
+
+  String validateEmail(String value){
+    if (value.isEmpty && !errors.contains(kEmailNullError)) {
+      setState(() {
+        errors.add(kEmailNullError);
+      });
+    } else if (!emailValidatorRegExp.hasMatch(value) &&
+        value.isNotEmpty &&
+        !errors.contains(kInvalidEmailError)) {
+      setState(() {
+        errors.add(kInvalidEmailError);
+      });
+    }
+    return null;
+  }
+
+  String validatePassword (String value){
+    if (value.isEmpty && !errors.contains(kPassNullError)) {
+      setState(() {
+        errors.add(kPassNullError);
+      });
+    } else if (value.length < 8 &&
+        value.isNotEmpty &&
+        !errors.contains(kShortPassError)) {
+      setState(() {
+        errors.add(kShortPassError);
+      });
+    }
+    return null;
+  }
+
+  bool validateAndSave(){
+    final form = _loginFormKey.currentState;
+    if (form.validate()) {
+      form.save();
+      return true;
+
+    } else {
+      return false;
+    }
+  }
+
+  validateLoginBtnAndSubmit (){
+    if (validateAndSave()) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+      print("Login is Successful");
+    } else {
+      print("Login Not Successful");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,13 +113,7 @@ class _LoginFormState extends State<LoginForm> {
           SizedBox(height: 20),
           DefaultButton(
             text: "Continue",
-            press: () {
-              if (_loginFormKey.currentState.validate()) {
-                _loginFormKey.currentState.save();
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
-              }
-            },
+            press: validateLoginBtnAndSubmit,
           ),
         ],
       ),
@@ -90,20 +136,7 @@ class _LoginFormState extends State<LoginForm> {
         }
         return null;
       },
-      validator: (value) {
-        if (value.isEmpty && !errors.contains(kEmailNullError)) {
-          setState(() {
-            errors.add(kEmailNullError);
-          });
-        } else if (!emailValidatorRegExp.hasMatch(value) &&
-            value.isNotEmpty &&
-            !errors.contains(kInvalidEmailError)) {
-          setState(() {
-            errors.add(kInvalidEmailError);
-          });
-        }
-        return null;
-      },
+      validator: validateEmail,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: "Email",
@@ -135,20 +168,7 @@ class _LoginFormState extends State<LoginForm> {
         }
         return null;
       },
-      validator: (value) {
-        if (value.isEmpty && !errors.contains(kPassNullError)) {
-          setState(() {
-            errors.add(kPassNullError);
-          });
-        } else if (value.length < 8 &&
-            value.isNotEmpty &&
-            !errors.contains(kShortPassError)) {
-          setState(() {
-            errors.add(kShortPassError);
-          });
-        }
-        return null;
-      },
+      validator: validatePassword,
       obscureText: true,
       decoration: InputDecoration(
         labelText: "Password",
