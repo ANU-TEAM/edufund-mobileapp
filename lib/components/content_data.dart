@@ -122,7 +122,7 @@ class ContentData extends StatelessWidget {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 5),
+                    padding: EdgeInsets.only(bottom: 10),
                     child: LinearProgressIndicator(
                       lineHeight: 4.0,
                       percent: 0.93,
