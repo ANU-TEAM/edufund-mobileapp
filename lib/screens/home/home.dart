@@ -12,11 +12,13 @@ class HomeScreen extends StatelessWidget {
       appBar: CustomAppBar(
         title: "Students",
       ),
-      body: Padding(
-        padding: EdgeInsets.only(top: 5, left: 20, right: 20, bottom: 20),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
         child: HomeBody(),
       ),
-      bottomNavigationBar: BottomNavigation(selectedMenu: MenuState.home,),
+      bottomNavigationBar: BottomNavigation(
+        selectedMenu: MenuState.home,
+      ),
     );
   }
 }

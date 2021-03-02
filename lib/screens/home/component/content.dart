@@ -5,24 +5,23 @@ import 'package:mobileapp/model/content_model.dart';
 class BodyContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: contentmodel.length,
-      scrollDirection: Axis.vertical,
-      itemBuilder: (BuildContext context, int index) {
-        return Column(
-          children: [
+    return Expanded(
+      child: ListView.builder(
+        itemCount: contentmodel.length,
+        scrollDirection: Axis.vertical,
+        itemBuilder: (BuildContext context, int index) {
+          return Column(children: [
             ContentData(
-              image: "assets/images/home_image.jpg",
-              name: "Florence Hanson",
-              title: "Aid To Pursue BEcon",
-              message: "I started University last year but"
-                  " due to unfortunate reasons...",
-              amount: "1,400",
-              percentage: "89 %",
+              image: contentmodel[index].image,
+              name: contentmodel[index].name,
+              title: contentmodel[index].title,
+              message: contentmodel[index].message,
+              amount: contentmodel[index].amount,
+              percentage: contentmodel[index].percentage,
             ),
-          ]
-        );
-      },
+          ]);
+        },
+      ),
     );
   }
 }

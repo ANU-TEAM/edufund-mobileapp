@@ -16,7 +16,7 @@ class ContentModel {
 }
 
 List<ContentModel> contentmodel = [
-  ContentModel (
+  ContentModel(
     image: "assets/images/home_image.jpg",
     name: "Florence Hanson",
     title: "Aid To Pursue BEcon",
@@ -25,17 +25,16 @@ List<ContentModel> contentmodel = [
     amount: "1,400",
     percentage: "89 %",
   ),
-
-  ContentModel (
+  ContentModel(
     image: "assets/images/primary.jpg",
-    name: "Florence Hanson",
+    name: "Kofi Mensah",
     title: "Aid To Pursue BEcon",
     message: "I started University last year but"
         " due to unfortunate reasons...",
     amount: "1,400",
     percentage: "89 %",
   ),
-  ContentModel (
+  ContentModel(
     image: "assets/images/home_image.jpg",
     name: "Florence Hanson",
     title: "Aid To Pursue BEcon",
