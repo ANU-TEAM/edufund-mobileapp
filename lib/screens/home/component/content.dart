@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/components/content_data.dart';
-import 'package:mobileapp/model/application_model.dart';
+import 'package:mobileapp/models/application_model.dart';
 
 class BodyContent extends StatelessWidget {
   @override
