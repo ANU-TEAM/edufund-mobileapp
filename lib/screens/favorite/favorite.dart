@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/components/bottom_navigation.dart';
-
 import '../../utils/enum.dart';
-import 'component/body.dart';
 
 class FavoriteScreen extends StatelessWidget {
   @override
@@ -12,7 +10,18 @@ class FavoriteScreen extends StatelessWidget {
         title: Text("Favorite"),
         automaticallyImplyLeading: false,
       ),
-      body: FavoriteBody(),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 200.0),
+          child: Text(
+            "FAVORITE SCREEN",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+        ),
+      ),
       bottomNavigationBar: BottomNavigation(
         selectedMenu: MenuState.favorite,
       ),

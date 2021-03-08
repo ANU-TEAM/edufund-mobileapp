@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class TopSectionContent extends StatelessWidget {
+class CategoryItem extends StatelessWidget {
   final Function onTap;
   final String text;
   final Color color;
 
-  const TopSectionContent({
+  const CategoryItem({
     Key key,
     @required this.onTap,
     @required this.text,
