@@ -1,4 +1,4 @@
-class ContentModel {
+class ApplicationModel {
   final String image;
   final String name;
   final String title;
@@ -6,7 +6,7 @@ class ContentModel {
   final String amount;
   final double percentage;
 
-  ContentModel(
+  ApplicationModel(
       {this.image,
       this.name,
       this.title,
@@ -15,8 +15,8 @@ class ContentModel {
       this.percentage});
 }
 
-List<ContentModel> contentmodel = [
-  ContentModel(
+List<ApplicationModel> applications = [
+  ApplicationModel(
     image: "assets/images/home_image.jpg",
     name: "Florence Hanson",
     title: "Aid To Pursue BEcon",
@@ -25,7 +25,7 @@ List<ContentModel> contentmodel = [
     amount: "1,400",
     percentage: 0.65,
   ),
-  ContentModel(
+  ApplicationModel(
     image: "assets/images/home_image.jpg",
     name: "Florence Hanson",
     title: "Aid To Pursue BEcon",
@@ -34,7 +34,7 @@ List<ContentModel> contentmodel = [
     amount: "1,400",
     percentage: 1,
   ),
-  ContentModel(
+  ApplicationModel(
     image: "assets/images/primary.jpg",
     name: "Kofi Mensah",
     title: "Aid To Pursue BEcon",
@@ -43,7 +43,7 @@ List<ContentModel> contentmodel = [
     amount: "1,400",
     percentage: 0.22,
   ),
-  ContentModel(
+  ApplicationModel(
     image: "assets/images/home_image.jpg",
     name: "Florence Hanson",
     title: "Aid To Pursue BEcon",
