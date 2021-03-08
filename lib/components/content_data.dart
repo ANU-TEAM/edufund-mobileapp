@@ -8,7 +8,7 @@ class ContentData extends StatelessWidget {
   final String title;
   final String message;
   final String amount;
-  final String percentage;
+  final double percentage;
 
   const ContentData({
     Key key,
@@ -102,7 +102,7 @@ class ContentData extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(left: 8, bottom: 8),
                         child: Text(
-                          percentage,
+                          (percentage * 100).toInt().toString() + '%',
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 15,
@@ -125,7 +125,7 @@ class ContentData extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 10),
                     child: LinearProgressIndicator(
                       lineHeight: 4.0,
-                      percent: 0.93,
+                      percent: percentage,
                     ),
                   )
                 ],
