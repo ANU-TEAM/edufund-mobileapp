@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobileapp/screens/favorite/favorite.dart';
 import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/screens/info/info.dart';
-import 'package:mobileapp/screens/message/message.dart';
+import 'package:mobileapp/screens/new_application/new_application.dart';
 import 'package:mobileapp/screens/profile/profile_screen.dart';
 import 'package:mobileapp/utils/contants.dart';
 import '../utils/enum.dart';
@@ -58,7 +58,7 @@ class BottomNavigation extends StatelessWidget {
               color: kPrimaryColor,
               icon: Icon(
                 Icons.add_box,
-                color: MenuState.chat == selectedMenu
+                color: MenuState.newApplication == selectedMenu
                     ? kPrimaryColor
                     : inActiveIconColor,
               ),
@@ -66,7 +66,8 @@ class BottomNavigation extends StatelessWidget {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => MessageScreen()));
+                        builder: (BuildContext context) =>
+                            NewApplicationScreen()));
               },
             ),
             IconButton(

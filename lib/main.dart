@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/screens/auth/login/login.dart';
+import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/screens/onboarding/onboarding_screen.dart';
 import 'package:mobileapp/utils/themeconfigurations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: themeConfigurations(),
       initialRoute: initScreen == 0 || initScreen == null ? "first" : "/",
       routes: {
-        '/': (context) => LoginScreen(),
+        '/': (context) => HomeScreen(),
         "first": (context) => OnboardingScreen(),
       },
     );
