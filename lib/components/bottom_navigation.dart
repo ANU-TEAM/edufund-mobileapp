@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/screens/favorite/favorite.dart';
 import 'package:mobileapp/screens/home/home.dart';
+import 'package:mobileapp/screens/info/info.dart';
 import 'package:mobileapp/screens/message/message.dart';
 import 'package:mobileapp/screens/profile/profile_screen.dart';
 import 'package:mobileapp/utils/contants.dart';
@@ -81,6 +82,21 @@ class BottomNavigation extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (BuildContext context) => ProfileScreen()));
+              },
+            ),
+            IconButton(
+              color: kPrimaryColor,
+              icon: Icon(
+                Icons.info_sharp,
+                color: MenuState.info == selectedMenu
+                    ? kPrimaryColor
+                    : inActiveIconColor,
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => InfoScreen()));
               },
             ),
           ],
