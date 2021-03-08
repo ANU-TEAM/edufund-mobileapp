@@ -1,4 +1,3 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:mobileapp/screens/favorite/favorite.dart';
 import 'package:mobileapp/screens/home/home.dart';
@@ -27,7 +26,7 @@ class BottomNavigation extends StatelessWidget {
             IconButton(
               color: kPrimaryColor,
               icon: Icon(
-                EvaIcons.home,
+                Icons.home_rounded,
                 color: MenuState.home == selectedMenu
                     ? kPrimaryColor
                     : inActiveIconColor,
@@ -42,7 +41,7 @@ class BottomNavigation extends StatelessWidget {
             IconButton(
               color: kPrimaryColor,
               icon: Icon(
-                EvaIcons.heart,
+                Icons.favorite,
                 color: MenuState.favorite == selectedMenu
                     ? kPrimaryColor
                     : inActiveIconColor,
@@ -57,7 +56,7 @@ class BottomNavigation extends StatelessWidget {
             IconButton(
               color: kPrimaryColor,
               icon: Icon(
-                EvaIcons.messageSquare,
+                Icons.add_box,
                 color: MenuState.chat == selectedMenu
                     ? kPrimaryColor
                     : inActiveIconColor,
@@ -72,7 +71,7 @@ class BottomNavigation extends StatelessWidget {
             IconButton(
               color: kPrimaryColor,
               icon: Icon(
-                EvaIcons.person,
+                Icons.person,
                 color: MenuState.profile == selectedMenu
                     ? kPrimaryColor
                     : inActiveIconColor,
