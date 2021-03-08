@@ -1,8 +1,7 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:mobileapp/screens/auth/login/login.dart';
-import 'package:mobileapp/screens/profile/component/profile_menu.dart';
-import 'package:mobileapp/screens/profile/component/profile_pic.dart';
+import 'package:mobileapp/screens/profile/components/profile_menu.dart';
+import 'package:mobileapp/screens/profile/components/profile_pic.dart';
 
 class ProfileBody extends StatelessWidget {
   @override
@@ -16,17 +15,17 @@ class ProfileBody extends StatelessWidget {
         ProfileMenu(
           press: () {},
           text: "My Account",
-          icon: EvaIcons.personOutline,
+          icon: Icons.person_outline,
         ),
         ProfileMenu(
           press: () {},
           text: "Notifications",
-          icon: EvaIcons.bellOutline,
+          icon: Icons.notifications_outlined,
         ),
         ProfileMenu(
           press: () {},
           text: "Settings",
-          icon: EvaIcons.settingsOutline,
+          icon: Icons.settings_outlined,
         ),
         ProfileMenu(
           press: () {
@@ -36,7 +35,7 @@ class ProfileBody extends StatelessWidget {
                     builder: (BuildContext context) => LoginScreen()));
           },
           text: "Sign-Out",
-          icon: EvaIcons.logOutOutline,
+          icon: Icons.logout,
         ),
       ],
     );

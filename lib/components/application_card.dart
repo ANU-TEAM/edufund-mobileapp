@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class ContentData extends StatelessWidget {
+class ApplicationCard extends StatelessWidget {
   final String image;
   final String name;
   final String title;
   final String message;
   final String amount;
-  final String percentage;
+  final double percentage;
 
-  const ContentData({
+  const ApplicationCard({
     Key key,
     this.image,
     this.name,
@@ -102,7 +102,7 @@ class ContentData extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(left: 8, bottom: 8),
                         child: Text(
-                          percentage,
+                          (percentage * 100).toInt().toString() + '%',
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 15,
@@ -125,7 +125,7 @@ class ContentData extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 10),
                     child: LinearProgressIndicator(
                       lineHeight: 4.0,
-                      percent: 0.93,
+                      percent: percentage,
                     ),
                   )
                 ],

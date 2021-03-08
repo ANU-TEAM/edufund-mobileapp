@@ -1,11 +1,12 @@
-import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobileapp/screens/favorite/favorite.dart';
 import 'package:mobileapp/screens/home/home.dart';
-import 'package:mobileapp/screens/message/message.dart';
+import 'package:mobileapp/screens/info/info.dart';
+import 'package:mobileapp/screens/new_application/new_application.dart';
 import 'package:mobileapp/screens/profile/profile_screen.dart';
 import 'package:mobileapp/utils/contants.dart';
-import '../enum.dart';
+import '../utils/enum.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({
@@ -27,61 +28,61 @@ class BottomNavigation extends StatelessWidget {
             IconButton(
               color: kPrimaryColor,
               icon: Icon(
-                EvaIcons.home,
+                Icons.home_rounded,
                 color: MenuState.home == selectedMenu
                     ? kPrimaryColor
                     : inActiveIconColor,
               ),
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => HomeScreen()));
+                Get.to(() => HomeScreen());
               },
             ),
             IconButton(
               color: kPrimaryColor,
               icon: Icon(
-                EvaIcons.heart,
+                Icons.favorite,
                 color: MenuState.favorite == selectedMenu
                     ? kPrimaryColor
                     : inActiveIconColor,
               ),
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => FavoriteScreen()));
+                Get.to(() => FavoriteScreen());
               },
             ),
             IconButton(
               color: kPrimaryColor,
               icon: Icon(
-                EvaIcons.messageSquare,
-                color: MenuState.chat == selectedMenu
+                Icons.add_box,
+                color: MenuState.newApplication == selectedMenu
                     ? kPrimaryColor
                     : inActiveIconColor,
               ),
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => MessageScreen()));
+                Get.to(() => NewApplicationScreen());
               },
             ),
             IconButton(
               color: kPrimaryColor,
               icon: Icon(
-                EvaIcons.person,
+                Icons.person,
                 color: MenuState.profile == selectedMenu
                     ? kPrimaryColor
                     : inActiveIconColor,
               ),
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => ProfileScreen()));
+                Get.to(() => ProfileScreen());
+              },
+            ),
+            IconButton(
+              color: kPrimaryColor,
+              icon: Icon(
+                Icons.info_sharp,
+                color: MenuState.info == selectedMenu
+                    ? kPrimaryColor
+                    : inActiveIconColor,
+              ),
+              onPressed: () {
+                Get.to(() => InfoScreen());
               },
             ),
           ],

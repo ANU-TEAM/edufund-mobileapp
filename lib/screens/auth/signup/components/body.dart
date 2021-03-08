@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/screens/auth/login/login.dart';
-import 'package:mobileapp/screens/auth/signup/component/signup_form.dart';
+import 'package:mobileapp/screens/auth/signup/components/signup_form.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class Body extends StatelessWidget {
@@ -47,9 +47,12 @@ class Body extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.05,
                     ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pushReplacement(
-                            context, MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    LoginScreen()));
                       },
                       child: Text(
                         "Sign In",
