@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/screens/onboarding/onboarding_screen.dart';
 import 'package:mobileapp/utils/themeconfigurations.dart';
@@ -18,7 +19,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'EDU FUND',
       theme: themeConfigurations(),

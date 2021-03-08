@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobileapp/screens/favorite/favorite.dart';
 import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/screens/info/info.dart';
@@ -33,10 +34,7 @@ class BottomNavigation extends StatelessWidget {
                     : inActiveIconColor,
               ),
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => HomeScreen()));
+                Get.to(() => HomeScreen());
               },
             ),
             IconButton(
@@ -48,10 +46,7 @@ class BottomNavigation extends StatelessWidget {
                     : inActiveIconColor,
               ),
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => FavoriteScreen()));
+                Get.to(() => FavoriteScreen());
               },
             ),
             IconButton(
@@ -63,11 +58,7 @@ class BottomNavigation extends StatelessWidget {
                     : inActiveIconColor,
               ),
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) =>
-                            NewApplicationScreen()));
+                Get.to(() => NewApplicationScreen());
               },
             ),
             IconButton(
@@ -79,10 +70,7 @@ class BottomNavigation extends StatelessWidget {
                     : inActiveIconColor,
               ),
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => ProfileScreen()));
+                Get.to(() => ProfileScreen());
               },
             ),
             IconButton(
@@ -94,10 +82,7 @@ class BottomNavigation extends StatelessWidget {
                     : inActiveIconColor,
               ),
               onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => InfoScreen()));
+                Get.to(() => InfoScreen());
               },
             ),
           ],
