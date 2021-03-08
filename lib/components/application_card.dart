@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
-class ContentData extends StatelessWidget {
+class ApplicationCard extends StatelessWidget {
   final String image;
   final String name;
   final String title;
@@ -10,7 +10,7 @@ class ContentData extends StatelessWidget {
   final String amount;
   final double percentage;
 
-  const ContentData({
+  const ApplicationCard({
     Key key,
     this.image,
     this.name,

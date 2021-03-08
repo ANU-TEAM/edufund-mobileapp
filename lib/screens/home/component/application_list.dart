@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/components/content_data.dart';
+import 'package:mobileapp/components/application_card.dart';
 import 'package:mobileapp/models/application_model.dart';
 
-class BodyContent extends StatelessWidget {
+class ApplicationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -11,7 +11,7 @@ class BodyContent extends StatelessWidget {
         scrollDirection: Axis.vertical,
         itemBuilder: (BuildContext context, int index) {
           return Column(children: [
-            ContentData(
+            ApplicationCard(
               image: applications[index].image,
               name: applications[index].name,
               title: applications[index].title,
