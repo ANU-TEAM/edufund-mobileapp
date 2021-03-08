@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/screens/auth/signup/component/body.dart';
+import 'package:mobileapp/screens/auth/signup/components/body.dart';
+
 class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -11,4 +12,3 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 }
-

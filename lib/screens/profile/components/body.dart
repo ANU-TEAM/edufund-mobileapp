@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/screens/auth/login/login.dart';
-import 'package:mobileapp/screens/profile/component/profile_menu.dart';
-import 'package:mobileapp/screens/profile/component/profile_pic.dart';
+import 'package:mobileapp/screens/profile/components/profile_menu.dart';
+import 'package:mobileapp/screens/profile/components/profile_pic.dart';
 
 class ProfileBody extends StatelessWidget {
   @override

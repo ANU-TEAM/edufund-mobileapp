@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/screens/home/component/category_item.dart';
+import 'package:mobileapp/screens/home/components/category_item.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class CategoriesSection extends StatelessWidget {
