@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/components/bottom_navigation.dart';
 import 'package:mobileapp/screens/message/component/body.dart';
-import '../../enum.dart';
+import '../../utils/enum.dart';
 
 class MessageScreen extends StatelessWidget {
   @override
@@ -12,7 +12,9 @@ class MessageScreen extends StatelessWidget {
         automaticallyImplyLeading: false,
       ),
       body: MessageBody(),
-      bottomNavigationBar: BottomNavigation(selectedMenu: MenuState.chat,),
+      bottomNavigationBar: BottomNavigation(
+        selectedMenu: MenuState.chat,
+      ),
     );
   }
 }

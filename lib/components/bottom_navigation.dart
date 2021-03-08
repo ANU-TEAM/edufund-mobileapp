@@ -4,7 +4,7 @@ import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/screens/message/message.dart';
 import 'package:mobileapp/screens/profile/profile_screen.dart';
 import 'package:mobileapp/utils/contants.dart';
-import '../enum.dart';
+import '../utils/enum.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({

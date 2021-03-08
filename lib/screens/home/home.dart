@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobileapp/components/bottom_navigation.dart';
 import 'package:mobileapp/components/custom_appbar.dart';
 import 'package:mobileapp/screens/home/component/body.dart';
-import '../../enum.dart';
+import '../../utils/enum.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
