@@ -74,10 +74,10 @@ class ApplicationCard extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 8, right: 20),
+                    padding: EdgeInsets.only(left: 8, right: 8),
                     child: Container(
                       height: 1,
-                      width: 350.0,
+                      width: MediaQuery.of(context).size.width,
                       color: Colors.black12,
                     ),
                   ),
