@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/components/default_button.dart';
-import 'package:mobileapp/screens/auth/login/login.dart';
+import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 import 'onboarding_content.dart';
@@ -42,7 +42,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                 flex: 3,
                 child: PageView.builder(
                   itemCount: splashData.length,
-                  onPageChanged: (value){
+                  onPageChanged: (value) {
                     setState(() {
                       currentPage = value;
                     });
@@ -51,8 +51,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                     text: splashData[index]['text'],
                     image: splashData[index]['image'],
                   ),
-                )
-            ),
+                )),
             Expanded(
               flex: 2,
               child: Padding(
@@ -63,15 +62,21 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
-                          splashData.length, (index) => buildDots(index: index),
+                        splashData.length,
+                        (index) => buildDots(index: index),
                       ),
                     ),
-                    Spacer(flex: 3,),
+                    Spacer(
+                      flex: 3,
+                    ),
                     DefaultButton(
                       text: "Continue",
-                      press: (){
+                      press: () {
                         Navigator.pushReplacement(
-                            context, MaterialPageRoute(builder: (BuildContext context) => LoginScreen()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    HomeScreen()));
                       },
                     ),
                     Spacer(),
@@ -85,7 +90,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
     );
   }
 
-  AnimatedContainer buildDots ({int index}){
+  AnimatedContainer buildDots({int index}) {
     return AnimatedContainer(
       duration: kAnimationDuration,
       margin: EdgeInsets.only(right: 5),
@@ -98,7 +103,3 @@ class _OnboardingBodyState extends State<OnboardingBody> {
     );
   }
 }
-
-
-
-
