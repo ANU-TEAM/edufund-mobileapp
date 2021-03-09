@@ -18,15 +18,8 @@ class ApplicationList extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return Column(children: [
               ApplicationCard(
-                  image: applicationController.applicationList[index].imageUrl,
-                  name: applicationController.applicationList[index].user.name,
-                  title: applicationController.applicationList[index].title,
-                  message:
-                      applicationController.applicationList[index].description,
-                  amount:
-                      applicationController.applicationList[index].targetAmount,
-                  percentage:
-                      applicationController.applicationList[index].progress),
+                application: applicationController.applicationList[index],
+              )
             ]);
           },
         ),
