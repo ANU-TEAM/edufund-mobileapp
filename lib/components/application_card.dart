@@ -7,7 +7,7 @@ class ApplicationCard extends StatelessWidget {
   final String name;
   final String title;
   final String message;
-  final String amount;
+  final int amount;
   final double percentage;
 
   const ApplicationCard({
@@ -112,7 +112,7 @@ class ApplicationCard extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(right: 8, bottom: 8),
                         child: Text(
-                          amount,
+                          'GHS ' + amount.toString(),
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 15,

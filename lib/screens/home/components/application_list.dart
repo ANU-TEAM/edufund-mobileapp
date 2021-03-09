@@ -23,9 +23,8 @@ class ApplicationList extends StatelessWidget {
                   title: applicationController.applicationList[index].title,
                   message:
                       applicationController.applicationList[index].description,
-                  amount: applicationController
-                      .applicationList[index].targetAmount
-                      .toString(),
+                  amount:
+                      applicationController.applicationList[index].targetAmount,
                   percentage:
                       applicationController.applicationList[index].progress),
             ]);
