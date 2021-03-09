@@ -1,8 +1,9 @@
 import 'package:get/state_manager.dart';
 import 'package:mobileapp/models/application.dart';
-import 'package:mobileapp/services/remote_services.dart';
+import 'package:mobileapp/services/application_services.dart';
 
 class ApplicationController extends GetxController {
+  var isLoading = true.obs;
   var applicationList = List<Application>().obs;
 
   @override
@@ -12,9 +13,14 @@ class ApplicationController extends GetxController {
   }
 
   void fetchApplications() async {
-    var applications = await RemoteServices.fetchApplications();
-    if (applications != null) {
-      applicationList.assignAll(applications);
+    try {
+      isLoading(true);
+      var applications = await ApplicationServices.fetchApplications();
+      if (applications != null) {
+        applicationList.assignAll(applications);
+      }
+    } finally {
+      isLoading(false);
     }
   }
 }
