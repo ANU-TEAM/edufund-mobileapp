@@ -34,7 +34,7 @@ class ApplicationCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Stack(children: [
-                    Image.asset(
+                    Image.network(
                       image,
                       fit: BoxFit.cover,
                       width: double.infinity,
@@ -45,7 +45,7 @@ class ApplicationCard extends StatelessWidget {
                       left: 0,
                       child: Container(
                         height: 22,
-                        width: 370,
+                        width: MediaQuery.of(context).size.width,
                         color: Colors.black54,
                         child: Center(
                           child: Padding(
