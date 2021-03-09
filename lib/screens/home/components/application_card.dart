@@ -1,24 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ApplicationCard extends StatelessWidget {
-  final String image;
-  final String name;
-  final String title;
-  final String message;
-  final String amount;
-  final double percentage;
+  final Application application;
 
-  const ApplicationCard({
-    Key key,
-    this.image,
-    this.name,
-    this.title,
-    this.message,
-    this.amount,
-    this.percentage,
-  }) : super(key: key);
+  const ApplicationCard({Key key, this.application}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +22,8 @@ class ApplicationCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Stack(children: [
-                    Image.asset(
-                      image,
+                    Image.network(
+                      application.imageUrl,
                       fit: BoxFit.cover,
                       width: double.infinity,
                       height: 180,
@@ -45,7 +33,7 @@ class ApplicationCard extends StatelessWidget {
                       left: 0,
                       child: Container(
                         height: 22,
-                        width: 370,
+                        width: MediaQuery.of(context).size.width,
                         color: Colors.black54,
                         child: Center(
                           child: Padding(
@@ -54,7 +42,7 @@ class ApplicationCard extends StatelessWidget {
                               right: 5.0,
                             ),
                             child: Text(
-                              name,
+                              application.user.name,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -68,7 +56,7 @@ class ApplicationCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      title,
+                      application.title,
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -78,7 +66,7 @@ class ApplicationCard extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
                     child: Text(
-                      message,
+                      application.description,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: Colors.black38,
@@ -102,7 +90,7 @@ class ApplicationCard extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(left: 8, bottom: 8),
                         child: Text(
-                          (percentage * 100).toInt().toString() + '%',
+                          (application.progress * 100).toInt().toString() + '%',
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 15,
@@ -112,7 +100,7 @@ class ApplicationCard extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(right: 8, bottom: 8),
                         child: Text(
-                          amount,
+                          'GHS ' + application.targetAmount.toString(),
                           style: TextStyle(
                             color: Colors.blue,
                             fontSize: 15,
@@ -125,7 +113,7 @@ class ApplicationCard extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 10),
                     child: LinearProgressIndicator(
                       lineHeight: 4.0,
-                      percent: percentage,
+                      percent: application.progress,
                     ),
                   )
                 ],
