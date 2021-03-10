@@ -21,16 +21,19 @@ class ApplicationList extends StatelessWidget {
             ),
           );
         }
-        return ListView.builder(
-          itemCount: applicationController.applicationList.length,
-          scrollDirection: Axis.vertical,
-          itemBuilder: (BuildContext context, int index) {
-            return Column(children: [
-              ApplicationCard(
-                application: applicationController.applicationList[index],
-              )
-            ]);
-          },
+        return RefreshIndicator(
+          onRefresh: applicationController.fetchApplications,
+          child: ListView.builder(
+            itemCount: applicationController.applicationList.length,
+            scrollDirection: Axis.vertical,
+            itemBuilder: (BuildContext context, int index) {
+              return Column(children: [
+                ApplicationCard(
+                  application: applicationController.applicationList[index],
+                )
+              ]);
+            },
+          ),
         );
       }),
     );
