@@ -18,6 +18,23 @@ class ApplicationDetailScreen extends StatelessWidget {
               icon: Icon(Icons.favorite_border_outlined), onPressed: () {}),
         ],
       ),
+      bottomNavigationBar: BottomAppBar(
+        child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+            child: FlatButton(
+              color: kPrimaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(25.0),
+              ),
+              height: 50.0,
+              onPressed: () {},
+              child: Text(
+                "fund this student".toUpperCase(),
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+            )),
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(8.0),
@@ -135,30 +152,6 @@ class ApplicationDetailScreen extends StatelessWidget {
                       child: LinearProgressIndicatorComponent(
                         lineHeight: 4.0,
                         percent: application.progress,
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: 8.0, right: 8.0, top: 50.0),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 40.0,
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor,
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Fund this Student",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
                       ),
                     ),
                   ],
