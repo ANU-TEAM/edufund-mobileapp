@@ -31,137 +31,113 @@ class ApplicationDetailScreen extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.25,
                 ),
                 Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Text(
-                    application.title,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 20.0),
-                  child: Row(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CircleAvatar(
-                        radius: 20,
-                        backgroundColor: Colors.grey[100],
-                        child: Icon(
-                          Icons.edit,
-                          color: kPrimaryColor,
-                          size: 28,
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundColor: Colors.grey[100],
+                            child: Icon(
+                              Icons.edit,
+                              color: kPrimaryColor,
+                              size: 28,
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 12),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Created By",
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 10,
+                                  ),
+                                ),
+                                Text(
+                                  application.user.name,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        child: Text(
+                          application.title,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Created By",
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 10,
-                              ),
-                            ),
-                            Text(
-                              application.user.name,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        child: Text(
+                          application.description,
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
                         ),
                       ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                        child: Text(
+                          "Read More about " + "${application.user.name}",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 6),
+                            child: Text(
+                              (application.progress * 100).toInt().toString() +
+                                  '%',
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 6),
+                            child: Text(
+                              'GHS ' + application.targetAmount.toString(),
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 6),
+                        child: LinearProgressIndicatorComponent(
+                          lineHeight: 4.0,
+                          percent: application.progress,
+                        ),
+                      )
                     ],
                   ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(12.0),
-                      child: Text(
-                        application.description,
-                        textAlign: TextAlign.justify,
-                        style: TextStyle(
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 12.0, bottom: 8.0),
-                      child: Text(
-                        "Read More about " + "${application.user.name}",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(left: 8, bottom: 8),
-                          child: Text(
-                            (application.progress * 100).toInt().toString() +
-                                '%',
-                            style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(right: 8, bottom: 8),
-                          child: Text(
-                            'GHS ' + application.targetAmount.toString(),
-                            style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 15,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(top: 20.0, right: 8.0, left: 8.0),
-                      child: LinearProgressIndicatorComponent(
-                        lineHeight: 4.0,
-                        percent: application.progress,
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsets.only(left: 8.0, right: 8.0, top: 50.0),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 40.0,
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor,
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "Fund this Student",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
                 )
               ],
             ),
