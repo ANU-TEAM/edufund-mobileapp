@@ -12,7 +12,7 @@ class ApplicationController extends GetxController {
     super.onInit();
   }
 
-  void fetchApplications() async {
+  Future<void> fetchApplications() async {
     try {
       isLoading(true);
       var applications = await ApplicationServices.fetchApplications();
