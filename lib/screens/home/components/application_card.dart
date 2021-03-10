@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/screens/home/components/application_detail.dart';
-import 'package:mobileapp/utils/contants.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:mobileapp/components/linearprogressindicator.dart';
 
 class ApplicationCard extends StatelessWidget {
   final Application application;
@@ -17,11 +17,9 @@ class ApplicationCard extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ApplicationDetailScreen()),
-              );
+              Get.to(() => ApplicationDetailScreen(
+                    application: application,
+                  ));
             },
             child: Card(
               elevation: 5,
@@ -121,7 +119,7 @@ class ApplicationCard extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.only(bottom: 10),
-                      child: LinearProgressIndicator(
+                      child: LinearProgressIndicatorComponent(
                         lineHeight: 4.0,
                         percent: application.progress,
                       ),
@@ -133,30 +131,6 @@ class ApplicationCard extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class LinearProgressIndicator extends StatelessWidget {
-  final double width;
-  final double lineHeight;
-  final double percent;
-
-  const LinearProgressIndicator({
-    Key key,
-    this.width,
-    this.lineHeight,
-    this.percent,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return LinearPercentIndicator(
-      width: width,
-      lineHeight: lineHeight,
-      percent: percent,
-      backgroundColor: Colors.grey[100],
-      progressColor: kPrimaryColor,
     );
   }
 }

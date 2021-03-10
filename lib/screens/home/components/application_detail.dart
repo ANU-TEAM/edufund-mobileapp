@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:mobileapp/components/linearprogressindicator.dart';
+import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class ApplicationDetailScreen extends StatelessWidget {
+  final Application application;
+
+  const ApplicationDetailScreen({Key key, this.application}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 3,
-        leading: Icon(
-          Icons.arrow_back,
-        ),
         actions: [
           IconButton(
               icon: Icon(Icons.favorite_border_outlined), onPressed: () {}),
@@ -21,17 +24,16 @@ class ApplicationDetailScreen extends StatelessWidget {
           child: Container(
             child: Column(
               children: [
-                Image(
-                  image: AssetImage(
-                    "assets/images/primary.jpg",
-                  ),
-                  fit: BoxFit.contain,
+                Image.network(
+                  application.imageUrl,
+                  fit: BoxFit.cover,
                   width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.25,
                 ),
                 Padding(
                   padding: EdgeInsets.all(15.0),
                   child: Text(
-                    "I AM BENJAMIN AND I NEED HELP NOW",
+                    application.title,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,
@@ -65,7 +67,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              "Benjamin Assuming",
+                              application.user.name,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 12,
@@ -84,8 +86,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.all(12.0),
                       child: Text(
-                        "It is a long established fact that "
-                        "a reader will be distracted by the readable content ",
+                        application.description,
                         textAlign: TextAlign.justify,
                         style: TextStyle(
                           color: Colors.black,
@@ -93,22 +94,47 @@ class ApplicationDetailScreen extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 12.0),
+                      padding: EdgeInsets.only(left: 12.0, bottom: 8.0),
                       child: Text(
-                        "Read More about Benjamin...",
+                        "Read More about " + "${application.user.name}",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 8, bottom: 8),
+                          child: Text(
+                            (application.progress * 100).toInt().toString() +
+                                '%',
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(right: 8, bottom: 8),
+                          child: Text(
+                            'GHS ' + application.targetAmount.toString(),
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     Padding(
                       padding:
                           EdgeInsets.only(top: 20.0, right: 8.0, left: 8.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 2,
-                        color: kPrimaryColor,
+                      child: LinearProgressIndicatorComponent(
+                        lineHeight: 4.0,
+                        percent: application.progress,
                       ),
                     ),
                     Padding(
@@ -125,7 +151,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              "Donate To Benjamin",
+                              "Fund this Student",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
