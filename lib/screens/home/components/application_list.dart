@@ -22,7 +22,7 @@ class ApplicationList extends StatelessWidget {
               size: 100,
             ),
           );
-        } else if (applicationController.networkError.value) {
+        } else if (applicationController.errorOccurred.value) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -35,7 +35,7 @@ class ApplicationList extends StatelessWidget {
                   height: 30,
                 ),
                 Text(
-                  'No Internet Connection',
+                  applicationController.errorMessage.value.capitalize,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 24,
