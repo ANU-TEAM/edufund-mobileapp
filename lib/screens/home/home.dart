@@ -75,9 +75,6 @@ class _HomeScreenState extends State<HomeScreen> {
           });
         },
       ),
-      // bottomNavigationBar: BottomNavigation(
-      //   selectedMenu: MenuState.home,
-      // ),
     );
   }
 }
