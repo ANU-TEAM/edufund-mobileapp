@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/components/custom_appbar.dart';
 import 'package:mobileapp/screens/applications/application.dart';
 import 'package:mobileapp/screens/favorite/favorite.dart';
 import 'package:mobileapp/screens/info/info.dart';
