@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/components/bottom_navigation.dart';
-import '../../utils/enum.dart';
 
 class InfoScreen extends StatelessWidget {
   @override
@@ -25,9 +23,6 @@ class InfoScreen extends StatelessWidget {
             ),
           )
         ],
-      ),
-      bottomNavigationBar: BottomNavigation(
-        selectedMenu: MenuState.info,
       ),
     );
   }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobileapp/models/application.dart';
-import 'package:mobileapp/screens/home/components/application_detail.dart';
 import 'package:mobileapp/components/linearprogressindicator.dart';
+import 'package:mobileapp/screens/applications/components/application_detail.dart';
 
 class ApplicationCard extends StatelessWidget {
   final Application application;

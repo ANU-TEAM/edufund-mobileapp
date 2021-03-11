@@ -18,8 +18,6 @@ class BottomNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final inActiveIconColor = Color(0xFFB6B6B6);
-
     return Container(
       child: SafeArea(
         child: Row(
