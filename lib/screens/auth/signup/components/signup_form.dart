@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/components/default_button.dart';
-import 'package:mobileapp/screens/profile/profile_screen.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class SignUpForm extends StatefulWidget {
