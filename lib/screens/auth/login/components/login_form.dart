@@ -12,13 +12,13 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _loginFormKey = GlobalKey<FormState>();
-  
+
   String email;
   String password;
   bool remember = false;
   final List<String> errors = [];
 
-  String validateEmail(String value){
+  String validateEmail(String value) {
     if (value.isEmpty && !errors.contains(kEmailNullError)) {
       setState(() {
         errors.add(kEmailNullError);
@@ -33,7 +33,7 @@ class _LoginFormState extends State<LoginForm> {
     return null;
   }
 
-  String validatePassword (String value){
+  String validatePassword(String value) {
     if (value.isEmpty && !errors.contains(kPassNullError)) {
       setState(() {
         errors.add(kPassNullError);
@@ -48,21 +48,20 @@ class _LoginFormState extends State<LoginForm> {
     return null;
   }
 
-  bool validateAndSave(){
+  bool validateAndSave() {
     final form = _loginFormKey.currentState;
     if (form.validate()) {
       form.save();
       return true;
-
     } else {
       return false;
     }
   }
 
-  validateLoginBtnAndSubmit (){
+  validateLoginBtnAndSubmit() {
     if (validateAndSave()) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
       print("Login is Successful");
     } else {
       print("Login Not Successful");
@@ -81,22 +80,13 @@ class _LoginFormState extends State<LoginForm> {
           SizedBox(height: 30),
           Row(
             children: [
-              Checkbox(
-                activeColor: kPrimaryColor,
-                value: remember,
-                onChanged: (value) {
-                  setState(() {
-                    remember = value;
-                  });
-                },
-              ),
-              Text("Remember me"),
               Spacer(),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => ForgotPasswordScreen()),
                   );
                 },
                 child: Text(
