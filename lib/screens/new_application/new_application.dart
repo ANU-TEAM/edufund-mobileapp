@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobileapp/screens/new_application/component/body.dart';
+import 'package:mobileapp/utils/contants.dart';
 
 class NewApplicationScreen extends StatelessWidget {
   @override
@@ -6,24 +8,26 @@ class NewApplicationScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("New Application"),
-        automaticallyImplyLeading: false,
       ),
-      body: Column(
-        children: [
-          Center(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 200.0),
-              child: Text(
-                "New Application",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
+      bottomNavigationBar: BottomAppBar(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          child: FlatButton(
+            color: kPrimaryColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25.0),
             ),
-          )
-        ],
+            height: 50.0,
+            onPressed: () {},
+            child: Text(
+              "Submit Form".toUpperCase(),
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ),
       ),
+      body: NewApplicationBody(),
     );
   }
 }

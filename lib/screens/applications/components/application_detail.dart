@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobileapp/components/linearprogressindicator.dart';
 import 'package:mobileapp/models/application.dart';
+import 'package:mobileapp/screens/new_application/new_application.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class ApplicationDetailScreen extends StatelessWidget {
@@ -113,11 +115,16 @@ class ApplicationDetailScreen extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 12),
-                        child: Text(
-                          "Read More about " + "${application.user.name}",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                        child: GestureDetector(
+                          onTap: () {
+                            Get.to(() => NewApplicationScreen());
+                          },
+                          child: Text(
+                            "Read More about " + "${application.user.name}",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
