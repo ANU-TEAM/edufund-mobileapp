@@ -28,7 +28,7 @@ class ApplicationController extends GetxController {
       }
     } on SocketException {
       errorOccurred(true);
-      errorMessage('no internet connection');
+      errorMessage('no internet connection?');
     } on HttpException {
       errorOccurred(true);
       errorMessage('Could not find the item');
