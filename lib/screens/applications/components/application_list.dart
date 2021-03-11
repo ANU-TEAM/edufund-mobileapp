@@ -3,8 +3,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
-import 'package:mobileapp/screens/home/components/application_card.dart';
 import 'package:mobileapp/controllers/application_controller.dart';
+import 'package:mobileapp/screens/applications/components/application_card.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class ApplicationList extends StatelessWidget {

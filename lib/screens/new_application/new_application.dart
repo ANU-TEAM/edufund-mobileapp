@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/components/bottom_navigation.dart';
-import '../../utils/enum.dart';
 
 class NewApplicationScreen extends StatelessWidget {
   @override
@@ -25,9 +23,6 @@ class NewApplicationScreen extends StatelessWidget {
             ),
           )
         ],
-      ),
-      bottomNavigationBar: BottomNavigation(
-        selectedMenu: MenuState.newApplication,
       ),
     );
   }
