@@ -30,20 +30,22 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: 20),
           DefaultButton(
             text: "Continue",
-            press: () {
-              if (_registerFormKey.currentState.validate()) {
-                print(_registerFormKey.currentState.validate());
-                _registerFormKey.currentState.save();
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                        builder: (BuildContext context) => ProfileScreen()));
-              }
-            },
+            press: registerUser,
           ),
         ],
       ),
     );
+  }
+
+  void registerUser() {
+    if (_registerFormKey.currentState.validate()) {
+      _registerFormKey.currentState.save();
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text('$name + $email + $password'),
+        ),
+      );
+    }
   }
 
   TextFormField buildNameFormField() {
