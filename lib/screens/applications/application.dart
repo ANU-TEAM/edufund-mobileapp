@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobileapp/components/custom_appbar.dart';
 import 'package:mobileapp/screens/applications/components/application_list.dart';
 import 'package:mobileapp/screens/applications/components/categories_section.dart';
 
@@ -6,9 +7,8 @@ class ApplicationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Info"),
-        automaticallyImplyLeading: false,
+      appBar: CustomAppBar(
+        title: "Home",
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,

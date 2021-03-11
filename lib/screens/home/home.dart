@@ -32,9 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar(
-        title: "Home",
-      ),
       body: IndexedStack(index: _currentIndex, children: _children),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
