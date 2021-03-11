@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/components/default_button.dart';
-import 'package:mobileapp/components/form_error.dart';
 import 'package:mobileapp/screens/auth/forgot_pwd/forgot_pwd.dart';
 import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/utils/contants.dart';
@@ -12,57 +11,25 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   final _loginFormKey = GlobalKey<FormState>();
-  
+
   String email;
   String password;
   bool remember = false;
-  final List<String> errors = [];
 
-  String validateEmail(String value){
-    if (value.isEmpty && !errors.contains(kEmailNullError)) {
-      setState(() {
-        errors.add(kEmailNullError);
-      });
-    } else if (!emailValidatorRegExp.hasMatch(value) &&
-        value.isNotEmpty &&
-        !errors.contains(kInvalidEmailError)) {
-      setState(() {
-        errors.add(kInvalidEmailError);
-      });
-    }
-    return null;
-  }
-
-  String validatePassword (String value){
-    if (value.isEmpty && !errors.contains(kPassNullError)) {
-      setState(() {
-        errors.add(kPassNullError);
-      });
-    } else if (value.length < 8 &&
-        value.isNotEmpty &&
-        !errors.contains(kShortPassError)) {
-      setState(() {
-        errors.add(kShortPassError);
-      });
-    }
-    return null;
-  }
-
-  bool validateAndSave(){
+  bool validateAndSave() {
     final form = _loginFormKey.currentState;
     if (form.validate()) {
       form.save();
       return true;
-
     } else {
       return false;
     }
   }
 
-  validateLoginBtnAndSubmit (){
+  validateLoginBtnAndSubmit() {
     if (validateAndSave()) {
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
       print("Login is Successful");
     } else {
       print("Login Not Successful");
@@ -73,6 +40,7 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _loginFormKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: [
           buildEmailFormField(),
@@ -93,10 +61,11 @@ class _LoginFormState extends State<LoginForm> {
               Text("Remember me"),
               Spacer(),
               GestureDetector(
-                onTap: (){
+                onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ForgotPasswordScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => ForgotPasswordScreen()),
                   );
                 },
                 child: Text(
@@ -109,7 +78,6 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ],
           ),
-          FormError(errors: errors),
           SizedBox(height: 20),
           DefaultButton(
             text: "Continue",
@@ -123,20 +91,14 @@ class _LoginFormState extends State<LoginForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       onSaved: (newValue) => email = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty && errors.contains(kEmailNullError)) {
-          setState(() {
-            errors.remove(kEmailNullError);
-          });
-        } else if (emailValidatorRegExp.hasMatch(value) &&
-            errors.contains(kInvalidEmailError)) {
-          setState(() {
-            errors.remove(kInvalidEmailError);
-          });
+      validator: (value) {
+        if (value.isEmpty) {
+          return kEmailNullError;
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          return kInvalidEmailError;
         }
         return null;
       },
-      validator: validateEmail,
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         labelText: "Email",
@@ -156,19 +118,14 @@ class _LoginFormState extends State<LoginForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       onSaved: (newValue) => password = newValue,
-      onChanged: (value) {
-        if (value.isNotEmpty && errors.contains(kPassNullError)) {
-          setState(() {
-            errors.remove(kPassNullError);
-          });
-        } else if (value.length >= 8 && errors.contains(kShortPassError)) {
-          setState(() {
-            errors.remove(kShortPassError);
-          });
+      validator: (value) {
+        if (value.isEmpty) {
+          return kPassNullError;
+        } else if (value.length < 8) {
+          return kShortPassError;
         }
         return null;
       },
-      validator: validatePassword,
       obscureText: true,
       decoration: InputDecoration(
         labelText: "Password",

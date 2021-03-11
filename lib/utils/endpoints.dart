@@ -1,6 +1,6 @@
 class AppUrl {
   static const String liveBaseURL = "https://edufundanu.herokuapp.com/api";
-  static const String localBaseURL = "http://192.168.12.1:8001/api";
+  static const String localBaseURL = "http://192.168.2.31:8001/api";
 
   static const String baseURL = localBaseURL;
 
