@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/components/default_button.dart';
-import 'package:mobileapp/components/form_error.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class ForgotPwdBody extends StatelessWidget {
@@ -50,43 +49,23 @@ class ForgotPwdForm extends StatefulWidget {
 }
 
 class _ForgotPwdFormState extends State<ForgotPwdForm> {
-  final GlobalKey<FormState> _formKey = GlobalKey();
-
-  List<String> errors = [];
+  final _resetPasswordFormKey = GlobalKey<FormState>();
   String email;
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _formKey,
+      key: _resetPasswordFormKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: [
           TextFormField(
             onSaved: (newValue) => email = newValue,
-            onChanged: (value) {
-              if (value.isNotEmpty && errors.contains(kEmailNullError)) {
-                setState(() {
-                  errors.remove(kEmailNullError);
-                });
-              } else if (emailValidatorRegExp.hasMatch(value) &&
-                  errors.contains(kInvalidEmailError)) {
-                setState(() {
-                  errors.remove(kInvalidEmailError);
-                });
-              }
-              return null;
-            },
             validator: (value) {
-              if (value.isEmpty && !errors.contains(kEmailNullError)) {
-                setState(() {
-                  errors.add(kEmailNullError);
-                });
-              } else if (!emailValidatorRegExp.hasMatch(value) &&
-                  value.isNotEmpty &&
-                  !errors.contains(kInvalidEmailError)) {
-                setState(() {
-                  errors.add(kInvalidEmailError);
-                });
+              if (value.isEmpty) {
+                return kEmailNullError;
+              } else if (!emailValidatorRegExp.hasMatch(value)) {
+                return kInvalidEmailError;
               }
               return null;
             },
@@ -104,15 +83,19 @@ class _ForgotPwdFormState extends State<ForgotPwdForm> {
               ),
             ),
           ),
-          FormError(errors: errors),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.04,
           ),
           DefaultButton(
             text: ("Continue"),
             press: () {
-              if (_formKey.currentState.validate()) {
-                print("Hello world");
+              if (_resetPasswordFormKey.currentState.validate()) {
+                // print(_resetPasswordFormKey.currentState.validate());
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text('Processing Data'),
+                  ),
+                );
               }
             },
           ),
