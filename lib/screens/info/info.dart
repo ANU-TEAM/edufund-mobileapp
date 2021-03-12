@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mobileapp/components/default_button.dart';
+import 'package:mobileapp/screens/feedback/feedback.dart';
 
 class InfoScreen extends StatelessWidget {
   @override
@@ -21,7 +24,13 @@ class InfoScreen extends StatelessWidget {
                 ),
               ),
             ),
-          )
+          ),
+          DefaultButton(
+            text: ("Send Feedback"),
+            press: () {
+              Get.to(() => FeedbackScreen());
+            },
+          ),
         ],
       ),
     );
