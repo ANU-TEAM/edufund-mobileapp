@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobileapp/screens/feedback/feedback.dart';
 import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/screens/onboarding/onboarding_screen.dart';
 import 'package:mobileapp/utils/themeconfigurations.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: themeConfigurations(),
       initialRoute: initScreen == 0 || initScreen == null ? "first" : "/",
       routes: {
-        '/': (context) => HomeScreen(),
+        '/': (context) => FeedbackScreen(),
         "first": (context) => OnboardingScreen(),
       },
     );

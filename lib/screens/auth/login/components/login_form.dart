@@ -15,6 +15,7 @@ class _LoginFormState extends State<LoginForm> {
   String email;
   String password;
   bool remember = false;
+
   bool validateAndSave() {
     final form = _loginFormKey.currentState;
     if (form.validate()) {

@@ -10,7 +10,7 @@ class Body extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -47,9 +47,12 @@ class Body extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.05,
                     ),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         Navigator.pushReplacement(
-                            context, MaterialPageRoute(builder: (BuildContext context) => SignUpScreen()));
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    SignUpScreen()));
                       },
                       child: Text(
                         "Sign Up",
