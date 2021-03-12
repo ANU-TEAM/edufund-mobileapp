@@ -79,19 +79,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  RatingBar.builder(
-                    initialRating: 3,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 6.0),
-                    itemBuilder: (context, _) => Icon(
-                      Icons.favorite,
-                      color: Colors.greenAccent,
-                    ),
-                    onRatingUpdate: (rating) {},
-                  ),
+                  buildRatingBar(),
                 ],
               ),
               SizedBox(
@@ -106,6 +94,22 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
           ),
         ),
       ),
+    );
+  }
+
+  RatingBar buildRatingBar() {
+    return RatingBar.builder(
+      initialRating: 3,
+      minRating: 1,
+      direction: Axis.horizontal,
+      allowHalfRating: true,
+      itemCount: 5,
+      itemPadding: EdgeInsets.symmetric(horizontal: 6.0),
+      itemBuilder: (context, _) => Icon(
+        Icons.favorite,
+        color: kPrimaryColor,
+      ),
+      onRatingUpdate: (rating) {},
     );
   }
 
