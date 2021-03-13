@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mobileapp/utils/contants.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ApplicationForm extends StatefulWidget {
   @override
@@ -9,8 +11,23 @@ class ApplicationForm extends StatefulWidget {
 class _ApplicationFormState extends State<ApplicationForm> {
   final applicationFormKey = GlobalKey<FormState>();
 
-  String name;
+  File _image;
+  final picker = ImagePicker();
 
+  Future takeImage(ImageSource imageSource) async {
+    final pickedFile = await picker.getImage(
+      source: imageSource,
+    );
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  String name;
   String email;
   String bio;
 
@@ -82,7 +99,11 @@ class _ApplicationFormState extends State<ApplicationForm> {
             SizedBox(
               height: 20,
             ),
-            buildFirstNameForm(),
+            buildUserImage(),
+            SizedBox(
+              height: 20,
+            ),
+            buildNameForm(),
             SizedBox(
               height: 30,
             ),
@@ -100,7 +121,75 @@ class _ApplicationFormState extends State<ApplicationForm> {
     );
   }
 
-  TextFormField buildFirstNameForm() {
+  Widget buildUserImage() {
+    return Center(
+      child: Stack(
+        children: [
+          CircleAvatar(
+            radius: 80,
+            backgroundImage: _image == null
+                ? AssetImage("assets/images/user.png")
+                : (_image),
+            backgroundColor: Colors.grey[100],
+          ),
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: ((builder) => selectImage()),
+                );
+              },
+              child: Icon(
+                Icons.camera_alt_rounded,
+                color: kPrimaryColor,
+                size: 28,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget selectImage() {
+    return Container(
+      height: 100,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(
+        children: [
+          Text("Select an Image"),
+          SizedBox(
+            height: 20.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FlatButton.icon(
+                onPressed: () {
+                  takeImage(ImageSource.camera);
+                },
+                icon: Icon(Icons.camera_alt_rounded),
+                label: Text("Camera"),
+              ),
+              FlatButton.icon(
+                onPressed: () {
+                  takeImage(ImageSource.gallery);
+                },
+                icon: Icon(Icons.image_rounded),
+                label: Text("Gallery"),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextFormField buildNameForm() {
     return TextFormField(
       onSaved: (fName) => name = fName,
       onChanged: (value) {
@@ -120,16 +209,15 @@ class _ApplicationFormState extends State<ApplicationForm> {
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         labelText: "Full Name",
-        labelStyle: TextStyle(
-          color: Colors.black,
-        ),
-        hintText: "Enter Full Name",
-        hintStyle: TextStyle(
-          color: Colors.black26,
-        ),
+        hintText: "Enter Your Full Name",
         floatingLabelBehavior: FloatingLabelBehavior.always,
+        border: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.black,
+          ),
+        ),
         suffixIcon: Padding(
-          padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
+          padding: const EdgeInsets.fromLTRB(0, 10, 20, 10),
           child: Icon(
             Icons.person_outline,
             size: 30,
@@ -196,7 +284,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
         labelStyle: TextStyle(
           color: Colors.black,
         ),
-        hintText: "Write your appealing message here...",
+        hintText: "Write your message here...",
         hintStyle: TextStyle(
           color: Colors.black26,
         ),

@@ -32,6 +32,7 @@ dependencies:
   get: ^3.26.0
   http: ^0.12.2
   flutter_rating_bar: ^3.0.0
+  image_picker: ^0.6.7+22
 
 dev_dependencies:
   flutter_test:
