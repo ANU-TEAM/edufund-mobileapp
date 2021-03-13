@@ -12,6 +12,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
   final applicationFormKey = GlobalKey<FormState>();
 
   File _image;
+  var isImageChosen = false;
   final picker = ImagePicker();
 
   Future takeImage(ImageSource imageSource) async {
@@ -21,8 +22,10 @@ class _ApplicationFormState extends State<ApplicationForm> {
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
+        isImageChosen = true;
+        Navigator.of(context).pop();
       } else {
-        print('No image selected.');
+        isImageChosen = false;
       }
     });
   }
@@ -125,12 +128,16 @@ class _ApplicationFormState extends State<ApplicationForm> {
     return Center(
       child: Stack(
         children: [
-          CircleAvatar(
-            radius: 80,
-            backgroundImage: _image == null
-                ? AssetImage("assets/images/user.png")
-                : (_image),
-            backgroundColor: Colors.grey[100],
+          Container(
+            child: Image(
+              fit: BoxFit.cover,
+              alignment: Alignment.topCenter,
+              width: double.infinity,
+              height: 180,
+              image: isImageChosen == false
+                  ? AssetImage("assets/images/user.png")
+                  : FileImage(_image),
+            ),
           ),
           Positioned(
             bottom: 20,
@@ -139,7 +146,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
               onTap: () {
                 showModalBottomSheet(
                   context: context,
-                  builder: ((builder) => selectImage()),
+                  builder: ((builder) => applicaitonImageBottomSheet()),
                 );
               },
               child: Icon(
@@ -154,7 +161,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     );
   }
 
-  Widget selectImage() {
+  Widget applicaitonImageBottomSheet() {
     return Container(
       height: 100,
       width: MediaQuery.of(context).size.width,
