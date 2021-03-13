@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -27,7 +28,6 @@ class _ApplicationFormState extends State<ApplicationForm> {
           toolbarColor: kPrimaryColor,
           toolbarWidgetColor: Colors.white,
           activeControlsWidgetColor: kPrimaryColor,
-          toolbarTitle: "Application Image",
           initAspectRatio: CropAspectRatioPreset.ratio16x9,
         ),
       );
@@ -105,31 +105,25 @@ class _ApplicationFormState extends State<ApplicationForm> {
         key: applicationFormKey,
         child: Column(
           children: [
-            Text(
-              "Please Fill the form below".toUpperCase(),
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            buildUserImage(),
+            buildApplicationImageForm(),
             SizedBox(
               height: 20,
             ),
             buildNameForm(),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             buildEmailFormField(),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             buildBioFormField(),
             SizedBox(
-              height: 30,
+              height: 20,
+            ),
+            DefaultButton(
+              text: "Send Application",
+              press: validateLoginBtnAndSubmit,
             ),
           ],
         ),
@@ -137,7 +131,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     );
   }
 
-  Widget buildUserImage() {
+  Widget buildApplicationImageForm() {
     return Center(
       child: Stack(
         children: [
@@ -162,10 +156,13 @@ class _ApplicationFormState extends State<ApplicationForm> {
                   builder: ((builder) => applicaitonImageBottomSheet()),
                 );
               },
-              child: Icon(
-                Icons.camera_alt_rounded,
-                color: kPrimaryColor,
-                size: 28,
+              child: CircleAvatar(
+                backgroundColor: Colors.grey[400],
+                child: Icon(
+                  Icons.camera_alt_rounded,
+                  color: kPrimaryColor,
+                  size: 28,
+                ),
               ),
             ),
           ),
