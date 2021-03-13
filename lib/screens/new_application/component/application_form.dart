@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -11,17 +12,29 @@ class ApplicationForm extends StatefulWidget {
 class _ApplicationFormState extends State<ApplicationForm> {
   final applicationFormKey = GlobalKey<FormState>();
 
-  File _image;
+  File _chosenImage;
+  File _croppedImage;
   var isImageChosen = false;
   final picker = ImagePicker();
 
   Future takeImage(ImageSource imageSource) async {
-    final pickedFile = await picker.getImage(
-      source: imageSource,
-    );
+    final pickedFile = await picker.getImage(source: imageSource);
+    if (pickedFile != null) {
+      _croppedImage = await ImageCropper.cropImage(
+        sourcePath: pickedFile.path,
+        aspectRatio: CropAspectRatio(ratioX: 16, ratioY: 9),
+        androidUiSettings: AndroidUiSettings(
+          toolbarColor: kPrimaryColor,
+          toolbarWidgetColor: Colors.white,
+          activeControlsWidgetColor: kPrimaryColor,
+          toolbarTitle: "Application Image",
+          initAspectRatio: CropAspectRatioPreset.ratio16x9,
+        ),
+      );
+    }
     setState(() {
-      if (pickedFile != null) {
-        _image = File(pickedFile.path);
+      if (_croppedImage != null) {
+        _chosenImage = File(_croppedImage.path);
         isImageChosen = true;
         Navigator.of(context).pop();
       } else {
@@ -136,7 +149,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
               height: 180,
               image: isImageChosen == false
                   ? AssetImage("assets/images/user.png")
-                  : FileImage(_image),
+                  : FileImage(_chosenImage),
             ),
           ),
           Positioned(
