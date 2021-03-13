@@ -31,6 +31,7 @@ class ApplicationCard extends StatelessWidget {
                     Stack(children: [
                       Image.network(
                         application.imageUrl,
+                        alignment: Alignment.topCenter,
                         fit: BoxFit.cover,
                         width: double.infinity,
                         height: 180,

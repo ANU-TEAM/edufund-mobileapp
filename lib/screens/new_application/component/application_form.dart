@@ -1,5 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
+import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/utils/contants.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ApplicationForm extends StatefulWidget {
   @override
@@ -9,8 +13,37 @@ class ApplicationForm extends StatefulWidget {
 class _ApplicationFormState extends State<ApplicationForm> {
   final applicationFormKey = GlobalKey<FormState>();
 
-  String name;
+  File _chosenImage;
+  File _croppedImage;
+  var isImageChosen = false;
+  final picker = ImagePicker();
 
+  Future takeImage(ImageSource imageSource) async {
+    final pickedFile = await picker.getImage(source: imageSource);
+    if (pickedFile != null) {
+      _croppedImage = await ImageCropper.cropImage(
+        sourcePath: pickedFile.path,
+        aspectRatio: CropAspectRatio(ratioX: 16, ratioY: 9),
+        androidUiSettings: AndroidUiSettings(
+          toolbarColor: kPrimaryColor,
+          toolbarWidgetColor: Colors.white,
+          activeControlsWidgetColor: kPrimaryColor,
+          initAspectRatio: CropAspectRatioPreset.ratio16x9,
+        ),
+      );
+    }
+    setState(() {
+      if (_croppedImage != null) {
+        _chosenImage = File(_croppedImage.path);
+        isImageChosen = true;
+        Navigator.of(context).pop();
+      } else {
+        isImageChosen = false;
+      }
+    });
+  }
+
+  String name;
   String email;
   String bio;
 
@@ -72,27 +105,25 @@ class _ApplicationFormState extends State<ApplicationForm> {
         key: applicationFormKey,
         child: Column(
           children: [
-            Text(
-              "Please Fill the form below".toUpperCase(),
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            buildApplicationImageForm(),
             SizedBox(
               height: 20,
             ),
-            buildFirstNameForm(),
+            buildNameForm(),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             buildEmailFormField(),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             buildBioFormField(),
             SizedBox(
-              height: 30,
+              height: 20,
+            ),
+            DefaultButton(
+              text: "Send Application",
+              press: validateLoginBtnAndSubmit,
             ),
           ],
         ),
@@ -100,7 +131,82 @@ class _ApplicationFormState extends State<ApplicationForm> {
     );
   }
 
-  TextFormField buildFirstNameForm() {
+  Widget buildApplicationImageForm() {
+    return Center(
+      child: Stack(
+        children: [
+          Container(
+            child: Image(
+              fit: BoxFit.cover,
+              alignment: Alignment.topCenter,
+              width: double.infinity,
+              height: 180,
+              image: isImageChosen == false
+                  ? AssetImage("assets/images/user.png")
+                  : FileImage(_chosenImage),
+            ),
+          ),
+          Positioned(
+            bottom: 20,
+            right: 20,
+            child: GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: ((builder) => applicaitonImageBottomSheet()),
+                );
+              },
+              child: CircleAvatar(
+                backgroundColor: Colors.grey[400],
+                child: Icon(
+                  Icons.camera_alt_rounded,
+                  color: kPrimaryColor,
+                  size: 28,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget applicaitonImageBottomSheet() {
+    return Container(
+      height: 100,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(
+        children: [
+          Text("Select an Image"),
+          SizedBox(
+            height: 20.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              FlatButton.icon(
+                onPressed: () {
+                  takeImage(ImageSource.camera);
+                },
+                icon: Icon(Icons.camera_alt_rounded),
+                label: Text("Camera"),
+              ),
+              FlatButton.icon(
+                onPressed: () {
+                  takeImage(ImageSource.gallery);
+                },
+                icon: Icon(Icons.image_rounded),
+                label: Text("Gallery"),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  TextFormField buildNameForm() {
     return TextFormField(
       onSaved: (fName) => name = fName,
       onChanged: (value) {
@@ -120,16 +226,15 @@ class _ApplicationFormState extends State<ApplicationForm> {
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         labelText: "Full Name",
-        labelStyle: TextStyle(
-          color: Colors.black,
-        ),
-        hintText: "Enter Full Name",
-        hintStyle: TextStyle(
-          color: Colors.black26,
-        ),
+        hintText: "Enter Your Full Name",
         floatingLabelBehavior: FloatingLabelBehavior.always,
+        border: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.black,
+          ),
+        ),
         suffixIcon: Padding(
-          padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
+          padding: const EdgeInsets.fromLTRB(0, 10, 20, 10),
           child: Icon(
             Icons.person_outline,
             size: 30,
@@ -196,7 +301,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
         labelStyle: TextStyle(
           color: Colors.black,
         ),
-        hintText: "Write your appealing message here...",
+        hintText: "Write your message here...",
         hintStyle: TextStyle(
           color: Colors.black26,
         ),
