@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/utils/contants.dart';
@@ -43,37 +44,65 @@ class _ApplicationFormState extends State<ApplicationForm> {
     });
   }
 
-  String name;
-  String email;
-  String bio;
+  String title;
+  String description;
+  double targetAmount;
+  int selectedRadioListTile;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedRadioListTile = 0;
+  }
+
+  setSelectedRadioTile(int val) {
+    setState(() {
+      selectedRadioListTile = val;
+    });
+  }
 
   final List<String> errors = [];
 
-  String validateFirstName(String value) {
-    if (value.isEmpty && !errors.contains(kNameNullError)) {
+  String validateTitle(String value) {
+    if (value.isEmpty && !errors.contains(kTitleNullError)) {
       setState(() {
-        errors.add(kNameNullError);
+        errors.add(kTitleNullError);
       });
-    } else if (!nameValidatorRegExp.hasMatch(value) &&
+    } else if (!titleValidatorRegExp.hasMatch(value) &&
         value.isNotEmpty &&
-        !errors.contains(kInvalidNameError)) {
+        !errors.contains(kInvalidTitleError)) {
       setState(() {
-        errors.add(kInvalidNameError);
+        errors.add(kInvalidTitleError);
       });
     }
     return null;
   }
 
-  String validateEmail(String value) {
-    if (value.isEmpty && !errors.contains(kEmailNullError)) {
+  String validateTargetAmount(String value) {
+    if (value.isEmpty && !errors.contains(kTargetAmountNullError)) {
       setState(() {
-        errors.add(kEmailNullError);
+        errors.add(kTargetAmountNullError);
       });
-    } else if (!emailValidatorRegExp.hasMatch(value) &&
+    } else if (!targetAmountValidatorRegExp.hasMatch(value) &&
         value.isNotEmpty &&
-        !errors.contains(kInvalidEmailError)) {
+        !errors.contains(kInvalidTargetAmountError)) {
       setState(() {
-        errors.add(kInvalidEmailError);
+        errors.add(kInvalidTargetAmountError);
+      });
+    }
+    return null;
+  }
+
+  String validateDescription(String value) {
+    if (value.isEmpty && !errors.contains(kDescriptionNullError)) {
+      setState(() {
+        errors.add(kDescriptionNullError);
+      });
+    } else if (!descriptionValidatorRegExp.hasMatch(value) &&
+        value.isNotEmpty &&
+        !errors.contains(kInvalidDescriptionError)) {
+      setState(() {
+        errors.add(kInvalidDescriptionError);
       });
     }
     return null;
@@ -89,12 +118,12 @@ class _ApplicationFormState extends State<ApplicationForm> {
     }
   }
 
-  validateLoginBtnAndSubmit() {
+  validateNewApplicationBtnAndSubmit() {
     if (validateAndSave()) {
       // Get.to(() => );
-      print("Login is Successful");
+      print("Application Successfully");
     } else {
-      print("Login Not Successful");
+      print("Application Not Sent");
     }
   }
 
@@ -109,21 +138,25 @@ class _ApplicationFormState extends State<ApplicationForm> {
             SizedBox(
               height: 20,
             ),
-            buildNameForm(),
+            buildTitleForm(),
             SizedBox(
               height: 20,
             ),
-            buildEmailFormField(),
+            buildDesciptionFormField(),
             SizedBox(
               height: 20,
             ),
-            buildBioFormField(),
+            buildTargetAmountFormField(),
+            SizedBox(
+              height: 20,
+            ),
+            buildCategoryRadioButtons(),
             SizedBox(
               height: 20,
             ),
             DefaultButton(
               text: "Send Application",
-              press: validateLoginBtnAndSubmit,
+              press: validateNewApplicationBtnAndSubmit,
             ),
           ],
         ),
@@ -142,7 +175,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
               width: double.infinity,
               height: 180,
               image: isImageChosen == false
-                  ? AssetImage("assets/images/user.png")
+                  ? AssetImage("assets/images/placeholder.png")
                   : FileImage(_chosenImage),
             ),
           ),
@@ -206,27 +239,30 @@ class _ApplicationFormState extends State<ApplicationForm> {
     );
   }
 
-  TextFormField buildNameForm() {
+  TextFormField buildTitleForm() {
     return TextFormField(
-      onSaved: (fName) => name = fName,
+      onSaved: (value) => title = value,
       onChanged: (value) {
-        if (value.isNotEmpty && errors.contains(kNameNullError)) {
+        if (value.isNotEmpty && errors.contains(kTitleNullError)) {
           setState(() {
-            errors.remove(kNameNullError);
+            errors.remove(kTitleNullError);
           });
-        } else if (nameValidatorRegExp.hasMatch(value) &&
-            errors.contains(kInvalidNameError)) {
+        } else if (titleValidatorRegExp.hasMatch(value) &&
+            errors.contains(kInvalidTitleError)) {
           setState(() {
-            errors.remove(kInvalidNameError);
+            errors.remove(kInvalidTitleError);
           });
         }
         return null;
       },
-      validator: validateFirstName,
+      validator: validateTitle,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
-        labelText: "Full Name",
-        hintText: "Enter Your Full Name",
+        labelText: "Title",
+        hintText: "Enter Your Title",
+        hintStyle: TextStyle(
+          color: Colors.black26,
+        ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
         border: OutlineInputBorder(
           borderSide: BorderSide(
@@ -236,7 +272,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
         suffixIcon: Padding(
           padding: const EdgeInsets.fromLTRB(0, 10, 20, 10),
           child: Icon(
-            Icons.person_outline,
+            Icons.title_outlined,
             size: 30,
           ),
         ),
@@ -244,64 +280,75 @@ class _ApplicationFormState extends State<ApplicationForm> {
     );
   }
 
-  TextFormField buildEmailFormField() {
+  TextFormField buildTargetAmountFormField() {
     return TextFormField(
-      onSaved: (newValue) => email = newValue,
+      onSaved: (value) => targetAmount = double.parse(value),
       onChanged: (value) {
-        if (value.isNotEmpty && errors.contains(kEmailNullError)) {
+        if (value.isNotEmpty && errors.contains(kTargetAmountNullError)) {
           setState(() {
-            errors.remove(kEmailNullError);
+            errors.remove(kTargetAmountNullError);
           });
-        } else if (emailValidatorRegExp.hasMatch(value) &&
-            errors.contains(kInvalidEmailError)) {
+        } else if (targetAmountValidatorRegExp.hasMatch(value) &&
+            errors.contains(kInvalidTargetAmountError)) {
           setState(() {
-            errors.remove(kInvalidEmailError);
+            errors.remove(kInvalidTargetAmountError);
           });
         }
         return null;
       },
-      validator: validateEmail,
-      keyboardType: TextInputType.emailAddress,
+      validator: validateTargetAmount,
+      keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
-        labelText: "Email",
-        hintText: "Enter Email Address",
+        labelText: "Target Amount",
+        hintText: "Enter Your Target Amount",
+        hintStyle: TextStyle(
+          color: Colors.black26,
+        ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
+        border: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.black,
+          ),
+        ),
         suffixIcon: Padding(
           padding: const EdgeInsets.fromLTRB(0, 10, 20, 10),
           child: Icon(
-            Icons.mail_outline,
+            Icons.money_outlined,
             size: 30,
           ),
         ),
       ),
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp('[0-9.,]+')),
+      ],
     );
   }
 
-  TextFormField buildBioFormField() {
+  TextFormField buildDesciptionFormField() {
     return TextFormField(
-      onSaved: (bio) => bio = bio,
+      onSaved: (value) => description = value,
       onChanged: (value) {
-        if (value.isNotEmpty && errors.contains(kNameNullError)) {
+        if (value.isNotEmpty && errors.contains(kDescriptionNullError)) {
           setState(() {
-            errors.remove(kNameNullError);
+            errors.remove(kDescriptionNullError);
           });
-        } else if (nameValidatorRegExp.hasMatch(value) &&
+        } else if (descriptionValidatorRegExp.hasMatch(value) &&
             errors.contains(kInvalidNameError)) {
           setState(() {
-            errors.remove(kInvalidNameError);
+            errors.remove(kInvalidDescriptionError);
           });
         }
         return null;
       },
-      validator: validateFirstName,
+      validator: validateDescription,
       keyboardType: TextInputType.text,
       maxLines: 5,
       decoration: InputDecoration(
-        labelText: "Biography",
+        labelText: "Description",
         labelStyle: TextStyle(
           color: Colors.black,
         ),
-        hintText: "Write your message here...",
+        hintText: "Describe yourself...",
         hintStyle: TextStyle(
           color: Colors.black26,
         ),
@@ -312,4 +359,65 @@ class _ApplicationFormState extends State<ApplicationForm> {
       ),
     );
   }
+
+  Widget buildCategoryRadioButtons() {
+    return Column(
+      children: [
+        RadioListTile(
+          title: Text("Primary"),
+          value: 0,
+          groupValue: selectedRadioListTile,
+          selected: false,
+          activeColor: Colors.green,
+          onChanged: (val) {
+            setSelectedRadioTile(val);
+          },
+        ),
+        buildRadioListTileDividers(),
+        RadioListTile(
+          title: Text("Secondary"),
+          value: 1,
+          groupValue: selectedRadioListTile,
+          selected: false,
+          activeColor: Colors.green,
+          onChanged: (val) {
+            setSelectedRadioTile(val);
+          },
+        ),
+        buildRadioListTileDividers(),
+        RadioListTile(
+          title: Text("Tertiary"),
+          value: 2,
+          groupValue: selectedRadioListTile,
+          selected: false,
+          activeColor: Colors.green,
+          onChanged: (val) {
+            setSelectedRadioTile(val);
+          },
+        ),
+        buildRadioListTileDividers(),
+        RadioListTile(
+          title: Text("Apprenticeship"),
+          value: 3,
+          groupValue: selectedRadioListTile,
+          selected: false,
+          activeColor: Colors.green,
+          onChanged: (val) {
+            setSelectedRadioTile(val);
+          },
+        ),
+        buildRadioListTileDividers(),
+      ],
+    );
+  }
+}
+
+Widget buildRadioListTileDividers() {
+  return Divider(
+    height: 2,
+    thickness: 2,
+    indent: 20,
+    endIndent: 20,
+    color: Colors.grey[200],
+  );
 }
