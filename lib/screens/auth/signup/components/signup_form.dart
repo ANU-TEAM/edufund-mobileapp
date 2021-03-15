@@ -62,13 +62,10 @@ class _SignUpFormState extends State<SignUpForm> {
               }
             else
               {
-                Get.to(
-                  () => HomeScreen(),
-                ),
+                Get.off(HomeScreen()),
                 Get.snackbar(
                   "Welcome to Edufund",
                   'Your account was created successfully'.capitalize,
-                  snackStyle: SnackStyle.FLOATING,
                 ),
               }
           });
