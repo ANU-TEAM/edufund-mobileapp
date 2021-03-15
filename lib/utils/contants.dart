@@ -39,6 +39,17 @@ const String kShortPassError = "Password is too short";
 const String kMatchPassError = "Passwords don't match";
 const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kAddressNullError = "Please Enter your address";
+const String kTitleNullError = "Please Enter Title";
+final RegExp titleValidatorRegExp = RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]');
+const String kInvalidTitleError = "Please Enter A Valid Title";
+const String kTargetAmountNullError = "Please Enter Amount";
+final RegExp targetAmountValidatorRegExp =
+    RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]');
+const String kInvalidTargetAmountError = "Please Enter Only Digits";
+const String kDescriptionNullError = "Please Describe yourself";
+final RegExp descriptionValidatorRegExp =
+    RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]');
+const String kInvalidDescriptionError = "Please Enter A Valid Description";
 
 final otpInputDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 15),
