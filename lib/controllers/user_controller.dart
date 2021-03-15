@@ -5,7 +5,7 @@ import 'package:mobileapp/models/user.dart';
 import 'package:mobileapp/services/authentication_services.dart';
 
 class UserController extends GetxController {
-  var isLoading = true.obs;
+  var isLoading = false.obs;
   var errorOccurred = false.obs;
   var errorMessage = 'no internet connection'.obs;
   var userObject = User().obs;
@@ -19,6 +19,8 @@ class UserController extends GetxController {
               userRegistrationInfo);
       if (receivedUserInfo != null) {
         userObject(receivedUserInfo);
+        print(receivedUserInfo.token);
+        print(receivedUserInfo.user.name);
       } else {
         errorOccurred(true);
       }

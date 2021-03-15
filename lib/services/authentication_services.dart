@@ -7,7 +7,13 @@ class AuthenticationServices {
   static var client = http.Client();
 
   static Future<User> sendRegistationDetails(registerFormData) async {
-    var response = await client.post(AppUrl.register, body: registerFormData);
+    var response = await client.post(
+      AppUrl.register,
+      headers: {
+        'Accept': 'application/json',
+      },
+      body: registerFormData,
+    );
 
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
