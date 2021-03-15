@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/screens/auth/login/login.dart';
 import 'package:mobileapp/screens/profile/components/body.dart';
-import 'package:mobileapp/utils/contants.dart';
 import 'package:mobileapp/utils/user_preferences.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -18,8 +17,6 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: Obx(() {
         userPreferences.getUser();
-        print(userPreferences.user.value.token);
-        print(userPreferences.user.value.token != null);
         if (userPreferences.user.value.token != null) {
           return ProfileBody();
         } else {

@@ -23,4 +23,22 @@ class AuthenticationServices {
       return null;
     }
   }
+
+  static Future<User> sendLoginDetails(loginFormData) async {
+    var response = await client.post(
+      AppUrl.login,
+      headers: {
+        'Accept': 'application/json',
+      },
+      body: loginFormData,
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      var userInfo = jsonResponse['data'];
+      return userFromJson(convert.jsonEncode(userInfo));
+    } else {
+      return null;
+    }
+  }
 }

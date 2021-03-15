@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobileapp/screens/auth/login/login.dart';
 import 'package:mobileapp/screens/profile/components/profile_menu.dart';
-import 'package:mobileapp/screens/profile/profile_screen.dart';
 import 'package:mobileapp/utils/user_preferences.dart';
 
 class ProfileBody extends StatelessWidget {
