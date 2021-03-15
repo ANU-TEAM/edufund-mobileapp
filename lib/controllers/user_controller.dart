@@ -32,4 +32,25 @@ class UserController extends GetxController {
       isLoading(false);
     }
   }
+
+  Future<void> sendLoginData(userLoginInfo) async {
+    try {
+      isLoading(true);
+      errorOccurred(false);
+      var receivedUserInfo =
+          await AuthenticationServices.sendLoginDetails(userLoginInfo);
+      if (receivedUserInfo != null) {
+        userObject(receivedUserInfo);
+        UserPreferences().saveUser(receivedUserInfo);
+      } else {
+        errorOccurred(true);
+        errorMessage('Email or password entered is incorrect');
+      }
+    } on SocketException {
+      errorOccurred(true);
+      errorMessage('no internet connection?');
+    } finally {
+      isLoading(false);
+    }
+  }
 }

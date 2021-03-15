@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobileapp/components/default_button.dart';
+import 'package:mobileapp/components/loading_button.dart';
+import 'package:mobileapp/controllers/user_controller.dart';
 import 'package:mobileapp/screens/auth/forgot_pwd/forgot_pwd.dart';
 import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/utils/contants.dart';
@@ -10,34 +13,18 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final UserController userController = Get.put(UserController());
   final _loginFormKey = GlobalKey<FormState>();
 
   String email;
   String password;
-  bool remember = false;
-
-  bool validateAndSave() {
-    final form = _loginFormKey.currentState;
-    if (form.validate()) {
-      form.save();
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  validateLoginBtnAndSubmit() {
-    if (validateAndSave()) {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
-    } else {}
-  }
+  String deviceId = "Mobile";
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: _loginFormKey,
       autovalidateMode: AutovalidateMode.onUserInteraction,
+      key: _loginFormKey,
       child: Column(
         children: [
           buildEmailFormField(),
@@ -49,11 +36,7 @@ class _LoginFormState extends State<LoginForm> {
               Spacer(),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ForgotPasswordScreen()),
-                  );
+                  Get.to(() => ForgotPasswordScreen());
                 },
                 child: Text(
                   "Forgot Password",
@@ -66,13 +49,56 @@ class _LoginFormState extends State<LoginForm> {
             ],
           ),
           SizedBox(height: 20),
-          DefaultButton(
-            text: "Log In",
-            press: validateLoginBtnAndSubmit,
+          Obx(
+            () => buildLoginButton(),
           ),
         ],
       ),
     );
+  }
+
+  void loginUser() {
+    if (_loginFormKey.currentState.validate()) {
+      _loginFormKey.currentState.save();
+      userController.sendLoginData({
+        'email': '$email',
+        'password': '$password',
+        'deviceId': '$deviceId',
+      }).whenComplete(() => {
+            if (userController.errorOccurred.value)
+              {
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: kPrimaryColor,
+                    content: Text(
+                      '${userController.errorMessage.value}'.capitalize,
+                    ),
+                  ),
+                )
+              }
+            else
+              {
+                Get.offAll(HomeScreen()),
+                Get.snackbar(
+                  "Welcome Back",
+                  'You have successfully logged in.'.capitalize,
+                ),
+              }
+          });
+    }
+  }
+
+  Widget buildLoginButton() {
+    if (userController.isLoading.value) {
+      return LoadingButton(
+        text: "Logging In",
+      );
+    } else {
+      return DefaultButton(
+        text: "Log In",
+        press: loginUser,
+      );
+    }
   }
 
   TextFormField buildEmailFormField() {
