@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const kPrimaryColor = Color(0xFF007643);
+const kPrimaryColor = Color(0xFF4BAA24);
 const inActiveIconColor = Color(0xFFB6B6B6);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
