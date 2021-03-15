@@ -57,11 +57,14 @@ class NotLoggedInWidget extends StatelessWidget {
           SizedBox(
             height: 30,
           ),
-          DefaultButton(
-            press: () {
-              Get.to(() => LoginScreen());
-            },
-            text: 'Log In',
+          Container(
+            width: MediaQuery.of(context).size.width * 0.4,
+            child: DefaultButton(
+              press: () {
+                Get.to(() => LoginScreen());
+              },
+              text: 'Log In',
+            ),
           ),
         ],
       ),
