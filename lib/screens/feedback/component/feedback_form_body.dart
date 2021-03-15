@@ -33,10 +33,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
   validateLoginBtnAndSubmit() {
     if (validateAndSave()) {
       Get.to(() => HomeScreen());
-      print("Form sent Successful");
-    } else {
-      print("Login not sent");
-    }
+    } else {}
   }
 
   Widget build(BuildContext context) {

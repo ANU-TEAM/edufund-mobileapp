@@ -91,11 +91,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
 
   validateLoginBtnAndSubmit() {
     if (validateAndSave()) {
-      // Get.to(() => );
-      print("Login is Successful");
-    } else {
-      print("Login Not Successful");
-    }
+    } else {}
   }
 
   @override
