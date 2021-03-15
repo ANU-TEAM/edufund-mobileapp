@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/screens/auth/forgot_pwd/fogot_pwd_form.dart';
-import 'package:mobileapp/utils/contants.dart';
 
 class ForgotPwdBody extends StatelessWidget {
   @override
