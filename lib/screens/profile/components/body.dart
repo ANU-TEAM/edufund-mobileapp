@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobileapp/screens/auth/login/login.dart';
 import 'package:mobileapp/screens/profile/components/profile_menu.dart';
-import 'package:mobileapp/screens/profile/components/profile_pic.dart';
+import 'package:mobileapp/utils/user_preferences.dart';
 
 class ProfileBody extends StatelessWidget {
+  final UserPreferences userPreferences = Get.put(UserPreferences());
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ProfilePic(),
         SizedBox(
           height: 10,
         ),
@@ -29,10 +31,8 @@ class ProfileBody extends StatelessWidget {
         ),
         ProfileMenu(
           press: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) => LoginScreen()));
+            Get.to(() => LoginScreen());
+            userPreferences.removeUser();
           },
           text: "Sign-Out",
           icon: Icons.logout,
