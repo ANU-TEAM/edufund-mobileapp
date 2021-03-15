@@ -9,6 +9,7 @@ class UserController extends GetxController {
   var isLoading = false.obs;
   var errorOccurred = false.obs;
   var errorMessage = ''.obs;
+  var successMessage = ''.obs;
   var userObject = User().obs;
 
   Future<void> sendRegistrationData(userRegistrationInfo) async {
@@ -45,6 +46,25 @@ class UserController extends GetxController {
       } else {
         errorOccurred(true);
         errorMessage('Email or password entered is incorrect');
+      }
+    } on SocketException {
+      errorOccurred(true);
+      errorMessage('no internet connection?');
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  Future<void> sendResetData(email) async {
+    try {
+      isLoading(true);
+      errorOccurred(false);
+      var response = await AuthenticationServices.sendResetDetails(email);
+      if (response != null) {
+        successMessage(response);
+      } else {
+        errorOccurred(true);
+        errorMessage(response);
       }
     } on SocketException {
       errorOccurred(true);

@@ -1,4 +1,5 @@
 import 'dart:convert' as convert;
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobileapp/models/user.dart';
 import 'package:mobileapp/utils/endpoints.dart';
@@ -37,6 +38,24 @@ class AuthenticationServices {
       var jsonResponse = convert.jsonDecode(response.body);
       var userInfo = jsonResponse['data'];
       return userFromJson(convert.jsonEncode(userInfo));
+    } else {
+      return null;
+    }
+  }
+
+  static Future sendResetDetails(email) async {
+    var response = await client.post(
+      AppUrl.forgotPassword,
+      headers: {
+        'Accept': 'application/json',
+      },
+      body: Icons.email_outlined,
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      var message = jsonResponse['message'];
+      return message;
     } else {
       return null;
     }
