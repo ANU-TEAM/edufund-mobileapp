@@ -1,5 +1,4 @@
 import 'dart:convert' as convert;
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mobileapp/models/user.dart';
 import 'package:mobileapp/utils/endpoints.dart';
@@ -49,7 +48,7 @@ class AuthenticationServices {
       headers: {
         'Accept': 'application/json',
       },
-      body: Icons.email_outlined,
+      body: email,
     );
 
     if (response.statusCode == 200) {
