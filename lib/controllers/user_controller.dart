@@ -59,12 +59,22 @@ class UserController extends GetxController {
     try {
       isLoading(true);
       errorOccurred(false);
-      var response = await AuthenticationServices.sendResetDetails(email);
-      if (response != null) {
-        successMessage(response);
+      var code = await AuthenticationServices.sendResetDetails(email);
+      if (code != null) {
+        if (code == 200) {
+          successMessage("Reset link has been sent to your email");
+        } else if (code == 401) {
+          errorOccurred(true);
+          errorMessage("The email does not exist in Edufund.");
+        } else {
+          errorOccurred(true);
+          errorMessage(
+            "System is in maintenance. Contact allnationsuniversity@gmail.com",
+          );
+        }
       } else {
         errorOccurred(true);
-        errorMessage(response);
+        errorMessage("Error occured when sending email.");
       }
     } on SocketException {
       errorOccurred(true);

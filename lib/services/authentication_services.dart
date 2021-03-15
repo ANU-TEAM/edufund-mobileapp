@@ -51,12 +51,6 @@ class AuthenticationServices {
       body: email,
     );
 
-    if (response.statusCode == 200) {
-      var jsonResponse = convert.jsonDecode(response.body);
-      var message = jsonResponse['message'];
-      return message;
-    } else {
-      return null;
-    }
+    return response.statusCode;
   }
 }
