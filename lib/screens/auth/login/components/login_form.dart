@@ -67,7 +67,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           SizedBox(height: 20),
           DefaultButton(
-            text: "Continue",
+            text: "Log In",
             press: validateLoginBtnAndSubmit,
           ),
         ],

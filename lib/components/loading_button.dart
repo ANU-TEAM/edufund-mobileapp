@@ -11,30 +11,28 @@ class LoadingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 50,
-      child: FlatButton(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: kPrimaryColor,
-        onPressed: () {},
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              text,
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white,
-              ),
-            ),
-            SizedBox(width: 30),
-            SpinKitCircle(
+    return FlatButton(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+      color: kPrimaryColor,
+      onPressed: () {},
+      minWidth: MediaQuery.of(context).size.width * 0.4,
+      height: 50.0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            text,
+            style: TextStyle(
+              fontSize: 18,
               color: Colors.white,
-              size: 40,
             ),
-          ],
-        ),
+          ),
+          SpinKitCircle(
+            color: Colors.white,
+            size: 40,
+          ),
+        ],
       ),
     );
   }

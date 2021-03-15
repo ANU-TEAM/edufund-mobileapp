@@ -42,8 +42,8 @@ class NotLoggedInWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SvgPicture.asset(
-            "assets/icons/nointernet.svg",
-            width: MediaQuery.of(context).size.width,
+            "assets/icons/notlogin.svg",
+            width: MediaQuery.of(context).size.width * 0.7,
           ),
           SizedBox(
             height: 30,
