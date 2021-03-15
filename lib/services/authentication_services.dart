@@ -41,4 +41,16 @@ class AuthenticationServices {
       return null;
     }
   }
+
+  static Future sendResetDetails(email) async {
+    var response = await client.post(
+      AppUrl.forgotPassword,
+      headers: {
+        'Accept': 'application/json',
+      },
+      body: email,
+    );
+
+    return response.statusCode;
+  }
 }
