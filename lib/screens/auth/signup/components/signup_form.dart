@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mobileapp/components/default_button.dart';
+import 'package:mobileapp/components/loading_button.dart';
+import 'package:mobileapp/controllers/user_controller.dart';
+import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -8,10 +12,12 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
+  final UserController userController = Get.put(UserController());
   final _registerFormKey = GlobalKey<FormState>();
   String name;
   String email;
   String password;
+  String deviceId = "Mobile";
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +33,8 @@ class _SignUpFormState extends State<SignUpForm> {
           buildPasswordFormField(),
           SizedBox(height: 30),
           SizedBox(height: 20),
-          DefaultButton(
-            text: "Continue",
-            press: registerUser,
+          Obx(
+            () => buildRegisterButton(),
           ),
         ],
       ),
@@ -39,10 +44,43 @@ class _SignUpFormState extends State<SignUpForm> {
   void registerUser() {
     if (_registerFormKey.currentState.validate()) {
       _registerFormKey.currentState.save();
-      Scaffold.of(context).showSnackBar(
-        SnackBar(
-          content: Text('$name + $email + $password'),
-        ),
+      userController.sendRegistrationData({
+        'name': '$name',
+        'email': '$email',
+        'password': '$password',
+        'deviceId': '$deviceId',
+      }).whenComplete(() => {
+            if (userController.errorOccurred.value)
+              {
+                Scaffold.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      '${userController.errorMessage.value}'.capitalize,
+                    ),
+                  ),
+                )
+              }
+            else
+              {
+                Get.offAll(HomeScreen()),
+                Get.snackbar(
+                  "Welcome to Edufund",
+                  'Your account was created successfully'.capitalize,
+                ),
+              }
+          });
+    }
+  }
+
+  Widget buildRegisterButton() {
+    if (userController.isLoading.value) {
+      return LoadingButton(
+        text: "Registering",
+      );
+    } else {
+      return DefaultButton(
+        text: "Register",
+        press: registerUser,
       );
     }
   }

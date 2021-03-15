@@ -25,16 +25,11 @@ class ApplicationController extends GetxController {
         applicationList.assignAll(applications);
       } else {
         errorOccurred(true);
+        errorMessage('Registration Failed');
       }
     } on SocketException {
       errorOccurred(true);
       errorMessage('no internet connection?');
-    } on HttpException {
-      errorOccurred(true);
-      errorMessage('Could not find the item');
-    } on FormatException {
-      errorOccurred(true);
-      errorMessage('Invalid response format');
     } finally {
       isLoading(false);
     }

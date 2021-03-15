@@ -90,7 +90,6 @@ class _ForgotPwdFormState extends State<ForgotPwdForm> {
             text: ("Continue"),
             press: () {
               if (_resetPasswordFormKey.currentState.validate()) {
-                // print(_resetPasswordFormKey.currentState.validate());
                 Scaffold.of(context).showSnackBar(
                   SnackBar(
                     content: Text('Processing Data'),

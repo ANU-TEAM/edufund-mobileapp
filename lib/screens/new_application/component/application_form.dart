@@ -120,11 +120,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
 
   validateNewApplicationBtnAndSubmit() {
     if (validateAndSave()) {
-      // Get.to(() => );
-      print("Application Successfully");
-    } else {
-      print("Application Not Sent");
-    }
+    } else {}
   }
 
   @override

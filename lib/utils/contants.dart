@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const kPrimaryColor = Color(0xFF007643);
+const kPrimaryColor = Color(0xFF4BAA24);
 const inActiveIconColor = Color(0xFFB6B6B6);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
@@ -31,7 +31,7 @@ const String kMsgNullError = "Please Enter your Name";
 const String kInvalidMsgError = "Please Enter Valid Email";
 const String kNameNullError = "Please Enter your Name";
 const String kShortNameError = "Name is too short";
-const String kInvalidNameError = "Please Enter your Full Name";
+const String kInvalidNameError = "Please enter both First and Last name";
 const String kEmailNullError = "Please Enter your email";
 const String kInvalidEmailError = "Please Enter Valid Email";
 const String kPassNullError = "Please Enter your password";
