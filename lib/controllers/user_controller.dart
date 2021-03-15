@@ -7,7 +7,7 @@ import 'package:mobileapp/services/authentication_services.dart';
 class UserController extends GetxController {
   var isLoading = false.obs;
   var errorOccurred = false.obs;
-  var errorMessage = 'no internet connection'.obs;
+  var errorMessage = ''.obs;
   var userObject = User().obs;
 
   Future<void> sendRegistrationData(userRegistrationInfo) async {
@@ -19,10 +19,9 @@ class UserController extends GetxController {
               userRegistrationInfo);
       if (receivedUserInfo != null) {
         userObject(receivedUserInfo);
-        print(receivedUserInfo.token);
-        print(receivedUserInfo.user.name);
       } else {
         errorOccurred(true);
+        errorMessage('Email is alreay taken.');
       }
     } on SocketException {
       errorOccurred(true);

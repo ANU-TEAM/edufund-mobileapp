@@ -30,10 +30,7 @@ class _LoginFormState extends State<LoginForm> {
     if (validateAndSave()) {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
-      print("Login is Successful");
-    } else {
-      print("Login Not Successful");
-    }
+    } else {}
   }
 
   @override

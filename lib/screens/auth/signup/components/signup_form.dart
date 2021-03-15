@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/components/loading_button.dart';
 import 'package:mobileapp/controllers/user_controller.dart';
+import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -54,10 +55,21 @@ class _SignUpFormState extends State<SignUpForm> {
                 Scaffold.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      '${userController.errorMessage.value}'.toUpperCase(),
+                      '${userController.errorMessage.value}'.capitalize,
                     ),
                   ),
                 )
+              }
+            else
+              {
+                Get.to(
+                  () => HomeScreen(),
+                ),
+                Get.snackbar(
+                  "Welcome to Edufund",
+                  'Your account was created successfully'.capitalize,
+                  snackStyle: SnackStyle.FLOATING,
+                ),
               }
           });
     }
