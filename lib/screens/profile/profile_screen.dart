@@ -17,8 +17,6 @@ class ProfileScreen extends StatelessWidget {
       ),
       body: Obx(() {
         userPreferences.getUser();
-        print(userPreferences.user.value.token);
-        print(userPreferences.user.value.token != null);
         if (userPreferences.user.value.token != null) {
           return ProfileBody();
         } else {
