@@ -6,22 +6,15 @@ import 'dart:async';
 class UserPreferences extends GetxController {
   var user = User().obs;
 
-  @override
-  void onInit() {
-    getUser();
-    super.onInit();
-  }
-
   Future<void> saveUser(User userObj) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString("name", userObj.user.name);
     prefs.setString("email", userObj.user.email);
     prefs.setString("token", userObj.token);
   }
 
   Future<void> getUser() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     String name = prefs.getString("name");
     String email = prefs.getString("email");
