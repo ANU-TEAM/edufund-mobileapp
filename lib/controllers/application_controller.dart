@@ -22,8 +22,11 @@ class ApplicationController extends GetxController {
       isLoading(true);
       errorOccurred(false);
       var applications = await ApplicationServices.fetchApplications();
-      if (applications != null) {
+      if (applications != null && applications.isNotEmpty) {
         applicationList.assignAll(applications);
+      } else if (applications.isEmpty) {
+        errorOccurred(true);
+        errorMessage('No Application has been submitted');
       } else {
         errorOccurred(true);
         errorMessage('Could not retrieve applications');
