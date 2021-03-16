@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:get/state_manager.dart';
+import 'package:http/http.dart';
 import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/services/application_services.dart';
 
@@ -25,11 +26,16 @@ class ApplicationController extends GetxController {
         applicationList.assignAll(applications);
       } else {
         errorOccurred(true);
-        errorMessage('Registration Failed');
+        errorMessage('Could not retrieve applications');
       }
     } on SocketException {
       errorOccurred(true);
       errorMessage('no internet connection?');
+    } on ClientException {
+      errorOccurred(true);
+      errorMessage(
+        'Could not retrive applications at this time. Please try again later.',
+      );
     } finally {
       isLoading(false);
     }
