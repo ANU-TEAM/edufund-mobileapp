@@ -1,8 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
+import 'package:mobileapp/controllers/new_application_controller.dart';
+import 'package:mobileapp/models/newApplication.dart';
+import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -12,7 +16,14 @@ class ApplicationForm extends StatefulWidget {
 }
 
 class _ApplicationFormState extends State<ApplicationForm> {
-  final applicationFormKey = GlobalKey<FormState>();
+  final NewApplicationController newApplicationController =
+      Get.put(NewApplicationController());
+  final _applicationFormKey = GlobalKey<FormState>();
+
+  String title;
+  String description;
+  double targetAmount;
+  int categoryId = 1;
 
   File _chosenImage;
   File _croppedImage;
@@ -44,90 +55,18 @@ class _ApplicationFormState extends State<ApplicationForm> {
     });
   }
 
-  String title;
-  String description;
-  double targetAmount;
-  int selectedRadioListTile;
-
-  @override
-  void initState() {
-    super.initState();
-    selectedRadioListTile = 0;
-  }
-
   setSelectedRadioTile(int val) {
     setState(() {
-      selectedRadioListTile = val;
+      categoryId = val;
     });
-  }
-
-  final List<String> errors = [];
-
-  String validateTitle(String value) {
-    if (value.isEmpty && !errors.contains(kTitleNullError)) {
-      setState(() {
-        errors.add(kTitleNullError);
-      });
-    } else if (!titleValidatorRegExp.hasMatch(value) &&
-        value.isNotEmpty &&
-        !errors.contains(kInvalidTitleError)) {
-      setState(() {
-        errors.add(kInvalidTitleError);
-      });
-    }
-    return null;
-  }
-
-  String validateTargetAmount(String value) {
-    if (value.isEmpty && !errors.contains(kTargetAmountNullError)) {
-      setState(() {
-        errors.add(kTargetAmountNullError);
-      });
-    } else if (!targetAmountValidatorRegExp.hasMatch(value) &&
-        value.isNotEmpty &&
-        !errors.contains(kInvalidTargetAmountError)) {
-      setState(() {
-        errors.add(kInvalidTargetAmountError);
-      });
-    }
-    return null;
-  }
-
-  String validateDescription(String value) {
-    if (value.isEmpty && !errors.contains(kDescriptionNullError)) {
-      setState(() {
-        errors.add(kDescriptionNullError);
-      });
-    } else if (!descriptionValidatorRegExp.hasMatch(value) &&
-        value.isNotEmpty &&
-        !errors.contains(kInvalidDescriptionError)) {
-      setState(() {
-        errors.add(kInvalidDescriptionError);
-      });
-    }
-    return null;
-  }
-
-  bool validateAndSave() {
-    final form = applicationFormKey.currentState;
-    if (form.validate()) {
-      form.save();
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  validateNewApplicationBtnAndSubmit() {
-    if (validateAndSave()) {
-    } else {}
   }
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Form(
-        key: applicationFormKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        key: _applicationFormKey,
         child: Column(
           children: [
             buildApplicationImageForm(),
@@ -151,13 +90,60 @@ class _ApplicationFormState extends State<ApplicationForm> {
               height: 20,
             ),
             DefaultButton(
-              text: "Send Application",
-              press: validateNewApplicationBtnAndSubmit,
+              text: "Submit",
+              press: submitApplication,
+            ),
+            SizedBox(
+              height: 50,
             ),
           ],
         ),
       ),
     );
+  }
+
+  void submitApplication() {
+    if (_applicationFormKey.currentState.validate()) {
+      _applicationFormKey.currentState.save();
+      if (_chosenImage == null) {
+        showModalBottomSheet(
+          context: context,
+          builder: ((builder) => applicationImageBottomSheet(
+              title: "Please choose an image to continue.")),
+        );
+      } else {
+        newApplicationController
+            .sendNewApplicationData(NewApplication(
+                title: title,
+                description: description,
+                imageUrl: _chosenImage,
+                targetAmount: targetAmount,
+                category: categoryId))
+            .whenComplete(() => {
+                  if (newApplicationController.errorOccurred.value)
+                    {
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: kPrimaryColor,
+                          content: Text(
+                            '${newApplicationController.errorMessage.value}'
+                                .capitalize,
+                          ),
+                        ),
+                      )
+                    }
+                  else
+                    {
+                      Get.offAll(HomeScreen()),
+                      Get.snackbar(
+                        "Awesome",
+                        'Application has been submitted successfully'
+                            .capitalize,
+                      ),
+                    }
+                });
+      }
+    }
   }
 
   Widget buildApplicationImageForm() {
@@ -182,7 +168,8 @@ class _ApplicationFormState extends State<ApplicationForm> {
               onTap: () {
                 showModalBottomSheet(
                   context: context,
-                  builder: ((builder) => applicaitonImageBottomSheet()),
+                  builder: ((builder) =>
+                      applicationImageBottomSheet(title: "Select an Image")),
                 );
               },
               child: CircleAvatar(
@@ -200,58 +187,46 @@ class _ApplicationFormState extends State<ApplicationForm> {
     );
   }
 
-  Widget applicaitonImageBottomSheet() {
-    return Container(
-      height: 100,
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child: Column(
-        children: [
-          Text("Select an Image"),
-          SizedBox(
-            height: 20.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              FlatButton.icon(
-                onPressed: () {
-                  takeImage(ImageSource.camera);
-                },
-                icon: Icon(Icons.camera_alt_rounded),
-                label: Text("Camera"),
-              ),
-              FlatButton.icon(
-                onPressed: () {
-                  takeImage(ImageSource.gallery);
-                },
-                icon: Icon(Icons.image_rounded),
-                label: Text("Gallery"),
-              ),
-            ],
-          ),
-        ],
-      ),
+  Widget applicationImageBottomSheet({String title}) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(title),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            FlatButton.icon(
+              onPressed: () {
+                takeImage(ImageSource.camera);
+              },
+              icon: Icon(Icons.camera_alt_rounded, color: kPrimaryColor),
+              label: Text("Camera"),
+            ),
+            FlatButton.icon(
+              onPressed: () {
+                takeImage(ImageSource.gallery);
+              },
+              icon: Icon(Icons.image_rounded, color: kPrimaryColor),
+              label: Text("Gallery"),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
   TextFormField buildTitleForm() {
     return TextFormField(
       onSaved: (value) => title = value,
-      onChanged: (value) {
-        if (value.isNotEmpty && errors.contains(kTitleNullError)) {
-          setState(() {
-            errors.remove(kTitleNullError);
-          });
-        } else if (titleValidatorRegExp.hasMatch(value) &&
-            errors.contains(kInvalidTitleError)) {
-          setState(() {
-            errors.remove(kInvalidTitleError);
-          });
+      validator: (value) {
+        if (value.isEmpty) {
+          return kTitleNullError;
         }
         return null;
       },
-      validator: validateTitle,
       keyboardType: TextInputType.text,
       decoration: InputDecoration(
         labelText: "Title",
@@ -260,39 +235,21 @@ class _ApplicationFormState extends State<ApplicationForm> {
           color: Colors.black26,
         ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        border: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.black,
-          ),
-        ),
-        suffixIcon: Padding(
-          padding: const EdgeInsets.fromLTRB(0, 10, 20, 10),
-          child: Icon(
-            Icons.title_outlined,
-            size: 30,
-          ),
-        ),
       ),
     );
   }
 
   TextFormField buildTargetAmountFormField() {
     return TextFormField(
-      onSaved: (value) => targetAmount = double.parse(value),
-      onChanged: (value) {
-        if (value.isNotEmpty && errors.contains(kTargetAmountNullError)) {
-          setState(() {
-            errors.remove(kTargetAmountNullError);
-          });
-        } else if (targetAmountValidatorRegExp.hasMatch(value) &&
-            errors.contains(kInvalidTargetAmountError)) {
-          setState(() {
-            errors.remove(kInvalidTargetAmountError);
-          });
+      onSaved: (value) {
+        targetAmount = double.parse(value);
+      },
+      validator: (value) {
+        if (value.isEmpty) {
+          return kTargetAmountNullError;
         }
         return null;
       },
-      validator: validateTargetAmount,
       keyboardType: TextInputType.numberWithOptions(decimal: true),
       decoration: InputDecoration(
         labelText: "Target Amount",
@@ -301,21 +258,16 @@ class _ApplicationFormState extends State<ApplicationForm> {
           color: Colors.black26,
         ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        border: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Colors.black,
-          ),
-        ),
         suffixIcon: Padding(
           padding: const EdgeInsets.fromLTRB(0, 10, 20, 10),
           child: Icon(
-            Icons.money_outlined,
+            Icons.gps_fixed_outlined,
             size: 30,
           ),
         ),
       ),
       inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp('[0-9.,]+')),
+        FilteringTextInputFormatter.allow(RegExp('[0-9.]+')),
       ],
     );
   }
@@ -323,35 +275,21 @@ class _ApplicationFormState extends State<ApplicationForm> {
   TextFormField buildDesciptionFormField() {
     return TextFormField(
       onSaved: (value) => description = value,
-      onChanged: (value) {
-        if (value.isNotEmpty && errors.contains(kDescriptionNullError)) {
-          setState(() {
-            errors.remove(kDescriptionNullError);
-          });
-        } else if (descriptionValidatorRegExp.hasMatch(value) &&
-            errors.contains(kInvalidNameError)) {
-          setState(() {
-            errors.remove(kInvalidDescriptionError);
-          });
+      validator: (value) {
+        if (value.isEmpty) {
+          return kDescriptionNullError;
         }
         return null;
       },
-      validator: validateDescription,
       keyboardType: TextInputType.text,
       maxLines: 5,
       decoration: InputDecoration(
         labelText: "Description",
-        labelStyle: TextStyle(
-          color: Colors.black,
-        ),
-        hintText: "Describe yourself...",
+        hintText: "Tell us your story",
         hintStyle: TextStyle(
           color: Colors.black26,
         ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: Padding(
-          padding: EdgeInsets.fromLTRB(0, 10, 20, 10),
-        ),
       ),
     );
   }
@@ -361,8 +299,8 @@ class _ApplicationFormState extends State<ApplicationForm> {
       children: [
         RadioListTile(
           title: Text("Primary"),
-          value: 0,
-          groupValue: selectedRadioListTile,
+          value: 1,
+          groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
           onChanged: (val) {
@@ -372,8 +310,8 @@ class _ApplicationFormState extends State<ApplicationForm> {
         buildRadioListTileDividers(),
         RadioListTile(
           title: Text("Secondary"),
-          value: 1,
-          groupValue: selectedRadioListTile,
+          value: 2,
+          groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
           onChanged: (val) {
@@ -383,19 +321,8 @@ class _ApplicationFormState extends State<ApplicationForm> {
         buildRadioListTileDividers(),
         RadioListTile(
           title: Text("Tertiary"),
-          value: 2,
-          groupValue: selectedRadioListTile,
-          selected: false,
-          activeColor: Colors.green,
-          onChanged: (val) {
-            setSelectedRadioTile(val);
-          },
-        ),
-        buildRadioListTileDividers(),
-        RadioListTile(
-          title: Text("Apprenticeship"),
           value: 3,
-          groupValue: selectedRadioListTile,
+          groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
           onChanged: (val) {

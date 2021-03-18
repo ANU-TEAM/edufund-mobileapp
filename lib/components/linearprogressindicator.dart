@@ -19,7 +19,7 @@ class LinearProgressIndicatorComponent extends StatelessWidget {
     return LinearPercentIndicator(
       width: width,
       lineHeight: lineHeight,
-      percent: percent,
+      percent: (percent > 1.0) ? 1.0 : percent,
       backgroundColor: Colors.grey[100],
       progressColor: kPrimaryColor,
     );
