@@ -47,8 +47,6 @@ final RegExp targetAmountValidatorRegExp =
     RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]');
 const String kInvalidTargetAmountError = "Please Enter Only Digits";
 const String kDescriptionNullError = "Please Describe yourself";
-final RegExp descriptionValidatorRegExp =
-    RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]');
 const String kInvalidDescriptionError = "Please Enter A Valid Description";
 
 final otpInputDecoration = InputDecoration(
