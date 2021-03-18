@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:get/state_manager.dart';
 import 'package:http/http.dart';
 import 'package:mobileapp/models/application.dart';
+import 'package:mobileapp/models/newApplication.dart';
 import 'package:mobileapp/services/application_services.dart';
 
 class ApplicationController extends GetxController {
@@ -10,6 +11,7 @@ class ApplicationController extends GetxController {
   var errorOccurred = false.obs;
   var errorMessage = 'no internet connection'.obs;
   var applicationList = List<Application>().obs;
+  var newApplication = Application().obs;
 
   @override
   void onInit() {
@@ -35,6 +37,31 @@ class ApplicationController extends GetxController {
       errorOccurred(true);
       errorMessage(
         'Could not retrive applications at this time. Please try again later.',
+      );
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  Future<void> sendNewApplicationData(NewApplication newApplicationData) async {
+    try {
+      isLoading(true);
+      errorOccurred(false);
+      var receivedApplication =
+          await ApplicationServices().newApplication(newApplicationData);
+      if (receivedApplication != null) {
+        newApplication(receivedApplication);
+      } else {
+        errorOccurred(true);
+        errorMessage('Error occured when sending application.');
+      }
+    } on SocketException {
+      errorOccurred(true);
+      errorMessage('no internet connection?');
+    } on ClientException {
+      errorOccurred(true);
+      errorMessage(
+        'Could not create application at this time. Please try again later.',
       );
     } finally {
       isLoading(false);

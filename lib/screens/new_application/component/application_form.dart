@@ -1,8 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
+import 'package:mobileapp/controllers/application_controller.dart';
+import 'package:mobileapp/models/newApplication.dart';
+import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -12,12 +16,14 @@ class ApplicationForm extends StatefulWidget {
 }
 
 class _ApplicationFormState extends State<ApplicationForm> {
+  final ApplicationController applicationController =
+      Get.put(ApplicationController());
   final _applicationFormKey = GlobalKey<FormState>();
 
   String title;
   String description;
   double targetAmount;
-  int selectedRadioListTile = 1;
+  int categoryId = 1;
 
   File _chosenImage;
   File _croppedImage;
@@ -51,7 +57,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
 
   setSelectedRadioTile(int val) {
     setState(() {
-      selectedRadioListTile = val;
+      categoryId = val;
     });
   }
 
@@ -106,35 +112,37 @@ class _ApplicationFormState extends State<ApplicationForm> {
               title: "Please choose an image to continue.")),
         );
       } else {
-        print('Image is chosen');
-        print(_chosenImage);
+        applicationController
+            .sendNewApplicationData(NewApplication(
+                title: title,
+                description: description,
+                imageUrl: _chosenImage,
+                targetAmount: targetAmount,
+                category: categoryId))
+            .whenComplete(() => {
+                  if (applicationController.errorOccurred.value)
+                    {
+                      Scaffold.of(context).showSnackBar(
+                        SnackBar(
+                          backgroundColor: kPrimaryColor,
+                          content: Text(
+                            '${applicationController.errorMessage.value}'
+                                .capitalize,
+                          ),
+                        ),
+                      )
+                    }
+                  else
+                    {
+                      Get.offAll(HomeScreen()),
+                      Get.snackbar(
+                        "Awesome",
+                        'Application has been submitted successfully'
+                            .capitalize,
+                      ),
+                    }
+                });
       }
-
-      // userController.sendLoginData({
-      //   'email': '$email',
-      //   'password': '$password',
-      //   'deviceId': '$deviceId',
-      // }).whenComplete(() => {
-      //       if (userController.errorOccurred.value)
-      //         {
-      //           Scaffold.of(context).showSnackBar(
-      //             SnackBar(
-      //               backgroundColor: kPrimaryColor,
-      //               content: Text(
-      //                 '${userController.errorMessage.value}'.capitalize,
-      //               ),
-      //             ),
-      //           )
-      //         }
-      //       else
-      //         {
-      //           Get.offAll(HomeScreen()),
-      //           Get.snackbar(
-      //             "Welcome Back",
-      //             'You have successfully logged in.'.capitalize,
-      //           ),
-      //         }
-      //     });
     }
   }
 
@@ -292,7 +300,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
         RadioListTile(
           title: Text("Primary"),
           value: 1,
-          groupValue: selectedRadioListTile,
+          groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
           onChanged: (val) {
@@ -303,7 +311,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
         RadioListTile(
           title: Text("Secondary"),
           value: 2,
-          groupValue: selectedRadioListTile,
+          groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
           onChanged: (val) {
@@ -314,7 +322,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
         RadioListTile(
           title: Text("Tertiary"),
           value: 3,
-          groupValue: selectedRadioListTile,
+          groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
           onChanged: (val) {
