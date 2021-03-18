@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
-import 'package:mobileapp/controllers/application_controller.dart';
+import 'package:mobileapp/controllers/new_application_controller.dart';
 import 'package:mobileapp/models/newApplication.dart';
 import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/utils/contants.dart';
@@ -16,8 +16,8 @@ class ApplicationForm extends StatefulWidget {
 }
 
 class _ApplicationFormState extends State<ApplicationForm> {
-  final ApplicationController applicationController =
-      Get.put(ApplicationController());
+  final NewApplicationController newApplicationController =
+      Get.put(NewApplicationController());
   final _applicationFormKey = GlobalKey<FormState>();
 
   String title;
@@ -112,7 +112,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
               title: "Please choose an image to continue.")),
         );
       } else {
-        applicationController
+        newApplicationController
             .sendNewApplicationData(NewApplication(
                 title: title,
                 description: description,
@@ -120,13 +120,13 @@ class _ApplicationFormState extends State<ApplicationForm> {
                 targetAmount: targetAmount,
                 category: categoryId))
             .whenComplete(() => {
-                  if (applicationController.errorOccurred.value)
+                  if (newApplicationController.errorOccurred.value)
                     {
                       Scaffold.of(context).showSnackBar(
                         SnackBar(
                           backgroundColor: kPrimaryColor,
                           content: Text(
-                            '${applicationController.errorMessage.value}'
+                            '${newApplicationController.errorMessage.value}'
                                 .capitalize,
                           ),
                         ),
