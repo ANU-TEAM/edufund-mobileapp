@@ -8,4 +8,5 @@ class AppUrl {
   static const String register = baseURL + "/register";
   static const String forgotPassword = baseURL + "/forgot-password";
   static const String applications = baseURL + "/applications";
+  static const String userApplications = baseURL + "/user/applications";
 }

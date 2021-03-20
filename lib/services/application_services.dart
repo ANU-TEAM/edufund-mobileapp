@@ -21,6 +21,28 @@ class ApplicationServices extends GetConnect {
     }
   }
 
+  static Future<List<Application>> fetchUserApplications() async {
+    final UserPreferences userPreferences = Get.put(UserPreferences());
+    userPreferences.getUser();
+    var userToken = userPreferences.user.value.token;
+
+    var response = await client.get(
+      AppUrl.userApplications,
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + userToken,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var jsonResponse = convert.jsonDecode(response.body);
+      var applications = jsonResponse['data'];
+      return applicationFromJson(convert.jsonEncode(applications));
+    } else {
+      return null;
+    }
+  }
+
   Future<Application> newApplication(NewApplication newApplicationData) async {
     final UserPreferences userPreferences = Get.put(UserPreferences());
     userPreferences.getUser();
