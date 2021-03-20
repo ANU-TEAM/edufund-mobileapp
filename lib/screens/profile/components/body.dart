@@ -20,8 +20,8 @@ class ProfileBody extends StatelessWidget {
         ),
         ProfileMenu(
           press: () {},
-          text: "Notifications",
-          icon: Icons.notifications_outlined,
+          text: "Your Applications",
+          icon: Icons.pending_actions_outlined,
         ),
         ProfileMenu(
           press: () {},
