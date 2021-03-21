@@ -1,32 +1,63 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/components/linearprogressindicator.dart';
 import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/screens/new_application/new_application.dart';
 import 'package:mobileapp/utils/contants.dart';
 
-class ApplicationDetailScreen extends StatelessWidget {
+class UserApplicationDetailScreen extends StatelessWidget {
   final Application application;
 
-  const ApplicationDetailScreen({Key key, this.application}) : super(key: key);
+  const UserApplicationDetailScreen({Key key, this.application})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 3,
-        actions: [
-          IconButton(
-              icon: Icon(Icons.favorite_border_outlined), onPressed: () {}),
-        ],
       ),
       bottomNavigationBar: BottomAppBar(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-          child: DefaultButton(
-            text: "Fund this student".toUpperCase(),
-            press: () {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.4,
+                height: 50,
+                child: FlatButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                  color: kPrimaryColor,
+                  onPressed: () {},
+                  child: Text(
+                    "EDIT",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 50,
+                width: MediaQuery.of(context).size.width * 0.4,
+                child: FlatButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                  color: kDangerColor,
+                  onPressed: () {},
+                  child: Text(
+                    "DELETE",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

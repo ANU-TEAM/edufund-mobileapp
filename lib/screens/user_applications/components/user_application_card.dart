@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/components/linearprogressindicator.dart';
-import 'package:mobileapp/screens/applications/components/application_detail.dart';
+import 'package:mobileapp/screens/user_applications/components/user_application_detail.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class UserApplicationCard extends StatelessWidget {
@@ -46,7 +46,7 @@ class UserApplicationCard extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Get.to(() => ApplicationDetailScreen(
+              Get.to(() => UserApplicationDetailScreen(
                     application: application,
                   ));
             },
