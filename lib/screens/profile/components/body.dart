@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobileapp/screens/profile/components/profile_menu.dart';
+import 'package:mobileapp/screens/user_applications/user_application.dart';
 import 'package:mobileapp/utils/user_preferences.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -19,9 +20,11 @@ class ProfileBody extends StatelessWidget {
           icon: Icons.person_outline,
         ),
         ProfileMenu(
-          press: () {},
-          text: "Notifications",
-          icon: Icons.notifications_outlined,
+          press: () {
+            Get.to(() => UserApplicationScreen());
+          },
+          text: "Your Applications",
+          icon: Icons.pending_actions_outlined,
         ),
         ProfileMenu(
           press: () {},

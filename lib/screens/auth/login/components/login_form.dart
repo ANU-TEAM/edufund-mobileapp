@@ -67,14 +67,13 @@ class _LoginFormState extends State<LoginForm> {
       }).whenComplete(() => {
             if (userController.errorOccurred.value)
               {
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: kPrimaryColor,
-                    content: Text(
-                      '${userController.errorMessage.value}'.capitalize,
-                    ),
-                  ),
-                )
+                Get.snackbar(
+                  'Error',
+                  '${userController.errorMessage.value}'.capitalize,
+                  backgroundColor: kDangerColor,
+                  colorText: Colors.white,
+                  snackPosition: SnackPosition.BOTTOM,
+                ),
               }
             else
               {
@@ -82,6 +81,8 @@ class _LoginFormState extends State<LoginForm> {
                 Get.snackbar(
                   "Welcome Back",
                   'You have successfully logged in.'.capitalize,
+                  backgroundColor: kPrimaryColor,
+                  colorText: Colors.white,
                 ),
               }
           });

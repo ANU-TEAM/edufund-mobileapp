@@ -5,31 +5,48 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/controllers/new_application_controller.dart';
-import 'package:mobileapp/models/newApplication.dart';
+import 'package:mobileapp/controllers/user_applications_controller.dart';
+import 'package:mobileapp/models/application.dart';
+import 'package:mobileapp/models/editApplication.dart';
 import 'package:mobileapp/screens/user_applications/components/user_application_detail.dart';
 import 'package:mobileapp/screens/user_applications/user_application.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mobileapp/utils/file_from_url.dart';
 
-class ApplicationForm extends StatefulWidget {
+class EditApplicationForm extends StatefulWidget {
+  final Application application;
+  EditApplicationForm({Key key, this.application}) : super(key: key);
+
   @override
-  _ApplicationFormState createState() => _ApplicationFormState();
+  _EditApplicationFormState createState() =>
+      _EditApplicationFormState(application: this.application);
 }
 
-class _ApplicationFormState extends State<ApplicationForm> {
+class _EditApplicationFormState extends State<EditApplicationForm> {
   final NewApplicationController newApplicationController =
       Get.put(NewApplicationController());
+  final UserApplicationController userApplicationController =
+      Get.put(UserApplicationController());
+  final Application application;
   final _applicationFormKey = GlobalKey<FormState>();
+
+  _EditApplicationFormState({this.application});
 
   String title;
   String description;
   double targetAmount;
-  int categoryId = 1;
+  int categoryId;
 
   File _chosenImage;
   File _croppedImage;
   var isImageChosen = false;
   final picker = ImagePicker();
+
+  void initState() {
+    categoryId = application.category.id;
+    super.initState();
+  }
 
   Future takeImage(ImageSource imageSource) async {
     final pickedFile = await picker.getImage(source: imageSource);
@@ -103,56 +120,54 @@ class _ApplicationFormState extends State<ApplicationForm> {
     );
   }
 
-  void submitApplication() {
+  void submitApplication() async {
     if (_applicationFormKey.currentState.validate()) {
       _applicationFormKey.currentState.save();
       if (_chosenImage == null) {
-        showModalBottomSheet(
-          context: context,
-          builder: ((builder) => applicationImageBottomSheet(
-              title: "Please choose an image to continue.")),
-        );
-      } else {
-        newApplicationController
-            .sendNewApplicationData(NewApplication(
-                title: title,
-                description: description,
-                imageUrl: _chosenImage,
-                targetAmount: targetAmount,
-                category: categoryId))
-            .whenComplete(() => {
-                  if (newApplicationController.errorOccurred.value)
-                    {
-                      Get.snackbar(
-                        'Error',
-                        '${newApplicationController.errorMessage.value}'
-                            .capitalize,
-                        backgroundColor: kDangerColor,
-                        colorText: Colors.white,
-                        snackPosition: SnackPosition.BOTTOM,
-                      ),
-                    }
-                  else
-                    {
-                      Get.offAndToNamed('/'),
-                      Get.to(() => UserApplicationScreen()),
-                      Get.to(
-                        () => UserApplicationDetailScreen(
-                          application:
-                              newApplicationController.newApplication.value,
-                        ),
-                      ),
-                      Get.snackbar(
-                        "Awesome",
-                        'Application has been submitted successfully'
-                            .capitalize,
-                        backgroundColor: kPrimaryColor,
-                        colorText: Colors.white,
-                        snackPosition: SnackPosition.BOTTOM,
-                      ),
-                    }
-                });
+        _chosenImage = await urlToFile(application.imageUrl);
       }
+      print(_chosenImage);
+      newApplicationController
+          .sendEditApplicationData(EditApplication(
+              id: application.id,
+              title: title,
+              description: description,
+              imageUrl: _chosenImage,
+              targetAmount: targetAmount,
+              category: categoryId))
+          .whenComplete(() => {
+                if (newApplicationController.errorOccurred.value)
+                  {
+                    Get.snackbar(
+                      'Error',
+                      '${newApplicationController.errorMessage.value}'
+                          .capitalize,
+                      backgroundColor: kDangerColor,
+                      colorText: Colors.white,
+                      snackPosition: SnackPosition.BOTTOM,
+                    ),
+                  }
+                else
+                  {
+                    Get.offAndToNamed('/'),
+                    Get.to(() => UserApplicationScreen()),
+                    Get.to(
+                      () => UserApplicationDetailScreen(
+                        application:
+                            newApplicationController.editApplication.value,
+                      ),
+                    ),
+                    userApplicationController.fetchUserApplications(),
+                    Get.snackbar(
+                      "Awesome",
+                      'Application has been editted successfully. Kindly wait while we review.'
+                          .capitalize,
+                      backgroundColor: kPrimaryColor,
+                      colorText: Colors.white,
+                      snackPosition: SnackPosition.BOTTOM,
+                    ),
+                  }
+              });
     }
   }
 
@@ -161,15 +176,20 @@ class _ApplicationFormState extends State<ApplicationForm> {
       child: Stack(
         children: [
           Container(
-            child: Image(
-              fit: BoxFit.cover,
-              alignment: Alignment.topCenter,
-              width: double.infinity,
-              height: 180,
-              image: isImageChosen == false
-                  ? AssetImage("assets/images/placeholder.png")
-                  : FileImage(_chosenImage),
-            ),
+            child: isImageChosen == true
+                ? Image(
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topCenter,
+                    width: double.infinity,
+                    height: 180,
+                    image: FileImage(_chosenImage),
+                  )
+                : Image.network(
+                    widget.application.imageUrl,
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.25,
+                  ),
           ),
           Positioned(
             bottom: 20,
@@ -230,6 +250,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
 
   TextFormField buildTitleForm() {
     return TextFormField(
+      initialValue: widget.application.title,
       onSaved: (value) => title = value,
       validator: (value) {
         if (value.isEmpty) {
@@ -251,6 +272,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
 
   TextFormField buildTargetAmountFormField() {
     return TextFormField(
+      initialValue: widget.application.targetAmount.toString(),
       onSaved: (value) {
         targetAmount = double.parse(value);
       },
@@ -284,6 +306,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
 
   TextFormField buildDesciptionFormField() {
     return TextFormField(
+      initialValue: widget.application.description,
       onSaved: (value) => description = value,
       validator: (value) {
         if (value.isEmpty) {
