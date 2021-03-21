@@ -6,7 +6,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/controllers/new_application_controller.dart';
 import 'package:mobileapp/models/newApplication.dart';
-import 'package:mobileapp/screens/home/home.dart';
+import 'package:mobileapp/screens/user_applications/components/user_application_detail.dart';
+import 'package:mobileapp/screens/user_applications/user_application.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -133,7 +134,14 @@ class _ApplicationFormState extends State<ApplicationForm> {
                     }
                   else
                     {
-                      Get.offAll(HomeScreen()),
+                      Get.offAndToNamed('/'),
+                      Get.to(() => UserApplicationScreen()),
+                      Get.to(
+                        () => UserApplicationDetailScreen(
+                          application:
+                              newApplicationController.newApplication.value,
+                        ),
+                      ),
                       Get.snackbar(
                         "Awesome",
                         'Application has been submitted successfully'
