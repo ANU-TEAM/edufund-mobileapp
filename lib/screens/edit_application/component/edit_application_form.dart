@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/controllers/new_application_controller.dart';
+import 'package:mobileapp/controllers/user_applications_controller.dart';
 import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/models/editApplication.dart';
-import 'package:mobileapp/models/newApplication.dart';
 import 'package:mobileapp/screens/user_applications/components/user_application_detail.dart';
 import 'package:mobileapp/screens/user_applications/user_application.dart';
 import 'package:mobileapp/utils/contants.dart';
@@ -26,6 +26,8 @@ class EditApplicationForm extends StatefulWidget {
 class _EditApplicationFormState extends State<EditApplicationForm> {
   final NewApplicationController newApplicationController =
       Get.put(NewApplicationController());
+  final UserApplicationController userApplicationController =
+      Get.put(UserApplicationController());
   final Application application;
   final _applicationFormKey = GlobalKey<FormState>();
 
@@ -152,9 +154,10 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
                     Get.to(
                       () => UserApplicationDetailScreen(
                         application:
-                            newApplicationController.newApplication.value,
+                            newApplicationController.editApplication.value,
                       ),
                     ),
+                    userApplicationController.fetchUserApplications(),
                     Get.snackbar(
                       "Awesome",
                       'Application has been editted successfully. Kindly wait while we review.'
