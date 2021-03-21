@@ -52,13 +52,13 @@ class _SignUpFormState extends State<SignUpForm> {
       }).whenComplete(() => {
             if (userController.errorOccurred.value)
               {
-                Scaffold.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      '${userController.errorMessage.value}'.capitalize,
-                    ),
-                  ),
-                )
+                Get.snackbar(
+                  'Error',
+                  '${userController.errorMessage.value}'.capitalize,
+                  backgroundColor: kDangerColor,
+                  colorText: Colors.white,
+                  snackPosition: SnackPosition.BOTTOM,
+                ),
               }
             else
               {
@@ -66,6 +66,8 @@ class _SignUpFormState extends State<SignUpForm> {
                 Get.snackbar(
                   "Welcome to Edufund",
                   'Your account was created successfully'.capitalize,
+                  backgroundColor: kPrimaryColor,
+                  colorText: Colors.white,
                 ),
               }
           });

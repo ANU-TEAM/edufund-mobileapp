@@ -122,15 +122,14 @@ class _ApplicationFormState extends State<ApplicationForm> {
             .whenComplete(() => {
                   if (newApplicationController.errorOccurred.value)
                     {
-                      Scaffold.of(context).showSnackBar(
-                        SnackBar(
-                          backgroundColor: kPrimaryColor,
-                          content: Text(
-                            '${newApplicationController.errorMessage.value}'
-                                .capitalize,
-                          ),
-                        ),
-                      )
+                      Get.snackbar(
+                        'Error',
+                        '${newApplicationController.errorMessage.value}'
+                            .capitalize,
+                        backgroundColor: kDangerColor,
+                        colorText: Colors.white,
+                        snackPosition: SnackPosition.BOTTOM,
+                      ),
                     }
                   else
                     {
@@ -139,6 +138,9 @@ class _ApplicationFormState extends State<ApplicationForm> {
                         "Awesome",
                         'Application has been submitted successfully'
                             .capitalize,
+                        backgroundColor: kPrimaryColor,
+                        colorText: Colors.white,
+                        snackPosition: SnackPosition.BOTTOM,
                       ),
                     }
                 });

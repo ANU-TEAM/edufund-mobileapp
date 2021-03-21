@@ -9,18 +9,17 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Profile"),
+    return SafeArea(
+      child: Scaffold(
+        body: Obx(() {
+          userPreferences.getUser();
+          if (userPreferences.user.value.token != null) {
+            return ProfileBody();
+          } else {
+            return NotLoggedInWidget();
+          }
+        }),
       ),
-      body: Obx(() {
-        userPreferences.getUser();
-        if (userPreferences.user.value.token != null) {
-          return ProfileBody();
-        } else {
-          return NotLoggedInWidget();
-        }
-      }),
     );
   }
 }
