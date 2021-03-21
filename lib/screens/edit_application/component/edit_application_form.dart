@@ -8,6 +8,7 @@ import 'package:mobileapp/controllers/new_application_controller.dart';
 import 'package:mobileapp/controllers/user_applications_controller.dart';
 import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/models/editApplication.dart';
+import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/screens/user_applications/components/user_application_detail.dart';
 import 'package:mobileapp/screens/user_applications/user_application.dart';
 import 'package:mobileapp/utils/contants.dart';
@@ -149,7 +150,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
                   }
                 else
                   {
-                    Get.offAndToNamed('/'),
+                    Get.offAll(HomeScreen()),
                     Get.to(() => UserApplicationScreen()),
                     Get.to(
                       () => UserApplicationDetailScreen(
