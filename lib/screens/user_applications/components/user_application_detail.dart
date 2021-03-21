@@ -219,7 +219,7 @@ class UserApplicationDetailScreen extends StatelessWidget {
           else
             {
               userApplicationController.fetchUserApplications(),
-              Get.off(() => UserApplicationScreen()),
+              Get.back(),
               Get.snackbar(
                 'Success',
                 'Application has been deleted successfully'.capitalize,
