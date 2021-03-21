@@ -5,7 +5,6 @@ import 'package:mobileapp/controllers/new_application_controller.dart';
 import 'package:mobileapp/controllers/user_applications_controller.dart';
 import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/screens/new_application/new_application.dart';
-import 'package:mobileapp/screens/user_applications/user_application.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class UserApplicationDetailScreen extends StatelessWidget {
