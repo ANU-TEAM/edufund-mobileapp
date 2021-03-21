@@ -14,7 +14,7 @@ class FeedbackFormBody extends StatefulWidget {
 class _FeedbackFormBodyState extends State<FeedbackFormBody> {
   final feedbackKey = GlobalKey<FormState>();
 
-  double rating;
+  double rating = 4;
   String comment;
 
   final List<String> errors = [];
@@ -69,7 +69,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
               SizedBox(height: 20),
               DefaultButton(
                 text: "Submit",
-                press: () {},
+                press: sendFeedback,
               ),
             ],
           ),
@@ -78,9 +78,11 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
     );
   }
 
-  void loginUser() {
+  void sendFeedback() {
     if (feedbackKey.currentState.validate()) {
       feedbackKey.currentState.save();
+      print(comment);
+      print(rating);
       // userController.sendLoginData({
       //   'email': '$email',
       //   'password': '$password',
@@ -122,9 +124,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
         Icons.favorite,
         color: kPrimaryColor,
       ),
-      onRatingUpdate: (userrating) {
-        rating = userrating;
-      },
+      onRatingUpdate: (userrating) => rating = userrating,
     );
   }
 
