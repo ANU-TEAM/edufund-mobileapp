@@ -28,7 +28,7 @@ final RegExp emailValidatorRegExp =
     RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
 final RegExp nameValidatorRegExp = RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]');
 final RegExp msgValidatorRegExp = RegExp(r'[!@#<>?":_`~;[\]\\|=+)(*&^%\s-]');
-const String kMsgNullError = "Please Enter your Name";
+const String kMsgNullError = "Please Enter your Feedback";
 const String kInvalidMsgError = "Please Enter Valid Email";
 const String kNameNullError = "Please Enter your Name";
 const String kShortNameError = "Name is too short";
