@@ -73,4 +73,24 @@ class ApplicationServices extends GetConnect {
       return null;
     }
   }
+
+  static Future<bool> deleteApplication(int applicationId) async {
+    final UserPreferences userPreferences = Get.put(UserPreferences());
+    userPreferences.getUser();
+    var userToken = userPreferences.user.value.token;
+
+    var response = await client.delete(
+      AppUrl.applications + "/$applicationId",
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + userToken,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

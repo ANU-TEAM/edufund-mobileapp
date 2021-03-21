@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobileapp/components/linearprogressindicator.dart';
+import 'package:mobileapp/controllers/new_application_controller.dart';
+import 'package:mobileapp/controllers/user_applications_controller.dart';
 import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/screens/new_application/new_application.dart';
+import 'package:mobileapp/screens/user_applications/user_application.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class UserApplicationDetailScreen extends StatelessWidget {
+  final NewApplicationController newApplicationController =
+      Get.put(NewApplicationController());
+  final UserApplicationController userApplicationController =
+      Get.put(UserApplicationController());
+
   final Application application;
 
-  const UserApplicationDetailScreen({Key key, this.application})
-      : super(key: key);
+  UserApplicationDetailScreen({Key key, this.application}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +54,9 @@ class UserApplicationDetailScreen extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(25)),
                   color: kDangerColor,
-                  onPressed: () {},
+                  onPressed: () {
+                    deleteApplication(application.id);
+                  },
                   child: Text(
                     "DELETE",
                     style: TextStyle(
@@ -193,5 +202,32 @@ class UserApplicationDetailScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void deleteApplication(int id) {
+    newApplicationController.deleteApplicationData(id).whenComplete(() => {
+          if (newApplicationController.errorOccurred.value)
+            {
+              Get.snackbar(
+                'Error',
+                '${newApplicationController.errorMessage.value}'.capitalize,
+                backgroundColor: kDangerColor,
+                colorText: Colors.white,
+                snackPosition: SnackPosition.BOTTOM,
+              ),
+            }
+          else
+            {
+              userApplicationController.fetchUserApplications(),
+              Get.off(() => UserApplicationScreen()),
+              Get.snackbar(
+                'Success',
+                'Application has been deleted successfully'.capitalize,
+                backgroundColor: kPrimaryColor,
+                colorText: Colors.white,
+                snackPosition: SnackPosition.BOTTOM,
+              ),
+            }
+        });
   }
 }

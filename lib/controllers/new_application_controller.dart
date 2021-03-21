@@ -36,4 +36,27 @@ class NewApplicationController extends GetxController {
       isLoading(false);
     }
   }
+
+  Future<void> deleteApplicationData(int applicationId) async {
+    try {
+      isLoading(true);
+      errorOccurred(false);
+      var isDeleted =
+          await ApplicationServices.deleteApplication(applicationId);
+      if (isDeleted != true) {
+        errorOccurred(true);
+        errorMessage('Error occured when deleting the application.');
+      }
+    } on SocketException {
+      errorOccurred(true);
+      errorMessage('no internet connection?');
+    } on ClientException {
+      errorOccurred(true);
+      errorMessage(
+        'Could not create application at this time. Please try again later.',
+      );
+    } finally {
+      isLoading(false);
+    }
+  }
 }

@@ -46,9 +46,11 @@ class UserApplicationCard extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Get.to(() => UserApplicationDetailScreen(
-                    application: application,
-                  ));
+              Get.to(
+                () => UserApplicationDetailScreen(
+                  application: application,
+                ),
+              );
             },
             child: Card(
               elevation: 5,
