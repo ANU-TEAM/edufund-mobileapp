@@ -13,7 +13,7 @@ class EditApplicationScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(10.0),
-        child: EditApplicationForm(),
+        child: EditApplicationForm(application: application),
       ),
     );
   }

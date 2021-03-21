@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/controllers/new_application_controller.dart';
+import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/models/newApplication.dart';
 import 'package:mobileapp/screens/user_applications/components/user_application_detail.dart';
 import 'package:mobileapp/screens/user_applications/user_application.dart';
@@ -12,24 +13,37 @@ import 'package:mobileapp/utils/contants.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditApplicationForm extends StatefulWidget {
+  final Application application;
+  EditApplicationForm({Key key, this.application}) : super(key: key);
+
   @override
-  _EditApplicationFormState createState() => _EditApplicationFormState();
+  _EditApplicationFormState createState() =>
+      _EditApplicationFormState(application: this.application);
 }
 
 class _EditApplicationFormState extends State<EditApplicationForm> {
   final NewApplicationController newApplicationController =
       Get.put(NewApplicationController());
+  final Application application;
   final _applicationFormKey = GlobalKey<FormState>();
+
+  _EditApplicationFormState({this.application});
 
   String title;
   String description;
   double targetAmount;
-  int categoryId = 1;
+  int categoryId;
 
   File _chosenImage;
   File _croppedImage;
   var isImageChosen = false;
   final picker = ImagePicker();
+
+  void initState() {
+    categoryId = application.category.id;
+    print(categoryId);
+    super.initState();
+  }
 
   Future takeImage(ImageSource imageSource) async {
     final pickedFile = await picker.getImage(source: imageSource);
@@ -161,15 +175,20 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
       child: Stack(
         children: [
           Container(
-            child: Image(
-              fit: BoxFit.cover,
-              alignment: Alignment.topCenter,
-              width: double.infinity,
-              height: 180,
-              image: isImageChosen == false
-                  ? AssetImage("assets/images/placeholder.png")
-                  : FileImage(_chosenImage),
-            ),
+            child: isImageChosen == true
+                ? Image(
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topCenter,
+                    width: double.infinity,
+                    height: 180,
+                    image: FileImage(_chosenImage),
+                  )
+                : Image.network(
+                    widget.application.imageUrl,
+                    fit: BoxFit.cover,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height * 0.25,
+                  ),
           ),
           Positioned(
             bottom: 20,
@@ -230,6 +249,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
 
   TextFormField buildTitleForm() {
     return TextFormField(
+      initialValue: widget.application.title,
       onSaved: (value) => title = value,
       validator: (value) {
         if (value.isEmpty) {
@@ -251,6 +271,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
 
   TextFormField buildTargetAmountFormField() {
     return TextFormField(
+      initialValue: widget.application.targetAmount.toString(),
       onSaved: (value) {
         targetAmount = double.parse(value);
       },
@@ -284,6 +305,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
 
   TextFormField buildDesciptionFormField() {
     return TextFormField(
+      initialValue: widget.application.description,
       onSaved: (value) => description = value,
       validator: (value) {
         if (value.isEmpty) {
