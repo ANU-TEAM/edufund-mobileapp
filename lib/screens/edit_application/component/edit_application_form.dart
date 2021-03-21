@@ -6,11 +6,13 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/controllers/new_application_controller.dart';
 import 'package:mobileapp/models/application.dart';
+import 'package:mobileapp/models/editApplication.dart';
 import 'package:mobileapp/models/newApplication.dart';
 import 'package:mobileapp/screens/user_applications/components/user_application_detail.dart';
 import 'package:mobileapp/screens/user_applications/user_application.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mobileapp/utils/file_from_url.dart';
 
 class EditApplicationForm extends StatefulWidget {
   final Application application;
@@ -41,7 +43,6 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
 
   void initState() {
     categoryId = application.category.id;
-    print(categoryId);
     super.initState();
   }
 
@@ -117,56 +118,53 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
     );
   }
 
-  void submitApplication() {
+  void submitApplication() async {
     if (_applicationFormKey.currentState.validate()) {
       _applicationFormKey.currentState.save();
       if (_chosenImage == null) {
-        showModalBottomSheet(
-          context: context,
-          builder: ((builder) => applicationImageBottomSheet(
-              title: "Please choose an image to continue.")),
-        );
-      } else {
-        newApplicationController
-            .sendNewApplicationData(NewApplication(
-                title: title,
-                description: description,
-                imageUrl: _chosenImage,
-                targetAmount: targetAmount,
-                category: categoryId))
-            .whenComplete(() => {
-                  if (newApplicationController.errorOccurred.value)
-                    {
-                      Get.snackbar(
-                        'Error',
-                        '${newApplicationController.errorMessage.value}'
-                            .capitalize,
-                        backgroundColor: kDangerColor,
-                        colorText: Colors.white,
-                        snackPosition: SnackPosition.BOTTOM,
-                      ),
-                    }
-                  else
-                    {
-                      Get.offAndToNamed('/'),
-                      Get.to(() => UserApplicationScreen()),
-                      Get.to(
-                        () => UserApplicationDetailScreen(
-                          application:
-                              newApplicationController.newApplication.value,
-                        ),
-                      ),
-                      Get.snackbar(
-                        "Awesome",
-                        'Application has been submitted successfully'
-                            .capitalize,
-                        backgroundColor: kPrimaryColor,
-                        colorText: Colors.white,
-                        snackPosition: SnackPosition.BOTTOM,
-                      ),
-                    }
-                });
+        _chosenImage = await urlToFile(application.imageUrl);
       }
+      print(_chosenImage);
+      newApplicationController
+          .sendEditApplicationData(EditApplication(
+              id: application.id,
+              title: title,
+              description: description,
+              imageUrl: _chosenImage,
+              targetAmount: targetAmount,
+              category: categoryId))
+          .whenComplete(() => {
+                if (newApplicationController.errorOccurred.value)
+                  {
+                    Get.snackbar(
+                      'Error',
+                      '${newApplicationController.errorMessage.value}'
+                          .capitalize,
+                      backgroundColor: kDangerColor,
+                      colorText: Colors.white,
+                      snackPosition: SnackPosition.BOTTOM,
+                    ),
+                  }
+                else
+                  {
+                    Get.offAndToNamed('/'),
+                    Get.to(() => UserApplicationScreen()),
+                    Get.to(
+                      () => UserApplicationDetailScreen(
+                        application:
+                            newApplicationController.newApplication.value,
+                      ),
+                    ),
+                    Get.snackbar(
+                      "Awesome",
+                      'Application has been editted successfully. Kindly wait while we review.'
+                          .capitalize,
+                      backgroundColor: kPrimaryColor,
+                      colorText: Colors.white,
+                      snackPosition: SnackPosition.BOTTOM,
+                    ),
+                  }
+              });
     }
   }
 

@@ -38,9 +38,9 @@ class UserApplicationDetailScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(25)),
                   color: kPrimaryColor,
                   onPressed: () {
-                    Get.to(EditApplicationScreen(
-                      application: application,
-                    ));
+                    Get.to(() => EditApplicationScreen(
+                          application: application,
+                        ));
                   },
                   child: Text(
                     "EDIT",
