@@ -23,7 +23,7 @@ class ProfileBody extends StatelessWidget {
           press: () {
             Get.to(() => UserApplicationScreen());
           },
-          text: "Your Applications",
+          text: "My Applications",
           icon: Icons.pending_actions_outlined,
         ),
         ProfileMenu(

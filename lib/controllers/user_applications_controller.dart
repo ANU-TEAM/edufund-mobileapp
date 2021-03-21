@@ -26,7 +26,7 @@ class UserApplicationController extends GetxController {
         applicationList.assignAll(applications);
       } else {
         errorOccurred(true);
-        errorMessage('Could not retrieve applications');
+        errorMessage('No applications found');
       }
     } on SocketException {
       errorOccurred(true);
