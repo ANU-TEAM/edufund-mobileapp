@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobileapp/screens/applications/application.dart';
-import 'package:mobileapp/screens/favorite/favorite.dart';
 import 'package:mobileapp/screens/info/info.dart';
 import 'package:mobileapp/screens/new_application/new_application.dart';
 import 'package:mobileapp/screens/profile/profile_screen.dart';
@@ -20,7 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _children = [
       ApplicationScreen(),
-      FavoriteScreen(),
       NewApplicationScreen(),
       ProfileScreen(),
       InfoScreen()
@@ -43,12 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.home_rounded,
             ),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.favorite,
-            ),
-            label: 'Favorite',
           ),
           BottomNavigationBarItem(
             icon: Icon(
