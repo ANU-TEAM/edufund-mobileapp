@@ -6,6 +6,7 @@ import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/screens/new_application/new_application.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter/services.dart';
 
 class ApplicationDetailScreen extends StatelessWidget {
   final Application application;
@@ -52,40 +53,58 @@ class ApplicationDetailScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CircleAvatar(
-                            radius: 20,
-                            backgroundColor: Colors.grey[100],
-                            child: Icon(
-                              Icons.edit,
-                              color: kPrimaryColor,
-                              size: 28,
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Padding(
-                            padding: EdgeInsets.symmetric(vertical: 12),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Created By",
-                                  style: TextStyle(
-                                    color: Colors.black54,
-                                    fontSize: 10,
-                                  ),
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 20,
+                                backgroundColor: Colors.grey[100],
+                                child: Icon(
+                                  Icons.edit,
+                                  color: kPrimaryColor,
+                                  size: 28,
                                 ),
-                                Text(
-                                  application.user.name,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              ),
+                              SizedBox(width: 10),
+                              Padding(
+                                padding: EdgeInsets.symmetric(vertical: 12),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Created By",
+                                      style: TextStyle(
+                                        color: Colors.black54,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    Text(
+                                      application.user.name,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
+                          RaisedButton.icon(
+                            color: kPrimaryColor,
+                            textColor: Colors.white,
+                            onPressed: () {
+                              Clipboard.setData(new ClipboardData(
+                                  text: application.user.name));
+                            },
+                            icon: Icon(
+                              Icons.copy,
+                              size: 20,
+                            ),
+                            label: Text('Copy Name'),
+                          )
                         ],
                       ),
                       Padding(
