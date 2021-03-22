@@ -34,18 +34,6 @@ class BottomNavigation extends StatelessWidget {
                 Get.to(() => HomeScreen());
               },
             ),
-            // IconButton(
-            //   color: kPrimaryColor,
-            //   icon: Icon(
-            //     Icons.favorite,
-            //     color: MenuState.favorite == selectedMenu
-            //         ? kPrimaryColor
-            //         : inActiveIconColor,
-            //   ),
-            //   onPressed: () {
-            //     Get.to(() => FavoriteScreen());
-            //   },
-            // ),
             IconButton(
               color: kPrimaryColor,
               icon: Icon(
