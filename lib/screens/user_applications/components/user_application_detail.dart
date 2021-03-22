@@ -23,6 +23,7 @@ class UserApplicationDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 3,
+        title: Text('Details'),
       ),
       bottomNavigationBar: BottomAppBar(
         child: Padding(
