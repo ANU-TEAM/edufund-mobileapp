@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mobileapp/screens/favorite/favorite.dart';
 import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/screens/info/info.dart';
 import 'package:mobileapp/screens/new_application/new_application.dart';
@@ -35,18 +34,18 @@ class BottomNavigation extends StatelessWidget {
                 Get.to(() => HomeScreen());
               },
             ),
-            IconButton(
-              color: kPrimaryColor,
-              icon: Icon(
-                Icons.favorite,
-                color: MenuState.favorite == selectedMenu
-                    ? kPrimaryColor
-                    : inActiveIconColor,
-              ),
-              onPressed: () {
-                Get.to(() => FavoriteScreen());
-              },
-            ),
+            // IconButton(
+            //   color: kPrimaryColor,
+            //   icon: Icon(
+            //     Icons.favorite,
+            //     color: MenuState.favorite == selectedMenu
+            //         ? kPrimaryColor
+            //         : inActiveIconColor,
+            //   ),
+            //   onPressed: () {
+            //     Get.to(() => FavoriteScreen());
+            //   },
+            // ),
             IconButton(
               color: kPrimaryColor,
               icon: Icon(

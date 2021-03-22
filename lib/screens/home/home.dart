@@ -20,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _children = [
       ApplicationScreen(),
-      FavoriteScreen(),
+      // FavoriteScreen(),
       NewApplicationScreen(),
       ProfileScreen(),
       InfoScreen()
@@ -44,12 +44,12 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.favorite,
-            ),
-            label: 'Favorite',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     Icons.favorite,
+          //   ),
+          //   label: 'Favorite',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.add_box,
