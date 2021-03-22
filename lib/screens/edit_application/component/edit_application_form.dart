@@ -127,7 +127,6 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
       if (_chosenImage == null) {
         _chosenImage = await urlToFile(application.imageUrl);
       }
-      print(_chosenImage);
       newApplicationController
           .sendEditApplicationData(EditApplication(
               id: application.id,

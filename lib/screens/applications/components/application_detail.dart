@@ -5,6 +5,7 @@ import 'package:mobileapp/components/linearprogressindicator.dart';
 import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/screens/new_application/new_application.dart';
 import 'package:mobileapp/utils/contants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ApplicationDetailScreen extends StatelessWidget {
   final Application application;
@@ -26,7 +27,10 @@ class ApplicationDetailScreen extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           child: DefaultButton(
             text: "Fund this student".toUpperCase(),
-            press: () {},
+            press: () {
+              // Get.to(PaymentPage());
+              launch('https://paystack.com/pay/edufund');
+            },
           ),
         ),
       ),

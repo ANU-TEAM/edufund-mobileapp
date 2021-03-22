@@ -4,8 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/controllers/feedback_controller.dart';
-import 'package:mobileapp/screens/home/home.dart';
-import 'package:mobileapp/screens/info/info.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class FeedbackFormBody extends StatefulWidget {
@@ -106,8 +104,6 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
               }
             else
               {
-                Get.offAll(HomeScreen()),
-                Get.to(() => InfoScreen()),
                 Get.snackbar(
                   "Thank You",
                   'Your feedback has been sent.'.capitalize,

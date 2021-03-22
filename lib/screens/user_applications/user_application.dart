@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mobileapp/components/custom_appbar.dart';
 import 'package:mobileapp/screens/user_applications/components/user_application_list.dart';
 
 class UserApplicationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "My Applications",
+      appBar: AppBar(
+        title: Text("My Applications"),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
