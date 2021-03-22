@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/controllers/feedback_controller.dart';
@@ -35,6 +36,10 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SvgPicture.asset(
+                "assets/icons/feedback.svg",
+                width: MediaQuery.of(context).size.width * 0.7,
+              ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
@@ -44,7 +49,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black,
-                  fontSize: 24,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -52,7 +57,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
                 height: MediaQuery.of(context).size.height * 0.04,
               ),
               Text(
-                "How would you rate the App",
+                "How would you rate the App?",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
