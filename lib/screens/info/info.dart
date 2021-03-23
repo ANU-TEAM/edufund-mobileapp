@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/screens/feedback/feedback.dart';
-import 'package:mobileapp/utils/contants.dart';
 
 class InfoScreen extends StatelessWidget {
   @override
@@ -20,74 +19,76 @@ class InfoScreen extends StatelessWidget {
             ),
           ),
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                child: Image.asset(
-                  "assets/images/info.png",
-                  fit: BoxFit.contain,
-                  height: 280,
-                  width: MediaQuery.of(context).size.width,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 15),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 5,
                 ),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Center(
-                child: Text(
-                  "EDUFUND is a 2021 Google Solution Challenge Platform "
-                  "which provides the avenue for those whose ambition has "
-                  "been halted becuase of financial reasons to realise their dream. "
-                  "The platform solicit for financial support from donors and "
-                  "allot them to deserving individuals.",
-                  textAlign: TextAlign.justify,
-                  style: TextStyle(
-                    fontSize: 16,
+                Container(
+                  child: Image.asset(
+                    "assets/images/info.png",
+                    fit: BoxFit.contain,
+                    height: 280,
+                    width: MediaQuery.of(context).size.width,
                   ),
                 ),
-              ),
-              SizedBox(height: 15),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Developed By: ",
+                SizedBox(
+                  height: 15,
+                ),
+                Center(
+                  child: Text(
+                    "EDUFUND is a 2021 Google Solution Challenge Platform "
+                    "which provides the avenue for those whose ambition has "
+                    "been halted becuase of financial reasons to realise their dream. "
+                    "The platform solicit for financial support from donors and "
+                    "allot them to deserving individuals.",
+                    textAlign: TextAlign.justify,
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
                   ),
-                  Text(
-                    " Sosu Alfred and Kennedy Owusu",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                ),
+                SizedBox(height: 15),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Developed By: ",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 15),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Contact Info: ",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      " Sosu Alfred and Kennedy Owusu",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Text(
-                    " All Nations University DSC",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                  ],
+                ),
+                SizedBox(height: 15),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Contact Info: ",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                    Text(
+                      "allnationsuniversitydsc@gmail.com",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
