@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mobileapp/components/application_description.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/components/linearprogressindicator.dart';
 import 'package:mobileapp/models/application.dart';
-import 'package:mobileapp/screens/new_application/new_application.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +17,7 @@ class ApplicationDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Details'),
         elevation: 3,
       ),
       bottomNavigationBar: BottomAppBar(
@@ -118,6 +119,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 12),
                         child: Text(
                           application.description,
+                          maxLines: 5,
                           textAlign: TextAlign.justify,
                           style: TextStyle(
                             color: Colors.black,
@@ -128,10 +130,13 @@ class ApplicationDetailScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 12),
                         child: GestureDetector(
                           onTap: () {
-                            Get.to(() => NewApplicationScreen());
+                            Get.to(
+                              () => ApplicationDescriptionScreen(
+                                  description: application.description),
+                            );
                           },
                           child: Text(
-                            "Read More about " + "${application.user.name}",
+                            "Read More",
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
