@@ -18,10 +18,6 @@ class ApplicationDetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 3,
-        actions: [
-          IconButton(
-              icon: Icon(Icons.favorite_border_outlined), onPressed: () {}),
-        ],
       ),
       bottomNavigationBar: BottomAppBar(
         child: Padding(
