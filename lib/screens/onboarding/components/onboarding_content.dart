@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class OnboardingContent extends StatelessWidget {
   const OnboardingContent({
-    Key key, this.text, this.image,
+    Key key,
+    this.text,
+    this.image,
   }) : super(key: key);
 
   final String text, image;
@@ -12,20 +15,35 @@ class OnboardingContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Spacer(),
-        Text("EDUFUND",
+        SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+        Text(
+          "EDUFUND",
           style: TextStyle(
             fontSize: 30,
             color: kPrimaryColor,
             fontWeight: FontWeight.bold,
-          ),),
-        Text(text,
-          textAlign: TextAlign.center,),
+          ),
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+        Text(
+          text,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 16,
+          ),
+        ),
         Spacer(),
-        Image.asset(image,
-          height: 265,
-          width: 235,
-          fit: BoxFit.cover,
+        Container(
+          child: Column(
+            children: [
+              SvgPicture.asset(
+                image,
+                width: 200,
+                height: 250,
+                fit: BoxFit.cover,
+              ),
+            ],
+          ),
         ),
       ],
     );
