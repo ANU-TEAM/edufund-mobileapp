@@ -15,77 +15,73 @@ class _OnboardingBodyState extends State<OnboardingBody> {
 
   List<Map<String, String>> splashData = [
     {
-      "text": "We think about your fees, "
-          "you think about studies",
-      "image": "assets/images/edufund_2.png",
+      "text": "Get started by creating an account to request for funds",
+      "image": "assets/icons/register.svg",
     },
     {
-      "text": "We think about your fees, "
-          "you think about studies",
-      "image": "assets/images/edufund_3.png",
+      "text": "Apply for funding, get approval and receive funding",
+      "image": "assets/icons/apply.svg",
     },
     {
-      "text": "We think about your fees, "
-          "you think about studies",
-      "image": "assets/images/edufund_4.png",
+      "text": "Receive funding from anyone around the world",
+      "image": "assets/icons/money.svg",
     },
   ];
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SizedBox(
-        width: double.infinity,
-        child: Column(
-          children: [
-            Expanded(
-                flex: 3,
-                child: PageView.builder(
-                  itemCount: splashData.length,
-                  onPageChanged: (value) {
-                    setState(() {
-                      currentPage = value;
-                    });
-                  },
-                  itemBuilder: (context, index) => OnboardingContent(
-                    text: splashData[index]['text'],
-                    image: splashData[index]['image'],
-                  ),
-                )),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: [
-                    Spacer(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        splashData.length,
-                        (index) => buildDots(index: index),
-                      ),
-                    ),
-                    Spacer(
-                      flex: 3,
-                    ),
-                    DefaultButton(
-                      text: "Continue",
-                      press: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    HomeScreen()));
-                      },
-                    ),
-                    Spacer(),
-                  ],
-                ),
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            flex: 3,
+            child: PageView.builder(
+              itemCount: splashData.length,
+              onPageChanged: (value) {
+                setState(() {
+                  currentPage = value;
+                });
+              },
+              itemBuilder: (context, index) => OnboardingContent(
+                text: splashData[index]['text'],
+                image: splashData[index]['image'],
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      splashData.length,
+                      (index) => buildDots(index: index),
+                    ),
+                  ),
+                  Spacer(
+                    flex: 2,
+                  ),
+                  DefaultButton(
+                    text: "Continue",
+                    press: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => HomeScreen()));
+                    },
+                  ),
+                  Spacer(),
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
