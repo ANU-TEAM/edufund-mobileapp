@@ -8,6 +8,7 @@ import 'package:mobileapp/services/application_services.dart';
 class UserApplicationController extends GetxController {
   var isLoading = true.obs;
   var errorOccurred = false.obs;
+  var noApplications = false.obs;
   var errorMessage = 'no internet connection'.obs;
   var applicationList = List<Application>().obs;
 
@@ -26,6 +27,7 @@ class UserApplicationController extends GetxController {
         applicationList.assignAll(applications);
       } else {
         errorOccurred(true);
+        noApplications(true);
         errorMessage('No applications found');
       }
     } on SocketException {
