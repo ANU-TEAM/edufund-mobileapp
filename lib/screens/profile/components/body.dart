@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobileapp/screens/profile/components/profile_menu.dart';
 import 'package:mobileapp/screens/user_applications/user_application.dart';
+import 'package:mobileapp/utils/contants.dart';
 import 'package:mobileapp/utils/user_preferences.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -12,12 +13,28 @@ class ProfileBody extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 10,
+          height: MediaQuery.of(context).size.height * 0.1,
         ),
-        ProfileMenu(
-          press: () {},
-          text: "My Account",
-          icon: Icons.person_outline,
+        Icon(
+          Icons.person,
+          size: 96,
+          color: kPrimaryColor,
+        ),
+        Text(
+          userPreferences.user.value.user.name.capitalize,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 28,
+          ),
+        ),
+        Text(
+          userPreferences.user.value.user.email,
+          style: TextStyle(
+            fontSize: 16,
+          ),
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.1,
         ),
         ProfileMenu(
           press: () {
@@ -25,11 +42,6 @@ class ProfileBody extends StatelessWidget {
           },
           text: "My Applications",
           icon: Icons.pending_actions_outlined,
-        ),
-        ProfileMenu(
-          press: () {},
-          text: "Settings",
-          icon: Icons.settings_outlined,
         ),
         ProfileMenu(
           press: () {
