@@ -109,7 +109,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
               height: 20,
             ),
             DefaultButton(
-              text: "Submit",
+              text: "Save",
               press: submitApplication,
             ),
             SizedBox(
@@ -314,7 +314,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
         }
         return null;
       },
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.multiline,
       maxLines: 5,
       decoration: InputDecoration(
         labelText: "Description",
