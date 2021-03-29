@@ -141,7 +141,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
         }
         return null;
       },
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.multiline,
       decoration: InputDecoration(
         labelText: "Feedback",
         hintText: "Send Us Your Feedback...",

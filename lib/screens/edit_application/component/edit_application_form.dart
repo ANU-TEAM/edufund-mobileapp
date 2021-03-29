@@ -314,7 +314,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
         }
         return null;
       },
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.multiline,
       maxLines: 5,
       decoration: InputDecoration(
         labelText: "Description",

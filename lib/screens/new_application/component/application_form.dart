@@ -292,7 +292,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
         }
         return null;
       },
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.multiline,
       maxLines: 5,
       decoration: InputDecoration(
         labelText: "Description",
