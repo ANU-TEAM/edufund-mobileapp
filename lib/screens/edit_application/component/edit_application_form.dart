@@ -58,7 +58,6 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
           toolbarColor: kPrimaryColor,
           toolbarWidgetColor: Colors.white,
           activeControlsWidgetColor: kPrimaryColor,
-          initAspectRatio: CropAspectRatioPreset.ratio16x9,
         ),
       );
     }
