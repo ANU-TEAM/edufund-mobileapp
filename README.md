@@ -1,5 +1,5 @@
 # Mobileapp
-The moible app for Edufund created using flutter
+The moible app for [Edufund](http://sosuapp.tech/) created using flutter
 
 # Environment Setup
 Edufund uses the Flutter SDK version [1.22.6](https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_1.22.6-stable.tar.xz)
@@ -17,7 +17,7 @@ Kindly follow this instuctions to get flutter up and running on your system: htt
 4. Type ```flutter run``` in the terminal to get your project running. 
 
 
-Click [here](https://www.figma.com/file/D6D6fFgf89QcsMp343eKZl/Charity-App?node-id=0%3A1) to take a look at the figma design page.
+Click [here](http://sosuapp.tech/) to test the latest production build without having to clone the project
 
 Check out the official flutter documentation when you get stuck:
 [online documentation](https://flutter.dev/docs)
