@@ -1,5 +1,5 @@
 # Mobileapp
-The moible app for [Edufund](http://sosuapp.tech/) created using flutter
+The moible app for [Edufund](http://sosuapp.tech/) created using Flutter
 
 # Environment Setup
 Edufund uses the Flutter SDK version [1.22.6](https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_1.22.6-stable.tar.xz)
