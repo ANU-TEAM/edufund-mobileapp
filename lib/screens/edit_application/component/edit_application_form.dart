@@ -54,12 +54,10 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
     if (pickedFile != null) {
       _croppedImage = await ImageCropper.cropImage(
         sourcePath: pickedFile.path,
-        aspectRatio: CropAspectRatio(ratioX: 16, ratioY: 9),
         androidUiSettings: AndroidUiSettings(
           toolbarColor: kPrimaryColor,
           toolbarWidgetColor: Colors.white,
           activeControlsWidgetColor: kPrimaryColor,
-          initAspectRatio: CropAspectRatioPreset.ratio16x9,
         ),
       );
     }
@@ -109,7 +107,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
               height: 20,
             ),
             DefaultButton(
-              text: "Submit",
+              text: "Save",
               press: submitApplication,
             ),
             SizedBox(
@@ -314,7 +312,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
         }
         return null;
       },
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.multiline,
       maxLines: 5,
       decoration: InputDecoration(
         labelText: "Description",

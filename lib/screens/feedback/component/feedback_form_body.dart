@@ -17,7 +17,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
   final FeedbackController feedbackController = Get.put(FeedbackController());
   final feedbackKey = GlobalKey<FormState>();
 
-  double rating = 4;
+  double rating = 5;
   String comment;
 
   final List<String> errors = [];
@@ -118,7 +118,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
 
   RatingBar buildRatingBar() {
     return RatingBar.builder(
-      initialRating: 4,
+      initialRating: 5,
       minRating: 1,
       direction: Axis.horizontal,
       allowHalfRating: true,
@@ -141,7 +141,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
         }
         return null;
       },
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.multiline,
       decoration: InputDecoration(
         labelText: "Feedback",
         hintText: "Send Us Your Feedback...",

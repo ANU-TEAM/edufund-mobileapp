@@ -40,11 +40,10 @@ class InfoScreen extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    "EDUFUND is a 2021 Google Solution Challenge Platform "
-                    "which provides the avenue for those whose ambition has "
-                    "been halted becuase of financial reasons to realise their dream. "
-                    "The platform solicit for financial support from donors and "
-                    "allot them to deserving individuals.",
+                    "EduFund is a 2021 Google Solution Challenge Project that "
+                    "provides the avenue for students having difficulty with "
+                    "schooling due to financial problems. The platform helps "
+                    "students to solicit for financial support from the public.",
                     textAlign: TextAlign.justify,
                     style: TextStyle(
                       fontSize: 16,

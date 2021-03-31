@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/instance_manager.dart';
 import 'package:mobileapp/controllers/user_applications_controller.dart';
+import 'package:mobileapp/screens/new_application/new_application.dart';
 import 'package:mobileapp/screens/user_applications/components/user_application_card.dart';
 import 'package:mobileapp/utils/contants.dart';
 
@@ -46,20 +47,38 @@ class UserApplicationList extends StatelessWidget {
                 SizedBox(
                   height: 30,
                 ),
-                FlatButton(
-                  onPressed: userApplicationController.fetchUserApplications,
-                  color: kPrimaryColor,
-                  height: 50.0,
-                  minWidth: MediaQuery.of(context).size.width * 0.4,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25.0),
-                  ),
-                  child: Text(
-                    "Retry",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                )
+                userApplicationController.noApplications.value
+                    ? FlatButton(
+                        onPressed: () {
+                          Get.to(() => NewApplicationScreen());
+                        },
+                        color: kPrimaryColor,
+                        height: 50.0,
+                        minWidth: MediaQuery.of(context).size.width * 0.4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        child: Text(
+                          "Create",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      )
+                    : FlatButton(
+                        onPressed:
+                            userApplicationController.fetchUserApplications,
+                        color: kPrimaryColor,
+                        height: 50.0,
+                        minWidth: MediaQuery.of(context).size.width * 0.4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                        ),
+                        child: Text(
+                          "Retry",
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ),
               ],
             ),
           );
