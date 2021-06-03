@@ -9,9 +9,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 
 class ApplicationDetailScreen extends StatelessWidget {
-  final Application application;
+  final Application? application;
 
-  const ApplicationDetailScreen({Key key, this.application}) : super(key: key);
+  const ApplicationDetailScreen({Key? key, this.application}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class ApplicationDetailScreen extends StatelessWidget {
             child: Column(
               children: [
                 Image.network(
-                  application.imageUrl,
+                  application!.imageUrl!,
                   fit: BoxFit.cover,
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.25,
@@ -77,7 +77,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                                       ),
                                     ),
                                     Text(
-                                      application.user.name,
+                                      application!.user!.name!,
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontSize: 13,
@@ -94,7 +94,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                             textColor: Colors.white,
                             onPressed: () {
                               Clipboard.setData(new ClipboardData(
-                                  text: application.user.name));
+                                  text: application!.user!.name));
                             },
                             icon: Icon(
                               Icons.copy,
@@ -107,7 +107,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 15),
                         child: Text(
-                          application.title,
+                          application!.title!,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -118,7 +118,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 12),
                         child: Text(
-                          application.description,
+                          application!.description!,
                           maxLines: 5,
                           textAlign: TextAlign.justify,
                           style: TextStyle(
@@ -132,7 +132,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                           onTap: () {
                             Get.to(
                               () => ApplicationDescriptionScreen(
-                                  description: application.description),
+                                  description: application!.description),
                             );
                           },
                           child: Text(
@@ -150,7 +150,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(bottom: 6),
                             child: Text(
-                              (application.progress * 100).toInt().toString() +
+                              (application!.progress! * 100).toInt().toString() +
                                   '%',
                               style: TextStyle(
                                 color: Colors.blue,
@@ -161,7 +161,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(bottom: 6),
                             child: Text(
-                              'GHS ' + application.targetAmount.toString(),
+                              'GHS ' + application!.targetAmount.toString(),
                               style: TextStyle(
                                 color: Colors.blue,
                                 fontSize: 15,
@@ -174,7 +174,7 @@ class ApplicationDetailScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 6),
                         child: LinearProgressIndicatorComponent(
                           lineHeight: 4.0,
-                          percent: application.progress,
+                          percent: application!.progress,
                         ),
                       )
                     ],

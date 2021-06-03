@@ -14,9 +14,9 @@ class UserApplicationDetailScreen extends StatelessWidget {
   final UserApplicationController userApplicationController =
       Get.put(UserApplicationController());
 
-  final Application application;
+  final Application? application;
 
-  UserApplicationDetailScreen({Key key, this.application}) : super(key: key);
+  UserApplicationDetailScreen({Key? key, this.application}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class UserApplicationDetailScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(25)),
                   color: kDangerColor,
                   onPressed: () {
-                    deleteApplication(application.id);
+                    deleteApplication(application!.id);
                   },
                   child: Text(
                     "DELETE",
@@ -82,7 +82,7 @@ class UserApplicationDetailScreen extends StatelessWidget {
             child: Column(
               children: [
                 Image.network(
-                  application.imageUrl,
+                  application!.imageUrl!,
                   fit: BoxFit.cover,
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.25,
@@ -117,7 +117,7 @@ class UserApplicationDetailScreen extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  application.user.name,
+                                  application!.user!.name!,
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 12,
@@ -132,7 +132,7 @@ class UserApplicationDetailScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 15),
                         child: Text(
-                          application.title,
+                          application!.title!,
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -143,7 +143,7 @@ class UserApplicationDetailScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 12),
                         child: Text(
-                          application.description,
+                          application!.description!,
                           maxLines: 5,
                           textAlign: TextAlign.justify,
                           style: TextStyle(
@@ -156,7 +156,7 @@ class UserApplicationDetailScreen extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             Get.to(() => ApplicationDescriptionScreen(
-                                description: application.description));
+                                description: application!.description));
                           },
                           child: Text(
                             "Read More",
@@ -173,7 +173,7 @@ class UserApplicationDetailScreen extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(bottom: 6),
                             child: Text(
-                              (application.progress * 100).toInt().toString() +
+                              (application!.progress! * 100).toInt().toString() +
                                   '%',
                               style: TextStyle(
                                 color: Colors.blue,
@@ -184,7 +184,7 @@ class UserApplicationDetailScreen extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(bottom: 6),
                             child: Text(
-                              'GHS ' + application.targetAmount.toString(),
+                              'GHS ' + application!.targetAmount.toString(),
                               style: TextStyle(
                                 color: Colors.blue,
                                 fontSize: 15,
@@ -197,7 +197,7 @@ class UserApplicationDetailScreen extends StatelessWidget {
                         padding: EdgeInsets.symmetric(vertical: 6),
                         child: LinearProgressIndicatorComponent(
                           lineHeight: 4.0,
-                          percent: application.progress,
+                          percent: application!.progress,
                         ),
                       )
                     ],
@@ -211,13 +211,13 @@ class UserApplicationDetailScreen extends StatelessWidget {
     );
   }
 
-  void deleteApplication(int id) {
+  void deleteApplication(int? id) {
     newApplicationController.deleteApplicationData(id).whenComplete(() => {
           if (newApplicationController.errorOccurred.value)
             {
               Get.snackbar(
                 'Error',
-                '${newApplicationController.errorMessage.value}'.capitalize,
+                '${newApplicationController.errorMessage.value}'.capitalize!,
                 backgroundColor: kDangerColor,
                 colorText: Colors.white,
                 snackPosition: SnackPosition.BOTTOM,
@@ -229,7 +229,7 @@ class UserApplicationDetailScreen extends StatelessWidget {
               Get.back(),
               Get.snackbar(
                 'Success',
-                'Application has been deleted successfully'.capitalize,
+                'Application has been deleted successfully'.capitalize!,
                 backgroundColor: kPrimaryColor,
                 colorText: Colors.white,
                 snackPosition: SnackPosition.BOTTOM,

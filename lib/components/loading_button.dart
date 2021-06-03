@@ -4,10 +4,10 @@ import 'package:mobileapp/utils/contants.dart';
 
 class LoadingButton extends StatelessWidget {
   const LoadingButton({
-    Key key,
+    Key? key,
     this.text,
   }) : super(key: key);
-  final String text;
+  final String? text;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class LoadingButton extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            text,
+            text!,
             style: TextStyle(
               fontSize: 18,
               color: Colors.white,

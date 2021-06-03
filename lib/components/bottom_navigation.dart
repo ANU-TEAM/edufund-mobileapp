@@ -9,8 +9,8 @@ import '../utils/enum.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({
-    Key key,
-    @required this.selectedMenu,
+    Key? key,
+    required this.selectedMenu,
   }) : super(key: key);
 
   final MenuState selectedMenu;

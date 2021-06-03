@@ -86,7 +86,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
     );
   }
 
-  AnimatedContainer buildDots({int index}) {
+  AnimatedContainer buildDots({int? index}) {
     return AnimatedContainer(
       duration: kAnimationDuration,
       margin: EdgeInsets.only(right: 5),

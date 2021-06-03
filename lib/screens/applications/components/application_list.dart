@@ -35,7 +35,7 @@ class ApplicationList extends StatelessWidget {
                   height: 30,
                 ),
                 Text(
-                  applicationController.errorMessage.value.capitalize,
+                  applicationController.errorMessage.value.capitalize!,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,

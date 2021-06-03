@@ -10,7 +10,7 @@ import 'package:mobileapp/utils/user_preferences.dart';
 class ApplicationServices extends GetConnect {
   static var client = http.Client();
 
-  static Future<List<Application>> fetchApplications() async {
+  static Future<List<Application>?> fetchApplications() async {
     var response = await client.get(Uri.parse(AppUrl.applications));
 
     if (response.statusCode == 200) {
@@ -22,10 +22,10 @@ class ApplicationServices extends GetConnect {
     }
   }
 
-  static Future<List<Application>> fetchUserApplications() async {
+  static Future<List<Application>?> fetchUserApplications() async {
     final UserPreferences userPreferences = Get.put(UserPreferences());
     userPreferences.getUser();
-    var userToken = userPreferences.user.value.token;
+    var userToken = userPreferences.user.value.token!;
 
     var response = await client.get(
       Uri.parse(AppUrl.userApplications),
@@ -44,10 +44,10 @@ class ApplicationServices extends GetConnect {
     }
   }
 
-  Future<Application> newApplication(NewApplication newApplicationData) async {
+  Future<Application?> newApplication(NewApplication newApplicationData) async {
     final UserPreferences userPreferences = Get.put(UserPreferences());
     userPreferences.getUser();
-    var userToken = userPreferences.user.value.token;
+    var userToken = userPreferences.user.value.token!;
 
     final form = FormData({
       'title': newApplicationData.title,
@@ -75,11 +75,11 @@ class ApplicationServices extends GetConnect {
     }
   }
 
-  Future<Application> editApplication(
+  Future<Application?> editApplication(
       EditApplication editApplicationData) async {
     final UserPreferences userPreferences = Get.put(UserPreferences());
     userPreferences.getUser();
-    var userToken = userPreferences.user.value.token;
+    var userToken = userPreferences.user.value.token!;
 
     final form = FormData({
       'title': editApplicationData.title,
@@ -107,10 +107,10 @@ class ApplicationServices extends GetConnect {
     }
   }
 
-  static Future<bool> deleteApplication(int applicationId) async {
+  static Future<bool> deleteApplication(int? applicationId) async {
     final UserPreferences userPreferences = Get.put(UserPreferences());
     userPreferences.getUser();
-    var userToken = userPreferences.user.value.token;
+    var userToken = userPreferences.user.value.token!;
 
     var response = await client.delete(
       Uri.parse(AppUrl.applications + "/$applicationId"),

@@ -20,16 +20,16 @@ class Application {
     this.user,
   });
 
-  int id;
-  String title;
-  String description;
-  String imageUrl;
-  int targetAmount;
-  int amountGained;
-  double progress;
-  int approved;
-  Category category;
-  User user;
+  int? id;
+  String? title;
+  String? description;
+  String? imageUrl;
+  int? targetAmount;
+  int? amountGained;
+  double? progress;
+  int? approved;
+  Category? category;
+  User? user;
 
   factory Application.fromJson(Map<String, dynamic> json) => Application(
         id: json["id"],
@@ -53,8 +53,8 @@ class Application {
         "amount_gained": amountGained,
         "progress": progress,
         "approved": approved,
-        "category": category.toJson(),
-        "user": user.toJson(),
+        "category": category!.toJson(),
+        "user": user!.toJson(),
       };
 }
 
@@ -64,8 +64,8 @@ class Category {
     this.name,
   });
 
-  String name;
-  int id;
+  String? name;
+  int? id;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"],
@@ -84,8 +84,8 @@ class User {
     this.email,
   });
 
-  String name;
-  String email;
+  String? name;
+  String? email;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         name: json["name"],

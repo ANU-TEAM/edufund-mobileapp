@@ -14,7 +14,7 @@ class ForgotPwdForm extends StatefulWidget {
 class _ForgotPwdFormState extends State<ForgotPwdForm> {
   final UserController userController = Get.put(UserController());
   final _resetPasswordFormKey = GlobalKey<FormState>();
-  String email;
+  String? email;
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +39,8 @@ class _ForgotPwdFormState extends State<ForgotPwdForm> {
   }
 
   void sendResetLink() {
-    if (_resetPasswordFormKey.currentState.validate()) {
-      _resetPasswordFormKey.currentState.save();
+    if (_resetPasswordFormKey.currentState!.validate()) {
+      _resetPasswordFormKey.currentState!.save();
       userController.sendResetData({
         'email': '$email',
       }).whenComplete(() => {
@@ -48,7 +48,7 @@ class _ForgotPwdFormState extends State<ForgotPwdForm> {
               {
                 Get.snackbar(
                   'Error',
-                  '${userController.errorMessage.value}'.capitalize,
+                  '${userController.errorMessage.value}'.capitalize!,
                   backgroundColor: kDangerColor,
                   colorText: Colors.white,
                   snackPosition: SnackPosition.BOTTOM,
@@ -59,7 +59,7 @@ class _ForgotPwdFormState extends State<ForgotPwdForm> {
                 Get.offAll(HomeScreen()),
                 Get.snackbar(
                   "Success",
-                  'Reset link has been sent to your email'.capitalize,
+                  'Reset link has been sent to your email'.capitalize!,
                   backgroundColor: kPrimaryColor,
                   colorText: Colors.white,
                   snackPosition: SnackPosition.BOTTOM,
@@ -86,7 +86,7 @@ class _ForgotPwdFormState extends State<ForgotPwdForm> {
     return TextFormField(
       onSaved: (newValue) => email = newValue,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kEmailNullError;
         } else if (!emailValidatorRegExp.hasMatch(value)) {
           return kInvalidEmailError;

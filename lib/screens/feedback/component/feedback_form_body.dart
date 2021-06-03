@@ -7,7 +7,7 @@ import 'package:mobileapp/controllers/feedback_controller.dart';
 import 'package:mobileapp/utils/contants.dart';
 
 class FeedbackFormBody extends StatefulWidget {
-  FeedbackFormBody({Key key}) : super(key: key);
+  FeedbackFormBody({Key? key}) : super(key: key);
 
   @override
   _FeedbackFormBodyState createState() => _FeedbackFormBodyState();
@@ -18,7 +18,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
   final feedbackKey = GlobalKey<FormState>();
 
   double rating = 5;
-  String comment;
+  String? comment;
 
   final List<String> errors = [];
 
@@ -43,7 +43,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
               ),
               Text(
                 "We would Appreciate Your Feedback To Improve the App."
-                    .capitalize,
+                    .capitalize!,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black,
@@ -86,8 +86,8 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
   }
 
   void sendFeedback() {
-    if (feedbackKey.currentState.validate()) {
-      feedbackKey.currentState.save();
+    if (feedbackKey.currentState!.validate()) {
+      feedbackKey.currentState!.save();
       feedbackController.sendFeedbackData({
         'rating': '$rating',
         'comment': '$comment',
@@ -96,7 +96,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
               {
                 Get.snackbar(
                   'Error',
-                  '${feedbackController.errorMessage.value}'.capitalize,
+                  '${feedbackController.errorMessage.value}'.capitalize!,
                   backgroundColor: kDangerColor,
                   colorText: Colors.white,
                   snackPosition: SnackPosition.BOTTOM,
@@ -106,7 +106,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
               {
                 Get.snackbar(
                   "Thank You",
-                  'Your feedback has been sent.'.capitalize,
+                  'Your feedback has been sent.'.capitalize!,
                   backgroundColor: kPrimaryColor,
                   colorText: Colors.white,
                   snackPosition: SnackPosition.BOTTOM,
@@ -136,7 +136,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
     return TextFormField(
       onSaved: (newValue) => comment = newValue,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kMsgNullError;
         }
         return null;

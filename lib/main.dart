@@ -5,7 +5,7 @@ import 'package:mobileapp/screens/onboarding/onboarding_screen.dart';
 import 'package:mobileapp/utils/themeconfigurations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-int initScreen;
+int? initScreen;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -14,9 +14,9 @@ class SignUpForm extends StatefulWidget {
 class _SignUpFormState extends State<SignUpForm> {
   final UserController userController = Get.put(UserController());
   final _registerFormKey = GlobalKey<FormState>();
-  String name;
-  String email;
-  String password;
+  String? name;
+  String? email;
+  String? password;
   String deviceId = "Mobile";
 
   @override
@@ -42,8 +42,8 @@ class _SignUpFormState extends State<SignUpForm> {
   }
 
   void registerUser() {
-    if (_registerFormKey.currentState.validate()) {
-      _registerFormKey.currentState.save();
+    if (_registerFormKey.currentState!.validate()) {
+      _registerFormKey.currentState!.save();
       userController.sendRegistrationData({
         'name': '$name',
         'email': '$email',
@@ -54,7 +54,7 @@ class _SignUpFormState extends State<SignUpForm> {
               {
                 Get.snackbar(
                   'Error',
-                  '${userController.errorMessage.value}'.capitalize,
+                  '${userController.errorMessage.value}'.capitalize!,
                   backgroundColor: kDangerColor,
                   colorText: Colors.white,
                   snackPosition: SnackPosition.BOTTOM,
@@ -65,7 +65,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 Get.offAll(HomeScreen()),
                 Get.snackbar(
                   "Welcome to Edufund",
-                  'Your account was created successfully'.capitalize,
+                  'Your account was created successfully'.capitalize!,
                   backgroundColor: kPrimaryColor,
                   colorText: Colors.white,
                 ),
@@ -91,7 +91,7 @@ class _SignUpFormState extends State<SignUpForm> {
     return TextFormField(
       onSaved: (newValue) => name = newValue,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kNameNullError;
         } else if (!nameValidatorRegExp.hasMatch(value)) {
           return kInvalidNameError;
@@ -120,7 +120,7 @@ class _SignUpFormState extends State<SignUpForm> {
     return TextFormField(
       onSaved: (newValue) => email = newValue,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kEmailNullError;
         } else if (!emailValidatorRegExp.hasMatch(value)) {
           return kInvalidEmailError;
@@ -147,7 +147,7 @@ class _SignUpFormState extends State<SignUpForm> {
     return TextFormField(
       onSaved: (newValue) => password = newValue,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kPassNullError;
         } else if (value.length < 8) {
           return kShortPassError;

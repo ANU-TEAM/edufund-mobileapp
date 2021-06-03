@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class FormError extends StatelessWidget {
   const FormError({
-    Key key,
-    @required this.errors,
+    Key? key,
+    required this.errors,
   }) : super(key: key);
 
   final List<String> errors;
@@ -21,7 +21,7 @@ class FormError extends StatelessWidget {
     );
   }
 
-  Row formErrorText({String error}) {
+  Row formErrorText({required String error}) {
     return Row(
       children: [
         SvgPicture.asset(

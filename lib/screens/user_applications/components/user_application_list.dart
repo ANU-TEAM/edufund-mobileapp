@@ -36,7 +36,7 @@ class UserApplicationList extends StatelessWidget {
                   height: 30,
                 ),
                 Text(
-                  userApplicationController.errorMessage.value.capitalize,
+                  userApplicationController.errorMessage.value.capitalize!,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,

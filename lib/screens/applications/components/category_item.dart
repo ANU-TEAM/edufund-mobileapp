@@ -6,16 +6,16 @@ class CategoryItem extends StatelessWidget {
   final Color color;
 
   const CategoryItem({
-    Key key,
-    @required this.onTap,
-    @required this.text,
-    @required this.color,
+    Key? key,
+    required this.onTap,
+    required this.text,
+    required this.color,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap as void Function()?,
       child: Container(
         height: 28,
         decoration: BoxDecoration(

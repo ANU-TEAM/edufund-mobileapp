@@ -6,7 +6,7 @@ import 'package:mobileapp/utils/endpoints.dart';
 class AuthenticationServices {
   static var client = http.Client();
 
-  static Future<User> sendRegistationDetails(registerFormData) async {
+  static Future<User?> sendRegistationDetails(registerFormData) async {
     var response = await client.post(
       Uri.parse(AppUrl.register),
       headers: {
@@ -24,7 +24,7 @@ class AuthenticationServices {
     }
   }
 
-  static Future<User> sendLoginDetails(loginFormData) async {
+  static Future<User?> sendLoginDetails(loginFormData) async {
     var response = await client.post(
       Uri.parse(AppUrl.login),
       headers: {

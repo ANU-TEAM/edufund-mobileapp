@@ -27,7 +27,7 @@ class ProfilePic extends StatelessWidget {
                         padding: EdgeInsets.zero,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
-                          side: BorderSide(color: Colors.grey[200]),
+                          side: BorderSide(color: Colors.grey[200]!),
                         ),
                         onPressed: (){},
                         child: Icon(Icons.camera_alt,

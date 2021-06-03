@@ -4,7 +4,7 @@ import 'package:mobileapp/utils/contants.dart';
 
 class CategoriesSection extends StatelessWidget {
   const CategoriesSection({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

@@ -22,13 +22,13 @@ class _ApplicationFormState extends State<ApplicationForm> {
       Get.put(NewApplicationController());
   final _applicationFormKey = GlobalKey<FormState>();
 
-  String title;
-  String description;
-  double targetAmount;
-  int categoryId = 1;
+  String? title;
+  String? description;
+  double? targetAmount;
+  int? categoryId = 1;
 
-  File _chosenImage;
-  File _croppedImage;
+  File? _chosenImage;
+  File? _croppedImage;
   var isImageChosen = false;
   final picker = ImagePicker();
 
@@ -46,7 +46,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     }
     setState(() {
       if (_croppedImage != null) {
-        _chosenImage = File(_croppedImage.path);
+        _chosenImage = File(_croppedImage!.path);
         isImageChosen = true;
         Navigator.of(context).pop();
       } else {
@@ -55,7 +55,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     });
   }
 
-  setSelectedRadioTile(int val) {
+  setSelectedRadioTile(int? val) {
     setState(() {
       categoryId = val;
     });
@@ -103,8 +103,8 @@ class _ApplicationFormState extends State<ApplicationForm> {
   }
 
   void submitApplication() {
-    if (_applicationFormKey.currentState.validate()) {
-      _applicationFormKey.currentState.save();
+    if (_applicationFormKey.currentState!.validate()) {
+      _applicationFormKey.currentState!.save();
       if (_chosenImage == null) {
         showModalBottomSheet(
           context: context,
@@ -125,7 +125,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
                       Get.snackbar(
                         'Error',
                         '${newApplicationController.errorMessage.value}'
-                            .capitalize,
+                            .capitalize!,
                         backgroundColor: kDangerColor,
                         colorText: Colors.white,
                         snackPosition: SnackPosition.BOTTOM,
@@ -144,7 +144,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
                       Get.snackbar(
                         "Awesome",
                         'Application has been submitted successfully'
-                            .capitalize,
+                            .capitalize!,
                         backgroundColor: kPrimaryColor,
                         colorText: Colors.white,
                         snackPosition: SnackPosition.BOTTOM,
@@ -165,9 +165,9 @@ class _ApplicationFormState extends State<ApplicationForm> {
               alignment: Alignment.topCenter,
               width: double.infinity,
               height: 180,
-              image: isImageChosen == false
+              image: (isImageChosen == false
                   ? AssetImage("assets/images/placeholder.png")
-                  : FileImage(_chosenImage),
+                  : FileImage(_chosenImage!)) as ImageProvider<Object>,
             ),
           ),
           Positioned(
@@ -196,7 +196,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     );
   }
 
-  Widget applicationImageBottomSheet({String title}) {
+  Widget applicationImageBottomSheet({required String title}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -231,7 +231,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     return TextFormField(
       onSaved: (value) => title = value,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kTitleNullError;
         }
         return null;
@@ -251,10 +251,10 @@ class _ApplicationFormState extends State<ApplicationForm> {
   TextFormField buildTargetAmountFormField() {
     return TextFormField(
       onSaved: (value) {
-        targetAmount = double.parse(value);
+        targetAmount = double.parse(value!);
       },
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kTargetAmountNullError;
         }
         return null;
@@ -285,7 +285,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     return TextFormField(
       onSaved: (value) => description = value,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kDescriptionNullError;
         }
         return null;
@@ -312,7 +312,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
           groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
-          onChanged: (val) {
+          onChanged: (dynamic val) {
             setSelectedRadioTile(val);
           },
         ),
@@ -323,7 +323,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
           groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
-          onChanged: (val) {
+          onChanged: (dynamic val) {
             setSelectedRadioTile(val);
           },
         ),
@@ -334,7 +334,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
           groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
-          onChanged: (val) {
+          onChanged: (dynamic val) {
             setSelectedRadioTile(val);
           },
         ),

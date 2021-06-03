@@ -12,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
-  List<Widget> _children;
+  late List<Widget> _children;
 
   @override
   void initState() {

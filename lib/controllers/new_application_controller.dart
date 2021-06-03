@@ -65,7 +65,7 @@ class NewApplicationController extends GetxController {
     }
   }
 
-  Future<void> deleteApplicationData(int applicationId) async {
+  Future<void> deleteApplicationData(int? applicationId) async {
     try {
       isLoading(true);
       errorOccurred(false);

@@ -6,7 +6,7 @@ import 'package:mobileapp/screens/auth/login/login.dart';
 
 class NotLoggedInWidget extends StatelessWidget {
   const NotLoggedInWidget({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
