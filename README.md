@@ -2,7 +2,7 @@
 The moible app for [Edufund](http://sosuapp.tech/) created using Flutter
 
 # Environment Setup
-Edufund uses the Flutter SDK version [1.22.6](https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_1.22.6-stable.tar.xz)
+Edufund now uses Flutter SDK version [2.2.1](https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_2.2.1-stable.tar.xz) and has been updated to support null safety
 
 Kindly follow this instuctions to get flutter up and running on your system: https://flutter.dev/docs/get-started/install
 
