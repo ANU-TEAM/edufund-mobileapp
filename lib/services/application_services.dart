@@ -11,7 +11,7 @@ class ApplicationServices extends GetConnect {
   static var client = http.Client();
 
   static Future<List<Application>> fetchApplications() async {
-    var response = await client.get(AppUrl.applications);
+    var response = await client.get(Uri.parse(AppUrl.applications));
 
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
@@ -28,7 +28,7 @@ class ApplicationServices extends GetConnect {
     var userToken = userPreferences.user.value.token;
 
     var response = await client.get(
-      AppUrl.userApplications,
+      Uri.parse(AppUrl.userApplications),
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + userToken,
@@ -113,7 +113,7 @@ class ApplicationServices extends GetConnect {
     var userToken = userPreferences.user.value.token;
 
     var response = await client.delete(
-      AppUrl.applications + "/$applicationId",
+      Uri.parse(AppUrl.applications + "/$applicationId"),
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + userToken,

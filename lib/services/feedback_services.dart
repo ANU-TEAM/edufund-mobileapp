@@ -6,7 +6,7 @@ class FeedbackServices {
 
   static Future sendFeedbackDetails(feedbackData) async {
     var response = await client.post(
-      AppUrl.feedbacks,
+      Uri.parse(AppUrl.feedbacks),
       headers: {
         'Accept': 'application/json',
       },

@@ -8,7 +8,7 @@ Future<File> urlToFile(String imageUrl) async {
   Directory tempDir = await getTemporaryDirectory();
   String tempPath = tempDir.path;
   File file = new File('$tempPath' + (rng.nextInt(100)).toString() + '.jpg');
-  http.Response response = await http.get(imageUrl);
+  http.Response response = await http.get(Uri.parse(imageUrl));
   await file.writeAsBytes(response.bodyBytes);
   return file;
 }

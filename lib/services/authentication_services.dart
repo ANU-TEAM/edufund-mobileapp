@@ -8,7 +8,7 @@ class AuthenticationServices {
 
   static Future<User> sendRegistationDetails(registerFormData) async {
     var response = await client.post(
-      AppUrl.register,
+      Uri.parse(AppUrl.register),
       headers: {
         'Accept': 'application/json',
       },
@@ -26,7 +26,7 @@ class AuthenticationServices {
 
   static Future<User> sendLoginDetails(loginFormData) async {
     var response = await client.post(
-      AppUrl.login,
+      Uri.parse(AppUrl.login),
       headers: {
         'Accept': 'application/json',
       },
@@ -44,7 +44,7 @@ class AuthenticationServices {
 
   static Future sendResetDetails(email) async {
     var response = await client.post(
-      AppUrl.forgotPassword,
+      Uri.parse(AppUrl.forgotPassword),
       headers: {
         'Accept': 'application/json',
       },
