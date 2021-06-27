@@ -8,7 +8,7 @@ import 'package:mobileapp/models/newApplication.dart';
 import 'package:mobileapp/services/application_services.dart';
 
 class NewApplicationController extends GetxController {
-  var isLoading = true.obs;
+  var isLoading = false.obs;
   var errorOccurred = false.obs;
   var errorMessage = 'no internet connection'.obs;
   var newApplication = Application().obs;
