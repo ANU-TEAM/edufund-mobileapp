@@ -6,6 +6,7 @@ class NewApplication {
   File? imageUrl;
   double? targetAmount;
   int? category;
+  int? school;
 
   NewApplication({
     this.title,
@@ -13,5 +14,6 @@ class NewApplication {
     this.imageUrl,
     this.targetAmount,
     this.category,
+    this.school,
   });
 }

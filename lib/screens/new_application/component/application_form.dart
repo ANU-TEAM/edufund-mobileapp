@@ -6,7 +6,9 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/components/loading_button.dart';
 import 'package:mobileapp/controllers/new_application_controller.dart';
+import 'package:mobileapp/controllers/school_controller.dart';
 import 'package:mobileapp/models/newApplication.dart';
+import 'package:mobileapp/models/school.dart';
 import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/screens/user_applications/components/user_application_detail.dart';
 import 'package:mobileapp/screens/user_applications/user_application.dart';
@@ -21,11 +23,13 @@ class ApplicationForm extends StatefulWidget {
 class _ApplicationFormState extends State<ApplicationForm> {
   final NewApplicationController newApplicationController =
       Get.put(NewApplicationController());
+  final SchoolController schoolController = Get.put(SchoolController());
   final _applicationFormKey = GlobalKey<FormState>();
 
   String? title;
   String? description;
   double? targetAmount;
+  String schoolId = '0';
   int? categoryId = 1;
 
   File? _chosenImage;
@@ -86,6 +90,10 @@ class _ApplicationFormState extends State<ApplicationForm> {
             SizedBox(
               height: 20,
             ),
+            buildSelectSchoolInput(context),
+            SizedBox(
+              height: 20,
+            ),
             buildCategoryRadioButtons(),
             SizedBox(
               height: 20,
@@ -126,12 +134,16 @@ class _ApplicationFormState extends State<ApplicationForm> {
         );
       } else {
         newApplicationController
-            .sendNewApplicationData(NewApplication(
+            .sendNewApplicationData(
+              NewApplication(
                 title: title,
                 description: description,
                 imageUrl: _chosenImage,
                 targetAmount: targetAmount,
-                category: categoryId))
+                school: int.parse(schoolId),
+                category: categoryId,
+              ),
+            )
             .whenComplete(() => {
                   if (newApplicationController.errorOccurred.value)
                     {
@@ -312,6 +324,49 @@ class _ApplicationFormState extends State<ApplicationForm> {
           color: Colors.black26,
         ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
+    );
+  }
+
+  Widget buildSelectSchoolInput(BuildContext context) {
+    List<School> schoolList = schoolController.schoolsList;
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 20.0),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: DropdownButton<String>(
+        hint: Text('Select School'),
+        value: schoolId,
+        icon: Icon(
+          Icons.arrow_downward,
+          color: Colors.green[700],
+        ),
+        style: TextStyle(
+          fontSize: 12,
+          color: Colors.black,
+        ),
+        iconSize: 24,
+        elevation: 16,
+        isExpanded: true,
+        underline: Container(
+          height: 2,
+          color: Colors.green,
+        ),
+        onChanged: (String? newValue) {
+          setState(() {
+            schoolId = newValue!;
+          });
+        },
+        items: schoolList.map(
+          (school) {
+            return DropdownMenuItem<String>(
+              value: '${school.id}',
+              child: Text(
+                '${school.name}',
+              ),
+            );
+          },
+        ).toList(),
       ),
     );
   }

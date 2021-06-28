@@ -55,7 +55,8 @@ class ApplicationServices extends GetConnect {
       'image_url':
           MultipartFile(newApplicationData.imageUrl, filename: 'new.jpg'),
       'target_amount': newApplicationData.targetAmount,
-      'category_id': newApplicationData.category
+      'category_id': newApplicationData.category,
+      'school_id': newApplicationData.school,
     });
 
     var response = await post(
