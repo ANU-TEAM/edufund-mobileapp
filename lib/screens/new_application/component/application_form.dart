@@ -42,6 +42,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     if (pickedFile != null) {
       _croppedImage = await ImageCropper.cropImage(
         sourcePath: pickedFile.path,
+        aspectRatio: CropAspectRatio(ratioX: 16, ratioY: 9),
         androidUiSettings: AndroidUiSettings(
           toolbarColor: kPrimaryColor,
           toolbarWidgetColor: Colors.white,
