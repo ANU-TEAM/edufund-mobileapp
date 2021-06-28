@@ -4,6 +4,7 @@ import 'package:mobileapp/components/application_description.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/components/linearprogressindicator.dart';
 import 'package:mobileapp/models/application.dart';
+import 'package:mobileapp/screens/applications/components/payment.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
@@ -26,8 +27,8 @@ class ApplicationDetailScreen extends StatelessWidget {
           child: DefaultButton(
             text: "Fund this student".toUpperCase(),
             press: () {
-              // Get.to(PaymentPage());
-              launch('https://paystack.com/pay/edufund');
+              Get.to(PaymentPage());
+              // launch('https://paystack.com/pay/edufund');
             },
           ),
         ),
@@ -150,7 +151,9 @@ class ApplicationDetailScreen extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(bottom: 6),
                             child: Text(
-                              (application!.progress! * 100).toInt().toString() +
+                              (application!.progress! * 100)
+                                      .toInt()
+                                      .toString() +
                                   '%',
                               style: TextStyle(
                                 color: Colors.blue,
