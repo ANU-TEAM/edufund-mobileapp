@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
+import 'package:mobileapp/components/loading_button.dart';
 import 'package:mobileapp/controllers/new_application_controller.dart';
 import 'package:mobileapp/controllers/user_applications_controller.dart';
 import 'package:mobileapp/models/application.dart';
@@ -106,9 +107,8 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
             SizedBox(
               height: 20,
             ),
-            DefaultButton(
-              text: "Save",
-              press: submitApplication,
+            Obx(
+              () => buildSubmitButton(),
             ),
             SizedBox(
               height: 50,
@@ -117,6 +117,19 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
         ),
       ),
     );
+  }
+
+  Widget buildSubmitButton() {
+    if (newApplicationController.isLoading.value) {
+      return LoadingButton(
+        text: "Loading",
+      );
+    } else {
+      return DefaultButton(
+        text: "Save",
+        press: submitApplication,
+      );
+    }
   }
 
   void submitApplication() async {
