@@ -27,9 +27,25 @@ class UserApplicationCard extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       );
-    } else {
+    } else if (status == 2) {
       return Text(
         "Rejected",
+        style: TextStyle(
+          color: Colors.red,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    } else if (status == 3) {
+      return Text(
+        "Sponsored",
+        style: TextStyle(
+          color: Colors.green,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    } else {
+      return Text(
+        "",
         style: TextStyle(
           color: Colors.red,
           fontWeight: FontWeight.bold,
