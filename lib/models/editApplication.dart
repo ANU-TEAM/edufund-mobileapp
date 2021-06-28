@@ -6,6 +6,7 @@ class EditApplication {
   String? description;
   File? imageUrl;
   double? targetAmount;
+  int? school;
   int? category;
 
   EditApplication({
@@ -14,6 +15,7 @@ class EditApplication {
     this.description,
     this.imageUrl,
     this.targetAmount,
+    this.school,
     this.category,
   });
 }

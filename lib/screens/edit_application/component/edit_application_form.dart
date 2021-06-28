@@ -6,9 +6,11 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/components/loading_button.dart';
 import 'package:mobileapp/controllers/new_application_controller.dart';
+import 'package:mobileapp/controllers/school_controller.dart';
 import 'package:mobileapp/controllers/user_applications_controller.dart';
 import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/models/editApplication.dart';
+import 'package:mobileapp/models/school.dart';
 import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/screens/user_applications/components/user_application_detail.dart';
 import 'package:mobileapp/screens/user_applications/user_application.dart';
@@ -30,6 +32,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
       Get.put(NewApplicationController());
   final UserApplicationController userApplicationController =
       Get.put(UserApplicationController());
+  final SchoolController schoolController = Get.put(SchoolController());
   final Application? application;
   final _applicationFormKey = GlobalKey<FormState>();
 
@@ -39,6 +42,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
   String? description;
   double? targetAmount;
   int? categoryId;
+  String schoolId = '0';
 
   File? _chosenImage;
   File? _croppedImage;
@@ -47,6 +51,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
 
   void initState() {
     categoryId = application!.category!.id;
+    schoolId = application!.school!.id.toString();
     super.initState();
   }
 
@@ -103,6 +108,10 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
             SizedBox(
               height: 20,
             ),
+            buildSelectSchoolInput(context),
+            SizedBox(
+              height: 20,
+            ),
             buildCategoryRadioButtons(),
             SizedBox(
               height: 20,
@@ -139,13 +148,17 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
         _chosenImage = await urlToFile(application!.imageUrl!);
       }
       newApplicationController
-          .sendEditApplicationData(EditApplication(
+          .sendEditApplicationData(
+            EditApplication(
               id: application!.id,
               title: title,
               description: description,
               imageUrl: _chosenImage,
               targetAmount: targetAmount,
-              category: categoryId))
+              school: int.parse(schoolId),
+              category: categoryId,
+            ),
+          )
           .whenComplete(() => {
                 if (newApplicationController.errorOccurred.value)
                   {
@@ -334,6 +347,49 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
           color: Colors.black26,
         ),
         floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
+    );
+  }
+
+  Widget buildSelectSchoolInput(BuildContext context) {
+    List<School> schoolList = schoolController.schoolsList;
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 20.0),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: DropdownButton<String>(
+        hint: Text('Select School'),
+        value: schoolId,
+        icon: Icon(
+          Icons.arrow_downward,
+          color: Colors.green[700],
+        ),
+        style: TextStyle(
+          fontSize: 12,
+          color: Colors.black,
+        ),
+        iconSize: 24,
+        elevation: 16,
+        isExpanded: true,
+        underline: Container(
+          height: 2,
+          color: Colors.green,
+        ),
+        onChanged: (String? newValue) {
+          setState(() {
+            schoolId = newValue!;
+          });
+        },
+        items: schoolList.map(
+          (school) {
+            return DropdownMenuItem<String>(
+              value: '${school.id}',
+              child: Text(
+                '${school.name}',
+              ),
+            );
+          },
+        ).toList(),
       ),
     );
   }

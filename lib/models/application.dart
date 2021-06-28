@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:mobileapp/models/school.dart';
+
 List<Application> applicationFromJson(String str) => List<Application>.from(
     json.decode(str).map((x) => Application.fromJson(x)));
 
@@ -17,6 +19,7 @@ class Application {
     this.progress,
     this.approved,
     this.category,
+    this.school,
     this.user,
   });
 
@@ -29,6 +32,7 @@ class Application {
   double? progress;
   int? approved;
   Category? category;
+  School? school;
   User? user;
 
   factory Application.fromJson(Map<String, dynamic> json) => Application(
@@ -41,6 +45,7 @@ class Application {
         progress: json["progress"].toDouble(),
         approved: json["approved"],
         category: Category.fromJson(json["category"]),
+        school: School.fromJson(json["school"]),
         user: User.fromJson(json["user"]),
       );
 
@@ -54,6 +59,7 @@ class Application {
         "progress": progress,
         "approved": approved,
         "category": category!.toJson(),
+        "school": school!.toJson(),
         "user": user!.toJson(),
       };
 }
