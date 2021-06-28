@@ -27,8 +27,8 @@ class ApplicationDetailScreen extends StatelessWidget {
           child: DefaultButton(
             text: "Fund this student".toUpperCase(),
             press: () {
-              Get.to(PaymentPage());
-              // launch('https://paystack.com/pay/edufund');
+              // Get.to(PaymentPage());
+              launch('https://paystack.com/pay/edufund');
             },
           ),
         ),
