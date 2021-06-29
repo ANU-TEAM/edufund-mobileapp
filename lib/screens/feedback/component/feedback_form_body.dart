@@ -111,6 +111,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
                   colorText: Colors.white,
                   snackPosition: SnackPosition.BOTTOM,
                 ),
+                feedbackKey.currentState!.reset()
               }
           });
     }
