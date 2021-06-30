@@ -1,5 +1,8 @@
 # Mobileapp
-The moible app for [Edufund](http://sosuapp.tech/) created using Flutter
+The moible app for [Edufund](https://edufund-backend-xgqq6.ondigitalocean.app/) created using Flutter
+
+#### Old Version: http://sosuapp.tech/
+#### New Version: https://edufund-backend-xgqq6.ondigitalocean.app/
 
 # Environment Setup
 Edufund now uses Flutter SDK version [2.2.1](https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_2.2.1-stable.tar.xz) and has been updated to support null safety
@@ -17,7 +20,7 @@ Kindly follow this instuctions to get flutter up and running on your system: htt
 4. Type ```flutter run``` in the terminal to get your project running. 
 
 
-Click [here](http://sosuapp.tech/) to test the latest production build without having to clone the project
+Click [here](https://edufund-backend-xgqq6.ondigitalocean.app/) to test the latest production build without having to clone the project
 
 Check out the official flutter documentation or get in touch with me when you get stuck:
 [online documentation](https://flutter.dev/docs)
