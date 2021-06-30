@@ -42,7 +42,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
   String? description;
   double? targetAmount;
   int? categoryId;
-  String schoolId = '0';
+  String schoolId = '1';
 
   File? _chosenImage;
   File? _croppedImage;

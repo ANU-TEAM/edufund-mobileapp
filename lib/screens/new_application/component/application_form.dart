@@ -29,7 +29,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
   String? title;
   String? description;
   double? targetAmount;
-  String schoolId = '0';
+  String schoolId = '1';
   int? categoryId = 1;
 
   File? _chosenImage;
