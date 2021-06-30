@@ -6,11 +6,11 @@ import 'package:mobileapp/screens/user_applications/components/user_application_
 import 'package:mobileapp/utils/contants.dart';
 
 class UserApplicationCard extends StatelessWidget {
-  final Application application;
+  final Application? application;
 
-  const UserApplicationCard({Key key, this.application}) : super(key: key);
+  const UserApplicationCard({Key? key, this.application}) : super(key: key);
 
-  Text generateStatus(int status) {
+  Text generateStatus(int? status) {
     if (status == 0) {
       return Text(
         "Pending",
@@ -27,9 +27,25 @@ class UserApplicationCard extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       );
-    } else {
+    } else if (status == 2) {
       return Text(
         "Rejected",
+        style: TextStyle(
+          color: Colors.red,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    } else if (status == 3) {
+      return Text(
+        "Sponsored",
+        style: TextStyle(
+          color: Colors.green,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    } else {
+      return Text(
+        "",
         style: TextStyle(
           color: Colors.red,
           fontWeight: FontWeight.bold,
@@ -61,7 +77,7 @@ class UserApplicationCard extends StatelessWidget {
                   children: [
                     Stack(children: [
                       Image.network(
-                        application.imageUrl,
+                        application!.imageUrl!,
                         alignment: Alignment.topCenter,
                         fit: BoxFit.cover,
                         width: double.infinity,
@@ -81,7 +97,7 @@ class UserApplicationCard extends StatelessWidget {
                                 right: 5.0,
                               ),
                               child: Text(
-                                application.user.name,
+                                application!.user!.name!,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -98,7 +114,7 @@ class UserApplicationCard extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                            application.title,
+                            application!.title!,
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
@@ -107,14 +123,14 @@ class UserApplicationCard extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: generateStatus(application.approved),
+                          child: generateStatus(application!.approved),
                         ),
                       ],
                     ),
                     Padding(
                       padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
                       child: Text(
-                        application.description,
+                        application!.description!,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: Colors.black38,
@@ -138,7 +154,7 @@ class UserApplicationCard extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: 8, bottom: 8),
                           child: Text(
-                            (application.progress * 100).toInt().toString() +
+                            (application!.progress! * 100).toInt().toString() +
                                 '%',
                             style: TextStyle(
                               color: Colors.blue,
@@ -149,7 +165,7 @@ class UserApplicationCard extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(right: 8, bottom: 8),
                           child: Text(
-                            'GHS ' + application.targetAmount.toString(),
+                            'GHS ' + application!.targetAmount.toString(),
                             style: TextStyle(
                               color: Colors.blue,
                               fontSize: 15,
@@ -162,7 +178,7 @@ class UserApplicationCard extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 10),
                       child: LinearProgressIndicatorComponent(
                         lineHeight: 4.0,
-                        percent: application.progress,
+                        percent: application!.progress,
                       ),
                     )
                   ],

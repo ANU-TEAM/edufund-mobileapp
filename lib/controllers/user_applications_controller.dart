@@ -10,7 +10,8 @@ class UserApplicationController extends GetxController {
   var errorOccurred = false.obs;
   var noApplications = false.obs;
   var errorMessage = 'no internet connection'.obs;
-  var applicationList = List<Application>().obs;
+  var applicationList =
+      List<Application>.filled(0, Application(), growable: true).obs;
 
   @override
   void onInit() {

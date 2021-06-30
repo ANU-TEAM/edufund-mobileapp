@@ -16,8 +16,8 @@ class _LoginFormState extends State<LoginForm> {
   final UserController userController = Get.put(UserController());
   final _loginFormKey = GlobalKey<FormState>();
 
-  String email;
-  String password;
+  String? email;
+  String? password;
   String deviceId = "Mobile";
 
   @override
@@ -58,8 +58,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void loginUser() {
-    if (_loginFormKey.currentState.validate()) {
-      _loginFormKey.currentState.save();
+    if (_loginFormKey.currentState!.validate()) {
+      _loginFormKey.currentState!.save();
       userController.sendLoginData({
         'email': '$email',
         'password': '$password',
@@ -69,7 +69,7 @@ class _LoginFormState extends State<LoginForm> {
               {
                 Get.snackbar(
                   'Error',
-                  '${userController.errorMessage.value}'.capitalize,
+                  '${userController.errorMessage.value}'.capitalize!,
                   backgroundColor: kDangerColor,
                   colorText: Colors.white,
                   snackPosition: SnackPosition.BOTTOM,
@@ -80,7 +80,7 @@ class _LoginFormState extends State<LoginForm> {
                 Get.offAll(HomeScreen()),
                 Get.snackbar(
                   "Welcome Back",
-                  'You have successfully logged in.'.capitalize,
+                  'You have successfully logged in.'.capitalize!,
                   backgroundColor: kPrimaryColor,
                   colorText: Colors.white,
                 ),
@@ -106,7 +106,7 @@ class _LoginFormState extends State<LoginForm> {
     return TextFormField(
       onSaved: (newValue) => email = newValue,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kEmailNullError;
         } else if (!emailValidatorRegExp.hasMatch(value)) {
           return kInvalidEmailError;
@@ -133,7 +133,7 @@ class _LoginFormState extends State<LoginForm> {
     return TextFormField(
       onSaved: (newValue) => password = newValue,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kPassNullError;
         } else if (value.length < 8) {
           return kShortPassError;

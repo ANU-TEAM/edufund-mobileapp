@@ -1,11 +1,12 @@
 import 'dart:io';
 
 class NewApplication {
-  String title;
-  String description;
-  File imageUrl;
-  double targetAmount;
-  int category;
+  String? title;
+  String? description;
+  File? imageUrl;
+  double? targetAmount;
+  int? category;
+  int? school;
 
   NewApplication({
     this.title,
@@ -13,5 +14,6 @@ class NewApplication {
     this.imageUrl,
     this.targetAmount,
     this.category,
+    this.school,
   });
 }

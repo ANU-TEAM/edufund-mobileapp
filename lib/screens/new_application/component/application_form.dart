@@ -4,8 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
+import 'package:mobileapp/components/loading_button.dart';
 import 'package:mobileapp/controllers/new_application_controller.dart';
+import 'package:mobileapp/controllers/school_controller.dart';
 import 'package:mobileapp/models/newApplication.dart';
+import 'package:mobileapp/models/school.dart';
 import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/screens/user_applications/components/user_application_detail.dart';
 import 'package:mobileapp/screens/user_applications/user_application.dart';
@@ -20,15 +23,17 @@ class ApplicationForm extends StatefulWidget {
 class _ApplicationFormState extends State<ApplicationForm> {
   final NewApplicationController newApplicationController =
       Get.put(NewApplicationController());
+  final SchoolController schoolController = Get.put(SchoolController());
   final _applicationFormKey = GlobalKey<FormState>();
 
-  String title;
-  String description;
-  double targetAmount;
-  int categoryId = 1;
+  String? title;
+  String? description;
+  double? targetAmount;
+  String schoolId = '1';
+  int? categoryId = 1;
 
-  File _chosenImage;
-  File _croppedImage;
+  File? _chosenImage;
+  File? _croppedImage;
   var isImageChosen = false;
   final picker = ImagePicker();
 
@@ -37,6 +42,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     if (pickedFile != null) {
       _croppedImage = await ImageCropper.cropImage(
         sourcePath: pickedFile.path,
+        aspectRatio: CropAspectRatio(ratioX: 16, ratioY: 9),
         androidUiSettings: AndroidUiSettings(
           toolbarColor: kPrimaryColor,
           toolbarWidgetColor: Colors.white,
@@ -46,7 +52,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     }
     setState(() {
       if (_croppedImage != null) {
-        _chosenImage = File(_croppedImage.path);
+        _chosenImage = File(_croppedImage!.path);
         isImageChosen = true;
         Navigator.of(context).pop();
       } else {
@@ -55,7 +61,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     });
   }
 
-  setSelectedRadioTile(int val) {
+  setSelectedRadioTile(int? val) {
     setState(() {
       categoryId = val;
     });
@@ -85,13 +91,16 @@ class _ApplicationFormState extends State<ApplicationForm> {
             SizedBox(
               height: 20,
             ),
+            buildSelectSchoolInput(context),
+            SizedBox(
+              height: 20,
+            ),
             buildCategoryRadioButtons(),
             SizedBox(
               height: 20,
             ),
-            DefaultButton(
-              text: "Submit",
-              press: submitApplication,
+            Obx(
+              () => buildSubmitButton(),
             ),
             SizedBox(
               height: 50,
@@ -102,9 +111,22 @@ class _ApplicationFormState extends State<ApplicationForm> {
     );
   }
 
+  Widget buildSubmitButton() {
+    if (newApplicationController.isLoading.value) {
+      return LoadingButton(
+        text: "Loading",
+      );
+    } else {
+      return DefaultButton(
+        text: "Submit",
+        press: submitApplication,
+      );
+    }
+  }
+
   void submitApplication() {
-    if (_applicationFormKey.currentState.validate()) {
-      _applicationFormKey.currentState.save();
+    if (_applicationFormKey.currentState!.validate()) {
+      _applicationFormKey.currentState!.save();
       if (_chosenImage == null) {
         showModalBottomSheet(
           context: context,
@@ -113,19 +135,23 @@ class _ApplicationFormState extends State<ApplicationForm> {
         );
       } else {
         newApplicationController
-            .sendNewApplicationData(NewApplication(
+            .sendNewApplicationData(
+              NewApplication(
                 title: title,
                 description: description,
                 imageUrl: _chosenImage,
                 targetAmount: targetAmount,
-                category: categoryId))
+                school: int.parse(schoolId),
+                category: categoryId,
+              ),
+            )
             .whenComplete(() => {
                   if (newApplicationController.errorOccurred.value)
                     {
                       Get.snackbar(
                         'Error',
                         '${newApplicationController.errorMessage.value}'
-                            .capitalize,
+                            .capitalize!,
                         backgroundColor: kDangerColor,
                         colorText: Colors.white,
                         snackPosition: SnackPosition.BOTTOM,
@@ -144,7 +170,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
                       Get.snackbar(
                         "Awesome",
                         'Application has been submitted successfully'
-                            .capitalize,
+                            .capitalize!,
                         backgroundColor: kPrimaryColor,
                         colorText: Colors.white,
                         snackPosition: SnackPosition.BOTTOM,
@@ -165,9 +191,9 @@ class _ApplicationFormState extends State<ApplicationForm> {
               alignment: Alignment.topCenter,
               width: double.infinity,
               height: 180,
-              image: isImageChosen == false
+              image: (isImageChosen == false
                   ? AssetImage("assets/images/placeholder.png")
-                  : FileImage(_chosenImage),
+                  : FileImage(_chosenImage!)) as ImageProvider<Object>,
             ),
           ),
           Positioned(
@@ -196,7 +222,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     );
   }
 
-  Widget applicationImageBottomSheet({String title}) {
+  Widget applicationImageBottomSheet({required String title}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -231,7 +257,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     return TextFormField(
       onSaved: (value) => title = value,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kTitleNullError;
         }
         return null;
@@ -251,10 +277,10 @@ class _ApplicationFormState extends State<ApplicationForm> {
   TextFormField buildTargetAmountFormField() {
     return TextFormField(
       onSaved: (value) {
-        targetAmount = double.parse(value);
+        targetAmount = double.parse(value!);
       },
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kTargetAmountNullError;
         }
         return null;
@@ -285,7 +311,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
     return TextFormField(
       onSaved: (value) => description = value,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kDescriptionNullError;
         }
         return null;
@@ -303,6 +329,49 @@ class _ApplicationFormState extends State<ApplicationForm> {
     );
   }
 
+  Widget buildSelectSchoolInput(BuildContext context) {
+    List<School> schoolList = schoolController.schoolsList;
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 20.0),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: DropdownButton<String>(
+        hint: Text('Select School'),
+        value: schoolId,
+        icon: Icon(
+          Icons.arrow_downward,
+          color: Colors.green[700],
+        ),
+        style: TextStyle(
+          fontSize: 12,
+          color: Colors.black,
+        ),
+        iconSize: 24,
+        elevation: 16,
+        isExpanded: true,
+        underline: Container(
+          height: 2,
+          color: Colors.green,
+        ),
+        onChanged: (String? newValue) {
+          setState(() {
+            schoolId = newValue!;
+          });
+        },
+        items: schoolList.map(
+          (school) {
+            return DropdownMenuItem<String>(
+              value: '${school.id}',
+              child: Text(
+                '${school.name}',
+              ),
+            );
+          },
+        ).toList(),
+      ),
+    );
+  }
+
   Widget buildCategoryRadioButtons() {
     return Column(
       children: [
@@ -312,7 +381,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
           groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
-          onChanged: (val) {
+          onChanged: (dynamic val) {
             setSelectedRadioTile(val);
           },
         ),
@@ -323,7 +392,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
           groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
-          onChanged: (val) {
+          onChanged: (dynamic val) {
             setSelectedRadioTile(val);
           },
         ),
@@ -334,7 +403,7 @@ class _ApplicationFormState extends State<ApplicationForm> {
           groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
-          onChanged: (val) {
+          onChanged: (dynamic val) {
             setSelectedRadioTile(val);
           },
         ),

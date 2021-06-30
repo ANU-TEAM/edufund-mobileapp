@@ -3,7 +3,7 @@ import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/screens/edit_application/component/edit_application_form.dart';
 
 class EditApplicationScreen extends StatelessWidget {
-  final Application application;
+  final Application? application;
   EditApplicationScreen({this.application});
   @override
   Widget build(BuildContext context) {

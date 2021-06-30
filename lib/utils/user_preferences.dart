@@ -8,17 +8,17 @@ class UserPreferences extends GetxController {
 
   Future<void> saveUser(User userObj) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("name", userObj.user.name);
-    prefs.setString("email", userObj.user.email);
-    prefs.setString("token", userObj.token);
+    prefs.setString("name", userObj.user!.name!);
+    prefs.setString("email", userObj.user!.email!);
+    prefs.setString("token", userObj.token!);
   }
 
   Future<void> getUser() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    String name = prefs.getString("name");
-    String email = prefs.getString("email");
-    String token = prefs.getString("token");
+    String? name = prefs.getString("name");
+    String? email = prefs.getString("email");
+    String? token = prefs.getString("token");
 
     var userObject = User(
       user: UserClass(

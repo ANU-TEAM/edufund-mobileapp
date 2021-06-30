@@ -21,14 +21,14 @@ class ProfileBody extends StatelessWidget {
           color: kPrimaryColor,
         ),
         Text(
-          userPreferences.user.value.user.name.capitalize,
+          userPreferences.user.value.user!.name!.capitalize!,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 28,
           ),
         ),
         Text(
-          userPreferences.user.value.user.email,
+          userPreferences.user.value.user!.email!,
           style: TextStyle(
             fontSize: 16,
           ),

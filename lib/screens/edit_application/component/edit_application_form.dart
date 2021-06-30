@@ -4,10 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
+import 'package:mobileapp/components/loading_button.dart';
 import 'package:mobileapp/controllers/new_application_controller.dart';
+import 'package:mobileapp/controllers/school_controller.dart';
 import 'package:mobileapp/controllers/user_applications_controller.dart';
 import 'package:mobileapp/models/application.dart';
 import 'package:mobileapp/models/editApplication.dart';
+import 'package:mobileapp/models/school.dart';
 import 'package:mobileapp/screens/home/home.dart';
 import 'package:mobileapp/screens/user_applications/components/user_application_detail.dart';
 import 'package:mobileapp/screens/user_applications/user_application.dart';
@@ -16,8 +19,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mobileapp/utils/file_from_url.dart';
 
 class EditApplicationForm extends StatefulWidget {
-  final Application application;
-  EditApplicationForm({Key key, this.application}) : super(key: key);
+  final Application? application;
+  EditApplicationForm({Key? key, this.application}) : super(key: key);
 
   @override
   _EditApplicationFormState createState() =>
@@ -29,23 +32,26 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
       Get.put(NewApplicationController());
   final UserApplicationController userApplicationController =
       Get.put(UserApplicationController());
-  final Application application;
+  final SchoolController schoolController = Get.put(SchoolController());
+  final Application? application;
   final _applicationFormKey = GlobalKey<FormState>();
 
   _EditApplicationFormState({this.application});
 
-  String title;
-  String description;
-  double targetAmount;
-  int categoryId;
+  String? title;
+  String? description;
+  double? targetAmount;
+  int? categoryId;
+  String schoolId = '1';
 
-  File _chosenImage;
-  File _croppedImage;
+  File? _chosenImage;
+  File? _croppedImage;
   var isImageChosen = false;
   final picker = ImagePicker();
 
   void initState() {
-    categoryId = application.category.id;
+    categoryId = application!.category!.id;
+    schoolId = application!.school!.id.toString();
     super.initState();
   }
 
@@ -54,6 +60,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
     if (pickedFile != null) {
       _croppedImage = await ImageCropper.cropImage(
         sourcePath: pickedFile.path,
+        aspectRatio: CropAspectRatio(ratioX: 16, ratioY: 9),
         androidUiSettings: AndroidUiSettings(
           toolbarColor: kPrimaryColor,
           toolbarWidgetColor: Colors.white,
@@ -63,7 +70,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
     }
     setState(() {
       if (_croppedImage != null) {
-        _chosenImage = File(_croppedImage.path);
+        _chosenImage = File(_croppedImage!.path);
         isImageChosen = true;
         Navigator.of(context).pop();
       } else {
@@ -72,7 +79,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
     });
   }
 
-  setSelectedRadioTile(int val) {
+  setSelectedRadioTile(int? val) {
     setState(() {
       categoryId = val;
     });
@@ -102,13 +109,16 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
             SizedBox(
               height: 20,
             ),
+            buildSelectSchoolInput(context),
+            SizedBox(
+              height: 20,
+            ),
             buildCategoryRadioButtons(),
             SizedBox(
               height: 20,
             ),
-            DefaultButton(
-              text: "Save",
-              press: submitApplication,
+            Obx(
+              () => buildSubmitButton(),
             ),
             SizedBox(
               height: 50,
@@ -119,27 +129,44 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
     );
   }
 
+  Widget buildSubmitButton() {
+    if (newApplicationController.isLoading.value) {
+      return LoadingButton(
+        text: "Loading",
+      );
+    } else {
+      return DefaultButton(
+        text: "Save",
+        press: submitApplication,
+      );
+    }
+  }
+
   void submitApplication() async {
-    if (_applicationFormKey.currentState.validate()) {
-      _applicationFormKey.currentState.save();
+    if (_applicationFormKey.currentState!.validate()) {
+      _applicationFormKey.currentState!.save();
       if (_chosenImage == null) {
-        _chosenImage = await urlToFile(application.imageUrl);
+        _chosenImage = await urlToFile(application!.imageUrl!);
       }
       newApplicationController
-          .sendEditApplicationData(EditApplication(
-              id: application.id,
+          .sendEditApplicationData(
+            EditApplication(
+              id: application!.id,
               title: title,
               description: description,
               imageUrl: _chosenImage,
               targetAmount: targetAmount,
-              category: categoryId))
+              school: int.parse(schoolId),
+              category: categoryId,
+            ),
+          )
           .whenComplete(() => {
                 if (newApplicationController.errorOccurred.value)
                   {
                     Get.snackbar(
                       'Error',
                       '${newApplicationController.errorMessage.value}'
-                          .capitalize,
+                          .capitalize!,
                       backgroundColor: kDangerColor,
                       colorText: Colors.white,
                       snackPosition: SnackPosition.BOTTOM,
@@ -159,7 +186,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
                     Get.snackbar(
                       "Awesome",
                       'Application has been editted successfully. Kindly wait while we review.'
-                          .capitalize,
+                          .capitalize!,
                       backgroundColor: kPrimaryColor,
                       colorText: Colors.white,
                       snackPosition: SnackPosition.BOTTOM,
@@ -180,10 +207,10 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
                     alignment: Alignment.topCenter,
                     width: double.infinity,
                     height: 180,
-                    image: FileImage(_chosenImage),
+                    image: FileImage(_chosenImage!),
                   )
                 : Image.network(
-                    widget.application.imageUrl,
+                    widget.application!.imageUrl!,
                     fit: BoxFit.cover,
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.25,
@@ -215,7 +242,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
     );
   }
 
-  Widget applicationImageBottomSheet({String title}) {
+  Widget applicationImageBottomSheet({required String title}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -248,10 +275,10 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
 
   TextFormField buildTitleForm() {
     return TextFormField(
-      initialValue: widget.application.title,
+      initialValue: widget.application!.title,
       onSaved: (value) => title = value,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kTitleNullError;
         }
         return null;
@@ -270,12 +297,12 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
 
   TextFormField buildTargetAmountFormField() {
     return TextFormField(
-      initialValue: widget.application.targetAmount.toString(),
+      initialValue: widget.application!.targetAmount.toString(),
       onSaved: (value) {
-        targetAmount = double.parse(value);
+        targetAmount = double.parse(value!);
       },
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kTargetAmountNullError;
         }
         return null;
@@ -304,10 +331,10 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
 
   TextFormField buildDesciptionFormField() {
     return TextFormField(
-      initialValue: widget.application.description,
+      initialValue: widget.application!.description,
       onSaved: (value) => description = value,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return kDescriptionNullError;
         }
         return null;
@@ -325,6 +352,49 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
     );
   }
 
+  Widget buildSelectSchoolInput(BuildContext context) {
+    List<School> schoolList = schoolController.schoolsList;
+
+    return Container(
+      margin: EdgeInsets.only(bottom: 20.0),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: DropdownButton<String>(
+        hint: Text('Select School'),
+        value: schoolId,
+        icon: Icon(
+          Icons.arrow_downward,
+          color: Colors.green[700],
+        ),
+        style: TextStyle(
+          fontSize: 12,
+          color: Colors.black,
+        ),
+        iconSize: 24,
+        elevation: 16,
+        isExpanded: true,
+        underline: Container(
+          height: 2,
+          color: Colors.green,
+        ),
+        onChanged: (String? newValue) {
+          setState(() {
+            schoolId = newValue!;
+          });
+        },
+        items: schoolList.map(
+          (school) {
+            return DropdownMenuItem<String>(
+              value: '${school.id}',
+              child: Text(
+                '${school.name}',
+              ),
+            );
+          },
+        ).toList(),
+      ),
+    );
+  }
+
   Widget buildCategoryRadioButtons() {
     return Column(
       children: [
@@ -334,7 +404,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
           groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
-          onChanged: (val) {
+          onChanged: (dynamic val) {
             setSelectedRadioTile(val);
           },
         ),
@@ -345,7 +415,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
           groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
-          onChanged: (val) {
+          onChanged: (dynamic val) {
             setSelectedRadioTile(val);
           },
         ),
@@ -356,7 +426,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
           groupValue: categoryId,
           selected: false,
           activeColor: Colors.green,
-          onChanged: (val) {
+          onChanged: (dynamic val) {
             setSelectedRadioTile(val);
           },
         ),

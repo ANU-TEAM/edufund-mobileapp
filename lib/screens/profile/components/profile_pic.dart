@@ -9,35 +9,36 @@ class ProfilePic extends StatelessWidget {
           height: 115,
           width: 115,
           child: Stack(
-              fit: StackFit.expand,
-              overflow: Overflow.visible,
-              children: [
-                CircleAvatar(
-                  backgroundImage: AssetImage("assets/images/user.png"),
-                  backgroundColor: Colors.grey[200],
+            clipBehavior: Clip.none,
+            fit: StackFit.expand,
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage("assets/images/user.png"),
+                backgroundColor: Colors.grey[200],
+              ),
+              Positioned(
+                bottom: 0,
+                right: -12,
+                child: SizedBox(
+                  height: 46,
+                  width: 46,
+                  child: FlatButton(
+                      color: Colors.white,
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        side: BorderSide(color: Colors.grey[200]!),
+                      ),
+                      onPressed: () {},
+                      child: Icon(
+                        Icons.camera_alt,
+                        color: Colors.green,
+                      )),
                 ),
-                Positioned(
-                  bottom: 0,
-                  right: -12,
-                  child: SizedBox(
-                    height: 46,
-                    width:46,
-                    child: FlatButton(
-                        color: Colors.white,
-                        padding: EdgeInsets.zero,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
-                          side: BorderSide(color: Colors.grey[200]),
-                        ),
-                        onPressed: (){},
-                        child: Icon(Icons.camera_alt,
-                          color: Colors.green,)
-                    ),
-                  ),
-                )
-              ]
+              ),
+            ],
           ),
-        )
+        ),
       ],
     );
   }

@@ -4,12 +4,12 @@ import 'package:mobileapp/utils/contants.dart';
 
 class OnboardingContent extends StatelessWidget {
   const OnboardingContent({
-    Key key,
+    Key? key,
     this.text,
     this.image,
   }) : super(key: key);
 
-  final String text, image;
+  final String? text, image;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class OnboardingContent extends StatelessWidget {
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.05),
         Text(
-          text,
+          text!,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 16,
@@ -37,7 +37,7 @@ class OnboardingContent extends StatelessWidget {
           child: Column(
             children: [
               SvgPicture.asset(
-                image,
+                image!,
                 width: 200,
                 height: 250,
                 fit: BoxFit.cover,

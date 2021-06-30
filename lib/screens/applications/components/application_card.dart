@@ -5,9 +5,9 @@ import 'package:mobileapp/components/linearprogressindicator.dart';
 import 'package:mobileapp/screens/applications/components/application_detail.dart';
 
 class ApplicationCard extends StatelessWidget {
-  final Application application;
+  final Application? application;
 
-  const ApplicationCard({Key key, this.application}) : super(key: key);
+  const ApplicationCard({Key? key, this.application}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class ApplicationCard extends StatelessWidget {
                   children: [
                     Stack(children: [
                       Image.network(
-                        application.imageUrl,
+                        application!.imageUrl!,
                         alignment: Alignment.topCenter,
                         fit: BoxFit.cover,
                         width: double.infinity,
@@ -50,7 +50,7 @@ class ApplicationCard extends StatelessWidget {
                                 right: 5.0,
                               ),
                               child: Text(
-                                application.user.name,
+                                application!.user!.name!,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
@@ -64,7 +64,7 @@ class ApplicationCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        application.title,
+                        application!.title!,
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -74,7 +74,7 @@ class ApplicationCard extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 8, right: 8, bottom: 8),
                       child: Text(
-                        application.description,
+                        application!.description!,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           color: Colors.black38,
@@ -98,7 +98,7 @@ class ApplicationCard extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(left: 8, bottom: 8),
                           child: Text(
-                            (application.progress * 100).toInt().toString() +
+                            (application!.progress! * 100).toInt().toString() +
                                 '%',
                             style: TextStyle(
                               color: Colors.blue,
@@ -109,7 +109,7 @@ class ApplicationCard extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.only(right: 8, bottom: 8),
                           child: Text(
-                            'GHS ' + application.targetAmount.toString(),
+                            'GHS ' + application!.targetAmount.toString(),
                             style: TextStyle(
                               color: Colors.blue,
                               fontSize: 15,
@@ -122,7 +122,7 @@ class ApplicationCard extends StatelessWidget {
                       padding: EdgeInsets.only(bottom: 10),
                       child: LinearProgressIndicatorComponent(
                         lineHeight: 4.0,
-                        percent: application.progress,
+                        percent: application!.progress,
                       ),
                     )
                   ],

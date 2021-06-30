@@ -10,8 +10,8 @@ import 'package:mobileapp/utils/user_preferences.dart';
 class ApplicationServices extends GetConnect {
   static var client = http.Client();
 
-  static Future<List<Application>> fetchApplications() async {
-    var response = await client.get(AppUrl.applications);
+  static Future<List<Application>?> fetchApplications() async {
+    var response = await client.get(Uri.parse(AppUrl.applications));
 
     if (response.statusCode == 200) {
       var jsonResponse = convert.jsonDecode(response.body);
@@ -22,13 +22,13 @@ class ApplicationServices extends GetConnect {
     }
   }
 
-  static Future<List<Application>> fetchUserApplications() async {
+  static Future<List<Application>?> fetchUserApplications() async {
     final UserPreferences userPreferences = Get.put(UserPreferences());
     userPreferences.getUser();
-    var userToken = userPreferences.user.value.token;
+    var userToken = userPreferences.user.value.token!;
 
     var response = await client.get(
-      AppUrl.userApplications,
+      Uri.parse(AppUrl.userApplications),
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + userToken,
@@ -44,10 +44,10 @@ class ApplicationServices extends GetConnect {
     }
   }
 
-  Future<Application> newApplication(NewApplication newApplicationData) async {
+  Future<Application?> newApplication(NewApplication newApplicationData) async {
     final UserPreferences userPreferences = Get.put(UserPreferences());
     userPreferences.getUser();
-    var userToken = userPreferences.user.value.token;
+    var userToken = userPreferences.user.value.token!;
 
     final form = FormData({
       'title': newApplicationData.title,
@@ -55,7 +55,8 @@ class ApplicationServices extends GetConnect {
       'image_url':
           MultipartFile(newApplicationData.imageUrl, filename: 'new.jpg'),
       'target_amount': newApplicationData.targetAmount,
-      'category_id': newApplicationData.category
+      'category_id': newApplicationData.category,
+      'school_id': newApplicationData.school,
     });
 
     var response = await post(
@@ -75,11 +76,11 @@ class ApplicationServices extends GetConnect {
     }
   }
 
-  Future<Application> editApplication(
+  Future<Application?> editApplication(
       EditApplication editApplicationData) async {
     final UserPreferences userPreferences = Get.put(UserPreferences());
     userPreferences.getUser();
-    var userToken = userPreferences.user.value.token;
+    var userToken = userPreferences.user.value.token!;
 
     final form = FormData({
       'title': editApplicationData.title,
@@ -87,7 +88,8 @@ class ApplicationServices extends GetConnect {
       'image_url':
           MultipartFile(editApplicationData.imageUrl, filename: 'update.jpg'),
       'target_amount': editApplicationData.targetAmount,
-      'category_id': editApplicationData.category
+      'school_id': editApplicationData.school,
+      'category_id': editApplicationData.category,
     });
 
     var response = await post(
@@ -107,13 +109,13 @@ class ApplicationServices extends GetConnect {
     }
   }
 
-  static Future<bool> deleteApplication(int applicationId) async {
+  static Future<bool> deleteApplication(int? applicationId) async {
     final UserPreferences userPreferences = Get.put(UserPreferences());
     userPreferences.getUser();
-    var userToken = userPreferences.user.value.token;
+    var userToken = userPreferences.user.value.token!;
 
     var response = await client.delete(
-      AppUrl.applications + "/$applicationId",
+      Uri.parse(AppUrl.applications + "/$applicationId"),
       headers: {
         'Accept': 'application/json',
         'Authorization': 'Bearer ' + userToken,

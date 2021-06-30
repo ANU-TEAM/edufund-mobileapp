@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:mobileapp/models/school.dart';
+
 List<Application> applicationFromJson(String str) => List<Application>.from(
     json.decode(str).map((x) => Application.fromJson(x)));
 
@@ -17,19 +19,21 @@ class Application {
     this.progress,
     this.approved,
     this.category,
+    this.school,
     this.user,
   });
 
-  int id;
-  String title;
-  String description;
-  String imageUrl;
-  int targetAmount;
-  int amountGained;
-  double progress;
-  int approved;
-  Category category;
-  User user;
+  int? id;
+  String? title;
+  String? description;
+  String? imageUrl;
+  int? targetAmount;
+  int? amountGained;
+  double? progress;
+  int? approved;
+  Category? category;
+  School? school;
+  User? user;
 
   factory Application.fromJson(Map<String, dynamic> json) => Application(
         id: json["id"],
@@ -41,6 +45,7 @@ class Application {
         progress: json["progress"].toDouble(),
         approved: json["approved"],
         category: Category.fromJson(json["category"]),
+        school: School.fromJson(json["school"]),
         user: User.fromJson(json["user"]),
       );
 
@@ -53,8 +58,9 @@ class Application {
         "amount_gained": amountGained,
         "progress": progress,
         "approved": approved,
-        "category": category.toJson(),
-        "user": user.toJson(),
+        "category": category!.toJson(),
+        "school": school!.toJson(),
+        "user": user!.toJson(),
       };
 }
 
@@ -64,8 +70,8 @@ class Category {
     this.name,
   });
 
-  String name;
-  int id;
+  String? name;
+  int? id;
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
         id: json["id"],
@@ -84,8 +90,8 @@ class User {
     this.email,
   });
 
-  String name;
-  String email;
+  String? name;
+  String? email;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         name: json["name"],

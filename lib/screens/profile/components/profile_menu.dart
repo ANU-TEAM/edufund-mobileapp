@@ -3,10 +3,10 @@ import 'package:mobileapp/utils/contants.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({
-    Key key,
-    @required this.text,
-    @required this.icon,
-    @required this.press,
+    Key? key,
+    required this.text,
+    required this.icon,
+    required this.press,
   }) : super(key: key);
 
   final String text;

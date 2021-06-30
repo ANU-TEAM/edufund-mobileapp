@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ApplicationDescriptionScreen extends StatelessWidget {
-  final String description;
+  final String? description;
 
-  ApplicationDescriptionScreen({Key key, this.description}) : super(key: key);
+  ApplicationDescriptionScreen({Key? key, this.description}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class ApplicationDescriptionScreen extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 12),
                         child: Text(
-                          description,
+                          description!,
                           textAlign: TextAlign.justify,
                           style: TextStyle(
                             color: Colors.black,
