@@ -36,8 +36,6 @@ dependencies:
   image_cropper: ^1.4.0
   path_provider: ^2.0.2
   url_launcher: ^6.0.6
-  flutter_paystack_client: ^0.1.1
-  flutter_dotenv: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -58,7 +56,6 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
-    - .env
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
