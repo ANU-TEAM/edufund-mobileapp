@@ -20,18 +20,18 @@ class ApplicationDetailScreen extends StatelessWidget {
         title: Text('Details'),
         elevation: 3,
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-          child: DefaultButton(
-            text: "Fund this student".toUpperCase(),
-            press: () {
-              // Get.to(PaymentPage());
-              launch('https://paystack.com/pay/edufund');
-            },
-          ),
-        ),
-      ),
+      // bottomNavigationBar: BottomAppBar(
+      //   child: Padding(
+      //     padding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+      //     child: DefaultButton(
+      //       text: "Fund this student".toUpperCase(),
+      //       press: () {
+      //         // Get.to(PaymentPage());
+      //         launch('https://paystack.com/pay/edufund');
+      //       },
+      //     ),
+      //   ),
+      // ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(8.0),
@@ -89,19 +89,19 @@ class ApplicationDetailScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          RaisedButton.icon(
-                            color: kPrimaryColor,
-                            textColor: Colors.white,
-                            onPressed: () {
-                              Clipboard.setData(new ClipboardData(
-                                  text: application!.user!.name));
-                            },
-                            icon: Icon(
-                              Icons.copy,
-                              size: 20,
-                            ),
-                            label: Text('Copy Name'),
-                          )
+                          // RaisedButton.icon(
+                          //   color: kPrimaryColor,
+                          //   textColor: Colors.white,
+                          //   onPressed: () {
+                          //     Clipboard.setData(new ClipboardData(
+                          //         text: application!.user!.name));
+                          //   },
+                          //   icon: Icon(
+                          //     Icons.copy,
+                          //     size: 20,
+                          //   ),
+                          //   label: Text('Copy Name'),
+                          // )
                         ],
                       ),
                       Padding(

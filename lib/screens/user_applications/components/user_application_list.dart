@@ -19,7 +19,7 @@ class UserApplicationList extends StatelessWidget {
         if (userApplicationController.isLoading.value) {
           return Center(
             child: SpinKitPumpingHeart(
-              color: Colors.green,
+              color: kPrimaryColor,
               size: 100,
             ),
           );
@@ -31,6 +31,7 @@ class UserApplicationList extends StatelessWidget {
                 SvgPicture.asset(
                   "assets/icons/nointernet.svg",
                   width: MediaQuery.of(context).size.width,
+                  color: kPrimaryColor,
                 ),
                 SizedBox(
                   height: 30,

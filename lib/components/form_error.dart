@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:mobileapp/utils/contants.dart';
 
 class FormError extends StatelessWidget {
   const FormError({
@@ -28,6 +29,7 @@ class FormError extends StatelessWidget {
           "assets/icons/Error.svg",
           height: 14,
           width: 14,
+          color: kPrimaryColor,
         ),
         SizedBox(
           width: 10,

@@ -3,8 +3,8 @@ import 'package:mobileapp/utils/contants.dart';
 
 ThemeData themeConfigurations() {
   return ThemeData(
-    primaryColor: Colors.green,
-    accentColor: Colors.green[400],
+    primaryColor: kPrimaryColor,
+    accentColor: Colors.blue[400],
     scaffoldBackgroundColor: Colors.white,
     fontFamily: 'Muli',
     appBarTheme: appBarTheme(),

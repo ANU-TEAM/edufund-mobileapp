@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/screens/auth/login/login.dart';
+import 'package:mobileapp/utils/contants.dart';
 
 class NotLoggedInWidget extends StatelessWidget {
   const NotLoggedInWidget({
@@ -18,6 +19,7 @@ class NotLoggedInWidget extends StatelessWidget {
           SvgPicture.asset(
             "assets/icons/notlogin.svg",
             width: MediaQuery.of(context).size.width * 0.7,
+            color: kPrimaryColor,
           ),
           SizedBox(
             height: 30,

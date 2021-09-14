@@ -37,6 +37,7 @@ class _FeedbackFormBodyState extends State<FeedbackFormBody> {
               SvgPicture.asset(
                 "assets/icons/feedback.svg",
                 width: MediaQuery.of(context).size.width * 0.7,
+                color: kPrimaryColor,
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.04,

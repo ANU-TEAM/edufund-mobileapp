@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/screens/feedback/feedback.dart';
+import 'package:mobileapp/utils/contants.dart';
 
 class InfoScreen extends StatelessWidget {
   @override
@@ -27,85 +28,83 @@ class InfoScreen extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                Container(
-                  child: Image.asset(
-                    "assets/images/info.png",
-                    fit: BoxFit.contain,
-                    height: 280,
-                    width: MediaQuery.of(context).size.width,
-                  ),
-                ),
+                // Container(
+                //   child: Image.asset(
+                //     "assets/images/info.png",
+                //     fit: BoxFit.contain,
+                //     height: 280,
+                //     width: MediaQuery.of(context).size.width,
+                //     color: kPrimaryColor,
+                //   ),
+                // ),
                 SizedBox(
                   height: 15,
                 ),
                 Center(
                   child: Text(
-                    "EduFund is a 2021 Google Solution Challenge Project that "
-                    "provides the avenue for students having difficulty with "
-                    "schooling due to financial problems. The platform helps "
-                    "students to solicit for financial support from the public.",
-                    textAlign: TextAlign.justify,
+                    "This application aims to enable the people of New Juaben South apply fo funding"
+                    "and get funded easily.",
                     style: TextStyle(
                       fontSize: 16,
                     ),
                   ),
                 ),
+                // SizedBox(height: 15),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       "Developed By: ",
+                //       style: TextStyle(
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
+                //     Text(
+                //       " Sosu Alfred and Kennedy Owusu",
+                //       style: TextStyle(
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 SizedBox(height: 15),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Developed By: ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      " Sosu Alfred and Kennedy Owusu",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       "Contact Info: ",
+                //       style: TextStyle(
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
+                //     Text(
+                //       "allnationsuniversitydsc@gmail.com",
+                //       style: TextStyle(
+                //         fontWeight: FontWeight.bold,
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 SizedBox(height: 15),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Contact Info: ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      "allnationsuniversitydsc@gmail.com",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 15),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Call: ",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                    Text(
-                      "+233 203 580 427",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       "Call: ",
+                //       style: TextStyle(
+                //         fontWeight: FontWeight.bold,
+                //         fontSize: 18,
+                //       ),
+                //     ),
+                //     Text(
+                //       "+233 203 580 427",
+                //       style: TextStyle(
+                //         fontWeight: FontWeight.bold,
+                //         fontSize: 18,
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),

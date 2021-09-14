@@ -17,7 +17,7 @@ class OnboardingContent extends StatelessWidget {
       children: [
         SizedBox(height: MediaQuery.of(context).size.height * 0.05),
         Text(
-          "EDUFUND",
+          "NJSC SUPPORT",
           style: TextStyle(
             fontSize: 30,
             color: kPrimaryColor,
@@ -41,6 +41,7 @@ class OnboardingContent extends StatelessWidget {
                 width: 200,
                 height: 250,
                 fit: BoxFit.cover,
+                color: kPrimaryColor,
               ),
             ],
           ),
