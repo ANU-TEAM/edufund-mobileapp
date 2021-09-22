@@ -26,85 +26,26 @@ class InfoScreen extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(
-                  height: 5,
-                ),
-                // Container(
-                //   child: Image.asset(
-                //     "assets/images/info.png",
-                //     fit: BoxFit.contain,
-                //     height: 280,
-                //     width: MediaQuery.of(context).size.width,
-                //     color: kPrimaryColor,
-                //   ),
-                // ),
-                SizedBox(
-                  height: 15,
+                  height: 50,
                 ),
                 Center(
                   child: Text(
                     "This application aims to enable the people of New Juaben South apply fo funding"
                     "and get funded easily.",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 20,
                     ),
                   ),
                 ),
-                // SizedBox(height: 15),
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       "Developed By: ",
-                //       style: TextStyle(
-                //         fontWeight: FontWeight.bold,
-                //       ),
-                //     ),
-                //     Text(
-                //       " Sosu Alfred and Kennedy Owusu",
-                //       style: TextStyle(
-                //         fontWeight: FontWeight.bold,
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                SizedBox(height: 15),
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       "Contact Info: ",
-                //       style: TextStyle(
-                //         fontWeight: FontWeight.bold,
-                //       ),
-                //     ),
-                //     Text(
-                //       "allnationsuniversitydsc@gmail.com",
-                //       style: TextStyle(
-                //         fontWeight: FontWeight.bold,
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                SizedBox(height: 15),
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     Text(
-                //       "Call: ",
-                //       style: TextStyle(
-                //         fontWeight: FontWeight.bold,
-                //         fontSize: 18,
-                //       ),
-                //     ),
-                //     Text(
-                //       "+233 203 580 427",
-                //       style: TextStyle(
-                //         fontWeight: FontWeight.bold,
-                //         fontSize: 18,
-                //       ),
-                //     ),
-                //   ],
-                // ),
+                SizedBox(height: 50),
+                Container(
+                  child: Image.asset(
+                    "assets/icons/icon.png",
+                    fit: BoxFit.contain,
+                    height: 280,
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                ),
               ],
             ),
           ),
