@@ -17,10 +17,11 @@ class ApplicationList extends StatelessWidget {
       child: Obx(() {
         if (applicationController.isLoading.value) {
           return Center(
-            child: SpinKitPumpingHeart(
-              color: kPrimaryColor,
-              size: 100,
-            ),
+            // child: SpinKitPumpingHeart(
+            //   color: kPrimaryColor,
+            //   size: 100,
+            // ),
+            child: CircularProgressIndicator(),
           );
         } else if (applicationController.errorOccurred.value) {
           return Center(
