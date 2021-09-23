@@ -30,11 +30,13 @@ class InfoScreen extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    "This application aims to enable the people of New Juaben South apply fo funding"
-                    "and get funded easily.",
+                    "NEW JUABEN SOUTH CONSTITUENCY",
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
                 SizedBox(height: 50),
