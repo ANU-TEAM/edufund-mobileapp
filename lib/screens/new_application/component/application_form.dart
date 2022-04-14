@@ -40,15 +40,19 @@ class _ApplicationFormState extends State<ApplicationForm> {
   Future takeImage(ImageSource imageSource) async {
     final pickedFile = await picker.getImage(source: imageSource);
     if (pickedFile != null) {
-      _croppedImage = await ImageCropper.cropImage(
-        sourcePath: pickedFile.path,
-        aspectRatio: CropAspectRatio(ratioX: 16, ratioY: 9),
-        androidUiSettings: AndroidUiSettings(
-          toolbarColor: kPrimaryColor,
-          toolbarWidgetColor: Colors.white,
-          activeControlsWidgetColor: kPrimaryColor,
-        ),
-      );
+      _croppedImage = await ImageCropper().cropImage(
+          sourcePath: pickedFile.path,
+          aspectRatioPresets: Platform.isAndroid
+              ? [CropAspectRatioPreset.ratio16x9]
+              : [CropAspectRatioPreset.ratio16x9],
+          androidUiSettings: AndroidUiSettings(
+            toolbarColor: kPrimaryColor,
+            toolbarWidgetColor: Colors.white,
+            activeControlsWidgetColor: kPrimaryColor,
+          ),
+          iosUiSettings: IOSUiSettings(
+            title: 'Cropper',
+          ));
     }
     setState(() {
       if (_croppedImage != null) {
