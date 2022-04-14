@@ -1,9 +1,6 @@
 class AppUrl {
-  // static const String liveBaseURL = "http://your-live-url/api";
   // static const String localBaseURL = "http://192.168.1.102:8001/api";
-  static const String liveBaseURL =
-      "https://edufund-backend-xgqq6.ondigitalocean.app/api";
-  // static const String localBaseURL = "http://192.168.43.188:8001/api";
+  static const String liveBaseURL = "https://edufundgh.org/api";
 
   static const String baseURL = liveBaseURL;
 
