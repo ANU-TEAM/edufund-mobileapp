@@ -43,5 +43,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Grant permission to pick and upload image for scholarship application</string>
+	<key>Camera Usage Description</key>
+	<string>Grant permission to enable the app take a picture for the scholarship application</string>
 </dict>
 </plist>

@@ -45,7 +45,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
   String schoolId = '1';
 
   File? _chosenImage;
-  File? _croppedImage;
+  CroppedFile? _croppedImage;
   var isImageChosen = false;
   final picker = ImagePicker();
 
@@ -56,21 +56,24 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
   }
 
   Future takeImage(ImageSource imageSource) async {
-    final pickedFile = await picker.getImage(source: imageSource);
+    final pickedFile = await picker.pickImage(source: imageSource);
     if (pickedFile != null) {
       _croppedImage = await ImageCropper().cropImage(
-          sourcePath: pickedFile.path,
-          aspectRatioPresets: Platform.isAndroid
-              ? [CropAspectRatioPreset.ratio16x9]
-              : [CropAspectRatioPreset.ratio16x9],
-          androidUiSettings: AndroidUiSettings(
+        sourcePath: pickedFile.path,
+        aspectRatioPresets: Platform.isAndroid
+            ? [CropAspectRatioPreset.ratio16x9]
+            : [CropAspectRatioPreset.ratio16x9],
+        uiSettings: [
+          AndroidUiSettings(
             toolbarColor: kPrimaryColor,
             toolbarWidgetColor: Colors.white,
             activeControlsWidgetColor: kPrimaryColor,
           ),
-          iosUiSettings: IOSUiSettings(
+          IOSUiSettings(
             title: 'Cropper',
-          ));
+          ),
+        ],
+      );
     }
     setState(() {
       if (_croppedImage != null) {
