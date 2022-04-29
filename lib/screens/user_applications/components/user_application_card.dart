@@ -82,6 +82,15 @@ class UserApplicationCard extends StatelessWidget {
                         fit: BoxFit.cover,
                         width: double.infinity,
                         height: 180,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Image.asset(
+                            'assets/images/placeholder.png',
+                            alignment: Alignment.topCenter,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: 180,
+                          );
+                        },
                       ),
                       Positioned(
                         bottom: 0,
