@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'EDU FUND',
+      title: 'EduFund GH',
       theme: themeConfigurations(),
       initialRoute: initScreen == 0 || initScreen == null ? "first" : "/",
       routes: {
