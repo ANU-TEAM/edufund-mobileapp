@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "613091596904",
-    "project_id": "edufundgh-51031",
-    "storage_bucket": "edufundgh-51031.appspot.com"
+    "project_number": "584374353496",
+    "project_id": "edufundgh-1846f",
+    "storage_bucket": "edufundgh-1846f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:613091596904:android:055a92d4211fe600dfb9dd",
+        "mobilesdk_app_id": "1:584374353496:android:3e619c75c580ad6fad942d",
         "android_client_info": {
-          "package_name": "com.anudsc.edufund"
+          "package_name": "com.anudsc.edufundgh"
         }
       },
       "oauth_client": [
         {
-          "client_id": "613091596904-ob2jhdh3kia31ncjuj40nejeaajqtovu.apps.googleusercontent.com",
+          "client_id": "584374353496-3tlbng5rsg8knt827gpj9fpkqmanog75.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBMdttcmeCIZdSzs0PDzQHa16xqfOqc7Fo"
+          "current_key": "AIzaSyDrKavNC0xNo8mYinHRajPU4CxgEuFgG0A"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "613091596904-ob2jhdh3kia31ncjuj40nejeaajqtovu.apps.googleusercontent.com",
+              "client_id": "584374353496-3tlbng5rsg8knt827gpj9fpkqmanog75.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
