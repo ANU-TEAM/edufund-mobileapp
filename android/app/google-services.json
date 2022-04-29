@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "613091596904",
+    "project_id": "edufundgh-51031",
+    "storage_bucket": "edufundgh-51031.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613091596904:android:055a92d4211fe600dfb9dd",
+        "android_client_info": {
+          "package_name": "com.anudsc.edufund"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613091596904-ob2jhdh3kia31ncjuj40nejeaajqtovu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMdttcmeCIZdSzs0PDzQHa16xqfOqc7Fo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613091596904-ob2jhdh3kia31ncjuj40nejeaajqtovu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
