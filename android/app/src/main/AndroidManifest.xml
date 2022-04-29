@@ -1,8 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anudsc.edufund">
-   <application
-        android:label="edufundmobileapp"
-        android:name="${applicationName}"
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:label="edufundgh"
+        android:name="EduFund GH"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
