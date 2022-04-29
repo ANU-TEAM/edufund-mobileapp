@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/components/loading_button.dart';
 import 'package:mobileapp/controllers/new_application_controller.dart';
@@ -14,6 +13,7 @@ import 'package:mobileapp/screens/user_applications/components/user_application_
 import 'package:mobileapp/screens/user_applications/user_application.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:image_cropper/image_cropper.dart';
 
 class ApplicationForm extends StatefulWidget {
   @override
@@ -33,21 +33,28 @@ class _ApplicationFormState extends State<ApplicationForm> {
   int? categoryId = 1;
 
   File? _chosenImage;
-  File? _croppedImage;
+  CroppedFile? _croppedImage;
   var isImageChosen = false;
   final picker = ImagePicker();
 
   Future takeImage(ImageSource imageSource) async {
-    final pickedFile = await picker.getImage(source: imageSource);
+    final pickedFile = await picker.pickImage(source: imageSource);
     if (pickedFile != null) {
-      _croppedImage = await ImageCropper.cropImage(
+      _croppedImage = await ImageCropper().cropImage(
         sourcePath: pickedFile.path,
-        aspectRatio: CropAspectRatio(ratioX: 16, ratioY: 9),
-        androidUiSettings: AndroidUiSettings(
-          toolbarColor: kPrimaryColor,
-          toolbarWidgetColor: Colors.white,
-          activeControlsWidgetColor: kPrimaryColor,
-        ),
+        aspectRatioPresets: Platform.isAndroid
+            ? [CropAspectRatioPreset.ratio16x9]
+            : [CropAspectRatioPreset.ratio16x9],
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarColor: kPrimaryColor,
+            toolbarWidgetColor: Colors.white,
+            activeControlsWidgetColor: kPrimaryColor,
+          ),
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+        ],
       );
     }
     setState(() {

@@ -4,7 +4,6 @@ import 'package:mobileapp/components/application_description.dart';
 import 'package:mobileapp/components/default_button.dart';
 import 'package:mobileapp/components/linearprogressindicator.dart';
 import 'package:mobileapp/models/application.dart';
-import 'package:mobileapp/screens/applications/components/payment.dart';
 import 'package:mobileapp/utils/contants.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
@@ -44,6 +43,14 @@ class ApplicationDetailScreen extends StatelessWidget {
                   fit: BoxFit.cover,
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.25,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/images/placeholder.png',
+                      fit: BoxFit.cover,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.25,
+                    );
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),

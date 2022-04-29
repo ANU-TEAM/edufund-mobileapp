@@ -45,7 +45,7 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
   String schoolId = '1';
 
   File? _chosenImage;
-  File? _croppedImage;
+  CroppedFile? _croppedImage;
   var isImageChosen = false;
   final picker = ImagePicker();
 
@@ -56,16 +56,23 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
   }
 
   Future takeImage(ImageSource imageSource) async {
-    final pickedFile = await picker.getImage(source: imageSource);
+    final pickedFile = await picker.pickImage(source: imageSource);
     if (pickedFile != null) {
-      _croppedImage = await ImageCropper.cropImage(
+      _croppedImage = await ImageCropper().cropImage(
         sourcePath: pickedFile.path,
-        aspectRatio: CropAspectRatio(ratioX: 16, ratioY: 9),
-        androidUiSettings: AndroidUiSettings(
-          toolbarColor: kPrimaryColor,
-          toolbarWidgetColor: Colors.white,
-          activeControlsWidgetColor: kPrimaryColor,
-        ),
+        aspectRatioPresets: Platform.isAndroid
+            ? [CropAspectRatioPreset.ratio16x9]
+            : [CropAspectRatioPreset.ratio16x9],
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarColor: kPrimaryColor,
+            toolbarWidgetColor: Colors.white,
+            activeControlsWidgetColor: kPrimaryColor,
+          ),
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+        ],
       );
     }
     setState(() {
@@ -214,6 +221,14 @@ class _EditApplicationFormState extends State<EditApplicationForm> {
                     fit: BoxFit.cover,
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.25,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.asset(
+                        'assets/images/placeholder.png',
+                        fit: BoxFit.cover,
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height * 0.25,
+                      );
+                    },
                   ),
           ),
           Positioned(
