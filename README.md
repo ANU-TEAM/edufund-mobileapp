@@ -2,7 +2,7 @@
 The moible app for [Edufund](https://edufund-backend-xgqq6.ondigitalocean.app/) created using Flutter
 
 #### Old Version: http://sosuapp.tech/
-#### New Version: https://edufund-backend-xgqq6.ondigitalocean.app/
+#### New Version: https://edufundgh.org/
 
 # Environment Setup
 Edufund now uses Flutter SDK version [2.2.1](https://storage.googleapis.com/flutter_infra_release/releases/stable/linux/flutter_linux_2.2.1-stable.tar.xz) and has been updated to support null safety
